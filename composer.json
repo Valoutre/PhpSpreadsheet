@@ -1,8 +1,8 @@
 {
-    "name": "phpoffice/phpspreadsheet",
+    "name": "valoutre/phpspreadsheet",
     "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
     "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
-    "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
+    "homepage": "https://github.com/Valoutre/PhpSpreadsheet",
     "type": "library",
     "license": "LGPL-2.1-or-later",
     "authors": [
@@ -20,6 +20,9 @@
         },
         {
             "name": "Erik Tilt"
+        },
+        {
+            "name": "Valoutre"
         }
     ],
     "scripts": {
@@ -33,7 +36,7 @@
         ]
     },
     "require": {
-        "php": "^5.6|^7.0",
+        "php": "^5.3|^5.6|^7.0",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-gd": "*",
