@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-
 /**
  *    For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
  *    unit lower triangular matrix L, an n-by-n upper triangular matrix U,
@@ -25,42 +24,36 @@ class LUDecomposition
 {
     const MATRIX_SINGULAR_EXCEPTION = 'Can only perform operation on singular matrix.';
     const MATRIX_SQUARE_EXCEPTION = 'Mismatched Row dimension';
-
     /**
      * Decomposition storage.
      *
      * @var array
      */
-    private $LU = [];
-
+    private $LU = array();
     /**
      * Row dimension.
      *
      * @var int
      */
     private $m;
-
     /**
      * Column dimension.
      *
      * @var int
      */
     private $n;
-
     /**
      * Pivot sign.
      *
      * @var int
      */
     private $pivsign;
-
     /**
      * Internal storage of pivot vector.
      *
      * @var array
      */
-    private $piv = [];
-
+    private $piv = array();
     /**
      * LU Decomposition constructor.
      *
@@ -77,13 +70,12 @@ class LUDecomposition
                 $this->piv[$i] = $i;
             }
             $this->pivsign = 1;
-            $LUrowi = $LUcolj = [];
-
+            $LUrowi = $LUcolj = array();
             // Outer loop.
             for ($j = 0; $j < $this->n; ++$j) {
                 // Make a copy of the j-th column to localize references.
                 for ($i = 0; $i < $this->m; ++$i) {
-                    $LUcolj[$i] = &$this->LU[$i][$j];
+                    $LUcolj[$i] =& $this->LU[$i][$j];
                 }
                 // Apply previous transformations.
                 for ($i = 0; $i < $this->m; ++$i) {
@@ -115,7 +107,7 @@ class LUDecomposition
                     $this->pivsign = $this->pivsign * -1;
                 }
                 // Compute multipliers.
-                if (($j < $this->m) && ($this->LU[$j][$j] != 0.0)) {
+                if ($j < $this->m && $this->LU[$j][$j] != 0.0) {
                     for ($i = $j + 1; $i < $this->m; ++$i) {
                         $this->LU[$i][$j] /= $this->LU[$j][$j];
                     }
@@ -125,9 +117,7 @@ class LUDecomposition
             throw new CalculationException(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }
-
     //    function __construct()
-
     /**
      * Get lower triangular factor.
      *
@@ -146,12 +136,9 @@ class LUDecomposition
                 }
             }
         }
-
         return new Matrix($L);
     }
-
     //    function getL()
-
     /**
      * Get upper triangular factor.
      *
@@ -168,12 +155,9 @@ class LUDecomposition
                 }
             }
         }
-
         return new Matrix($U);
     }
-
     //    function getU()
-
     /**
      * Return pivot permutation vector.
      *
@@ -183,9 +167,7 @@ class LUDecomposition
     {
         return $this->piv;
     }
-
     //    function getPivot()
-
     /**
      * Alias for getPivot.
      *
@@ -195,9 +177,7 @@ class LUDecomposition
     {
         return $this->getPivot();
     }
-
     //    function getDoublePivot()
-
     /**
      *    Is the matrix nonsingular?
      *
@@ -210,12 +190,9 @@ class LUDecomposition
                 return false;
             }
         }
-
         return true;
     }
-
     //    function isNonsingular()
-
     /**
      * Count determinants.
      *
@@ -228,15 +205,11 @@ class LUDecomposition
             for ($j = 0; $j < $this->n; ++$j) {
                 $d *= $this->LU[$j][$j];
             }
-
             return $d;
         }
-
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
-
     //    function det()
-
     /**
      * Solve A*X = B.
      *
@@ -273,13 +246,10 @@ class LUDecomposition
                         }
                     }
                 }
-
                 return $X;
             }
-
             throw new CalculationException(self::MATRIX_SINGULAR_EXCEPTION);
         }
-
         throw new CalculationException(self::MATRIX_SQUARE_EXCEPTION);
     }
 }

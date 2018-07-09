@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 class RowCellIterator extends CellIterator
 {
     /**
@@ -13,28 +12,24 @@ class RowCellIterator extends CellIterator
      * @var int
      */
     private $currentColumnIndex;
-
     /**
      * Row index.
      *
      * @var int
      */
     private $rowIndex = 1;
-
     /**
      * Start position.
      *
      * @var int
      */
     private $startColumnIndex = 1;
-
     /**
      * End position.
      *
      * @var int
      */
     private $endColumnIndex = 1;
-
     /**
      * Create a new column iterator.
      *
@@ -51,7 +46,6 @@ class RowCellIterator extends CellIterator
         $this->resetEnd($endColumn);
         $this->resetStart($startColumn);
     }
-
     /**
      * (Re)Set the start column and the current column pointer.
      *
@@ -66,10 +60,8 @@ class RowCellIterator extends CellIterator
         $this->startColumnIndex = Coordinate::columnIndexFromString($startColumn);
         $this->adjustForExistingOnlyRange();
         $this->seek(Coordinate::stringFromColumnIndex($this->startColumnIndex));
-
         return $this;
     }
-
     /**
      * (Re)Set the end column.
      *
@@ -84,10 +76,8 @@ class RowCellIterator extends CellIterator
         $endColumn = $endColumn ? $endColumn : $this->worksheet->getHighestColumn();
         $this->endColumnIndex = Coordinate::columnIndexFromString($endColumn);
         $this->adjustForExistingOnlyRange();
-
         return $this;
     }
-
     /**
      * Set the column pointer to the selected column.
      *
@@ -100,16 +90,14 @@ class RowCellIterator extends CellIterator
     public function seek($column = 'A')
     {
         $column = Coordinate::columnIndexFromString($column);
-        if (($column < $this->startColumnIndex) || ($column > $this->endColumnIndex)) {
-            throw new PhpSpreadsheetException("Column $column is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
-        } elseif ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($column, $this->rowIndex))) {
+        if ($column < $this->startColumnIndex || $column > $this->endColumnIndex) {
+            throw new PhpSpreadsheetException("Column {$column} is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
+        } elseif ($this->onlyExistingCells && !$this->worksheet->cellExistsByColumnAndRow($column, $this->rowIndex)) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
         }
         $this->currentColumnIndex = $column;
-
         return $this;
     }
-
     /**
      * Rewind the iterator to the starting column.
      */
@@ -117,7 +105,6 @@ class RowCellIterator extends CellIterator
     {
         $this->currentColumnIndex = $this->startColumnIndex;
     }
-
     /**
      * Return the current cell in this worksheet row.
      *
@@ -127,7 +114,6 @@ class RowCellIterator extends CellIterator
     {
         return $this->worksheet->getCellByColumnAndRow($this->currentColumnIndex, $this->rowIndex);
     }
-
     /**
      * Return the current iterator key.
      *
@@ -137,7 +123,6 @@ class RowCellIterator extends CellIterator
     {
         return Coordinate::stringFromColumnIndex($this->currentColumnIndex);
     }
-
     /**
      * Set the iterator to its next value.
      */
@@ -145,9 +130,8 @@ class RowCellIterator extends CellIterator
     {
         do {
             ++$this->currentColumnIndex;
-        } while (($this->onlyExistingCells) && (!$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex)) && ($this->currentColumnIndex <= $this->endColumnIndex));
+        } while ($this->onlyExistingCells && !$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex) && $this->currentColumnIndex <= $this->endColumnIndex);
     }
-
     /**
      * Set the iterator to its previous value.
      *
@@ -160,9 +144,8 @@ class RowCellIterator extends CellIterator
         }
         do {
             --$this->currentColumnIndex;
-        } while (($this->onlyExistingCells) && (!$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex)) && ($this->currentColumnIndex >= $this->startColumnIndex));
+        } while ($this->onlyExistingCells && !$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex) && $this->currentColumnIndex >= $this->startColumnIndex);
     }
-
     /**
      * Indicate if more columns exist in the worksheet range of columns that we're iterating.
      *
@@ -172,7 +155,6 @@ class RowCellIterator extends CellIterator
     {
         return $this->currentColumnIndex <= $this->endColumnIndex;
     }
-
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
@@ -181,13 +163,13 @@ class RowCellIterator extends CellIterator
     protected function adjustForExistingOnlyRange()
     {
         if ($this->onlyExistingCells) {
-            while ((!$this->worksheet->cellExistsByColumnAndRow($this->startColumnIndex, $this->rowIndex)) && ($this->startColumnIndex <= $this->endColumnIndex)) {
+            while (!$this->worksheet->cellExistsByColumnAndRow($this->startColumnIndex, $this->rowIndex) && $this->startColumnIndex <= $this->endColumnIndex) {
                 ++$this->startColumnIndex;
             }
             if ($this->startColumnIndex > $this->endColumnIndex) {
                 throw new PhpSpreadsheetException('No cells exist within the specified range');
             }
-            while ((!$this->worksheet->cellExistsByColumnAndRow($this->endColumnIndex, $this->rowIndex)) && ($this->endColumnIndex >= $this->startColumnIndex)) {
+            while (!$this->worksheet->cellExistsByColumnAndRow($this->endColumnIndex, $this->rowIndex) && $this->endColumnIndex >= $this->startColumnIndex) {
                 --$this->endColumnIndex;
             }
             if ($this->endColumnIndex < $this->startColumnIndex) {

@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
-
 class Dompdf extends Pdf
 {
     /**
@@ -16,7 +15,6 @@ class Dompdf extends Pdf
     {
         return new \Dompdf\Dompdf();
     }
-
     /**
      * Save Spreadsheet to file.
      *
@@ -27,52 +25,36 @@ class Dompdf extends Pdf
     public function save($pFilename)
     {
         $fileHandle = parent::prepareForSave($pFilename);
-
         //  Default PDF paper size
-        $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
-
+        $paperSize = 'LETTER';
+        //    Letter    (8.5 in. by 11 in.)
         //  Check for paper size and page orientation
         if ($this->getSheetIndex() === null) {
-            $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
-                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+            $orientation = $this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
         } else {
-            $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+            $orientation = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
         }
-
-        $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
-
+        $orientation = $orientation == 'L' ? 'landscape' : 'portrait';
         //  Override Page Orientation
         if ($this->getOrientation() !== null) {
-            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
-                ? PageSetup::ORIENTATION_PORTRAIT
-                : $this->getOrientation();
+            $orientation = $this->getOrientation() == PageSetup::ORIENTATION_DEFAULT ? PageSetup::ORIENTATION_PORTRAIT : $this->getOrientation();
         }
         //  Override Paper Size
         if ($this->getPaperSize() !== null) {
             $printPaperSize = $this->getPaperSize();
         }
-
         if (isset(self::$paperSizes[$printPaperSize])) {
             $paperSize = self::$paperSizes[$printPaperSize];
         }
-
         //  Create PDF
         $pdf = $this->createExternalWriterInstance();
         $pdf->setPaper(strtolower($paperSize), $orientation);
-
-        $pdf->loadHtml(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
-            $this->generateHTMLFooter()
-        );
+        $pdf->loadHtml($this->generateHTMLHeader(false) . $this->generateSheetData() . $this->generateHTMLFooter());
         $pdf->render();
-
         //  Write to file
         fwrite($fileHandle, $pdf->output());
-
         parent::restoreStateAfterSave($fileHandle);
     }
 }

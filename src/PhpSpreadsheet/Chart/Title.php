@@ -10,14 +10,12 @@ class Title
      * @var string
      */
     private $caption;
-
     /**
      * Title Layout.
      *
      * @var Layout
      */
     private $layout;
-
     /**
      * Create a new Title.
      *
@@ -29,7 +27,6 @@ class Title
         $this->caption = $caption;
         $this->layout = $layout;
     }
-
     /**
      * Get caption.
      *
@@ -39,7 +36,6 @@ class Title
     {
         return $this->caption;
     }
-
     /**
      * Set caption.
      *
@@ -50,10 +46,8 @@ class Title
     public function setCaption($caption)
     {
         $this->caption = $caption;
-
         return $this;
     }
-
     /**
      * Get Layout.
      *

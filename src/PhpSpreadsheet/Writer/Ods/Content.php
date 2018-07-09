@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
-
 /**
  * @category   PhpSpreadsheet
  *
@@ -28,7 +27,6 @@ class Content extends WriterPart
     const NUMBER_COLS_REPEATED_MAX = 1024;
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
     const CELL_STYLE_PREFIX = 'ce';
-
     /**
      * Write content.xml to XML format.
      *
@@ -44,10 +42,8 @@ class Content extends WriterPart
         } else {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
-
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8');
-
         // Content
         $objWriter->startElement('office:document-content');
         $objWriter->writeAttribute('xmlns:office', 'urn:oasis:names:tc:opendocument:xmlns:office:1.0');
@@ -83,29 +79,22 @@ class Content extends WriterPart
         $objWriter->writeAttribute('xmlns:formx', 'urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0');
         $objWriter->writeAttribute('xmlns:css3t', 'http://www.w3.org/TR/css3-text/');
         $objWriter->writeAttribute('office:version', '1.2');
-
         $objWriter->writeElement('office:scripts');
         $objWriter->writeElement('office:font-face-decls');
-
         // Styles XF
         $objWriter->startElement('office:automatic-styles');
         $this->writeXfStyles($objWriter, $this->getParentWriter()->getSpreadsheet());
         $objWriter->endElement();
-
         $objWriter->startElement('office:body');
         $objWriter->startElement('office:spreadsheet');
         $objWriter->writeElement('table:calculation-settings');
-
         $this->writeSheets($objWriter);
-
         $objWriter->writeElement('table:named-expressions');
         $objWriter->endElement();
         $objWriter->endElement();
         $objWriter->endElement();
-
         return $objWriter->getData();
     }
-
     /**
      * Write sheets.
      *
@@ -113,8 +102,8 @@ class Content extends WriterPart
      */
     private function writeSheets(XMLWriter $objWriter)
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); // @var $spreadsheet Spreadsheet
-
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet();
+        // @var $spreadsheet Spreadsheet
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
             $objWriter->startElement('table:table');
@@ -127,7 +116,6 @@ class Content extends WriterPart
             $objWriter->endElement();
         }
     }
-
     /**
      * Write rows of the specified sheet.
      *
@@ -163,7 +151,6 @@ class Content extends WriterPart
             $rows->next();
         }
     }
-
     /**
      * Write cells of the specified row.
      *
@@ -181,27 +168,22 @@ class Content extends WriterPart
             /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
             $cell = $cells->current();
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
-
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
             $this->writeCellMerge($objWriter, $cell);
-
             // Style XF
             $style = $cell->getXfIndex();
             if ($style !== null) {
                 $objWriter->writeAttribute('table:style-name', self::CELL_STYLE_PREFIX . $style);
             }
-
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
-
                     break;
                 case DataType::TYPE_ERROR:
                     throw new Exception('Writing of error not implemented yet.');
-
                     break;
                 case DataType::TYPE_FORMULA:
                     $formulaValue = $cell->getValue();
@@ -209,7 +191,6 @@ class Content extends WriterPart
                         try {
                             $formulaValue = $cell->getCalculatedValue();
                         } catch (Exception $e) {
-                            // don't do anything
                         }
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
@@ -220,22 +201,18 @@ class Content extends WriterPart
                     }
                     $objWriter->writeAttribute('office:value', $formulaValue);
                     $objWriter->writeElement('text:p', $formulaValue);
-
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
-
                     break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
-
                     break;
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
-
                     break;
             }
             Comment::write($objWriter, $cell);
@@ -254,7 +231,6 @@ class Content extends WriterPart
             }
         }
     }
-
     /**
      * Write span.
      *
@@ -273,7 +249,6 @@ class Content extends WriterPart
             $objWriter->endElement();
         }
     }
-
     /**
      * Write XF cell styles.
      *
@@ -287,69 +262,50 @@ class Content extends WriterPart
             $writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
             $writer->writeAttribute('style:family', 'table-cell');
             $writer->writeAttribute('style:parent-style-name', 'Default');
-
             // style:text-properties
-
             // Font
             $writer->startElement('style:text-properties');
-
             $font = $style->getFont();
-
             if ($font->getBold()) {
                 $writer->writeAttribute('fo:font-weight', 'bold');
                 $writer->writeAttribute('style:font-weight-complex', 'bold');
                 $writer->writeAttribute('style:font-weight-asian', 'bold');
             }
-
             if ($font->getItalic()) {
                 $writer->writeAttribute('fo:font-style', 'italic');
             }
-
             if ($color = $font->getColor()) {
                 $writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
             }
-
             if ($family = $font->getName()) {
                 $writer->writeAttribute('fo:font-family', $family);
             }
-
             if ($size = $font->getSize()) {
                 $writer->writeAttribute('fo:font-size', sprintf('%.1fpt', $size));
             }
-
             if ($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
                 $writer->writeAttribute('style:text-underline-style', 'solid');
                 $writer->writeAttribute('style:text-underline-width', 'auto');
                 $writer->writeAttribute('style:text-underline-color', 'font-color');
-
                 switch ($font->getUnderline()) {
                     case Font::UNDERLINE_DOUBLE:
                         $writer->writeAttribute('style:text-underline-type', 'double');
-
                         break;
                     case Font::UNDERLINE_SINGLE:
                         $writer->writeAttribute('style:text-underline-type', 'single');
-
                         break;
                 }
             }
-
-            $writer->endElement(); // Close style:text-properties
-
+            $writer->endElement();
+            // Close style:text-properties
             // style:table-cell-properties
-
             $writer->startElement('style:table-cell-properties');
             $writer->writeAttribute('style:rotation-align', 'none');
-
             // Fill
             if ($fill = $style->getFill()) {
                 switch ($fill->getFillType()) {
                     case Fill::FILL_SOLID:
-                        $writer->writeAttribute('fo:background-color', sprintf(
-                            '#%s',
-                            strtolower($fill->getStartColor()->getRGB())
-                        ));
-
+                        $writer->writeAttribute('fo:background-color', sprintf('#%s', strtolower($fill->getStartColor()->getRGB())));
                         break;
                     case Fill::FILL_GRADIENT_LINEAR:
                     case Fill::FILL_GRADIENT_PATH:
@@ -359,15 +315,12 @@ class Content extends WriterPart
                     default:
                 }
             }
-
-            $writer->endElement(); // Close style:table-cell-properties
-
+            $writer->endElement();
+            // Close style:table-cell-properties
             // End
-
-            $writer->endElement(); // Close style:style
+            $writer->endElement();
         }
     }
-
     /**
      * Write attributes for merged cell.
      *
@@ -381,14 +334,12 @@ class Content extends WriterPart
         if (!$cell->isMergeRangeValueCell()) {
             return;
         }
-
         $mergeRange = Coordinate::splitRange($cell->getMergeRange());
         list($startCell, $endCell) = $mergeRange[0];
         $start = Coordinate::coordinateFromString($startCell);
         $end = Coordinate::coordinateFromString($endCell);
         $columnSpan = Coordinate::columnIndexFromString($end[0]) - Coordinate::columnIndexFromString($start[0]) + 1;
         $rowSpan = $end[1] - $start[1] + 1;
-
         $objWriter->writeAttribute('table:number-columns-spanned', $columnSpan);
         $objWriter->writeAttribute('table:number-rows-spanned', $rowSpan);
     }

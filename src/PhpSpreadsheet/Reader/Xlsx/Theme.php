@@ -10,21 +10,18 @@ class Theme
      * @var string
      */
     private $themeName;
-
     /**
      * Colour Scheme Name.
      *
      * @var string
      */
     private $colourSchemeName;
-
     /**
      * Colour Map.
      *
      * @var array of string
      */
     private $colourMap;
-
     /**
      * Create a new Theme.
      *
@@ -39,7 +36,6 @@ class Theme
         $this->colourSchemeName = $colourSchemeName;
         $this->colourMap = $colourMap;
     }
-
     /**
      * Get Theme Name.
      *
@@ -49,7 +45,6 @@ class Theme
     {
         return $this->themeName;
     }
-
     /**
      * Get colour Scheme Name.
      *
@@ -59,7 +54,6 @@ class Theme
     {
         return $this->colourSchemeName;
     }
-
     /**
      * Get colour Map Value by Position.
      *
@@ -72,10 +66,8 @@ class Theme
         if (isset($this->colourMap[$index])) {
             return $this->colourMap[$index];
         }
-
         return null;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -83,10 +75,10 @@ class Theme
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if ((is_object($value)) && ($key != '_parent')) {
-                $this->$key = clone $value;
+            if (is_object($value) && $key != '_parent') {
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

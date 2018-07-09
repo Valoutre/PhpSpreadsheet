@@ -10,14 +10,12 @@ class Blip
      * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE
      */
     private $parent;
-
     /**
      * Raw image data.
      *
      * @var string
      */
     private $data;
-
     /**
      * Get the raw image data.
      *
@@ -27,7 +25,6 @@ class Blip
     {
         return $this->data;
     }
-
     /**
      * Set the raw image data.
      *
@@ -37,7 +34,6 @@ class Blip
     {
         $this->data = $data;
     }
-
     /**
      * Set parent BSE.
      *
@@ -47,7 +43,6 @@ class Blip
     {
         $this->parent = $parent;
     }
-
     /**
      * Get parent BSE.
      *

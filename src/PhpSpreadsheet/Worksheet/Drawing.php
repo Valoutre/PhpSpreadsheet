@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 class Drawing extends BaseDrawing
 {
     /**
@@ -12,7 +11,6 @@ class Drawing extends BaseDrawing
      * @var string
      */
     private $path;
-
     /**
      * Create a new Drawing.
      */
@@ -20,11 +18,9 @@ class Drawing extends BaseDrawing
     {
         // Initialise values
         $this->path = '';
-
         // Initialize parent
         parent::__construct();
     }
-
     /**
      * Get Filename.
      *
@@ -34,7 +30,6 @@ class Drawing extends BaseDrawing
     {
         return basename($this->path);
     }
-
     /**
      * Get indexed filename (using image index).
      *
@@ -44,10 +39,8 @@ class Drawing extends BaseDrawing
     {
         $fileName = $this->getFilename();
         $fileName = str_replace(' ', '_', $fileName);
-
         return str_replace('.' . $this->getExtension(), '', $fileName) . $this->getImageIndex() . '.' . $this->getExtension();
     }
-
     /**
      * Get Extension.
      *
@@ -56,10 +49,8 @@ class Drawing extends BaseDrawing
     public function getExtension()
     {
         $exploded = explode('.', basename($this->path));
-
         return $exploded[count($exploded) - 1];
     }
-
     /**
      * Get Path.
      *
@@ -69,7 +60,6 @@ class Drawing extends BaseDrawing
     {
         return $this->path;
     }
-
     /**
      * Set Path.
      *
@@ -85,21 +75,18 @@ class Drawing extends BaseDrawing
         if ($pVerifyFile) {
             if (file_exists($pValue)) {
                 $this->path = $pValue;
-
                 if ($this->width == 0 && $this->height == 0) {
                     // Get width/height
                     list($this->width, $this->height) = getimagesize($pValue);
                 }
             } else {
-                throw new PhpSpreadsheetException("File $pValue not found!");
+                throw new PhpSpreadsheetException("File {$pValue} not found!");
             }
         } else {
             $this->path = $pValue;
         }
-
         return $this;
     }
-
     /**
      * Get hash code.
      *
@@ -107,10 +94,6 @@ class Drawing extends BaseDrawing
      */
     public function getHashCode()
     {
-        return md5(
-            $this->path .
-            parent::getHashCode() .
-            __CLASS__
-        );
+        return md5($this->path . parent::getHashCode() . __CLASS__);
     }
 }

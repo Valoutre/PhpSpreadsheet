@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 class Thumbnails extends WriterPart
 {
     /**

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
-
 class SpContainer
 {
     /**
@@ -12,84 +11,72 @@ class SpContainer
      * @var SpgrContainer
      */
     private $parent;
-
     /**
      * Is this a group shape?
      *
      * @var bool
      */
     private $spgr = false;
-
     /**
      * Shape type.
      *
      * @var int
      */
     private $spType;
-
     /**
      * Shape flag.
      *
      * @var int
      */
     private $spFlag;
-
     /**
      * Shape index (usually group shape has index 0, and the rest: 1,2,3...).
      *
      * @var int
      */
     private $spId;
-
     /**
      * Array of options.
      *
      * @var array
      */
     private $OPT;
-
     /**
      * Cell coordinates of upper-left corner of shape, e.g. 'A1'.
      *
      * @var string
      */
     private $startCoordinates;
-
     /**
      * Horizontal offset of upper-left corner of shape measured in 1/1024 of column width.
      *
      * @var int
      */
     private $startOffsetX;
-
     /**
      * Vertical offset of upper-left corner of shape measured in 1/256 of row height.
      *
      * @var int
      */
     private $startOffsetY;
-
     /**
      * Cell coordinates of bottom-right corner of shape, e.g. 'B2'.
      *
      * @var string
      */
     private $endCoordinates;
-
     /**
      * Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width.
      *
      * @var int
      */
     private $endOffsetX;
-
     /**
      * Vertical offset of bottom-right corner of shape measured in 1/256 of row height.
      *
      * @var int
      */
     private $endOffsetY;
-
     /**
      * Set parent Shape Group Container.
      *
@@ -99,7 +86,6 @@ class SpContainer
     {
         $this->parent = $parent;
     }
-
     /**
      * Get the parent Shape Group Container.
      *
@@ -109,7 +95,6 @@ class SpContainer
     {
         return $this->parent;
     }
-
     /**
      * Set whether this is a group shape.
      *
@@ -119,7 +104,6 @@ class SpContainer
     {
         $this->spgr = $value;
     }
-
     /**
      * Get whether this is a group shape.
      *
@@ -129,7 +113,6 @@ class SpContainer
     {
         return $this->spgr;
     }
-
     /**
      * Set the shape type.
      *
@@ -139,7 +122,6 @@ class SpContainer
     {
         $this->spType = $value;
     }
-
     /**
      * Get the shape type.
      *
@@ -149,7 +131,6 @@ class SpContainer
     {
         return $this->spType;
     }
-
     /**
      * Set the shape flag.
      *
@@ -159,7 +140,6 @@ class SpContainer
     {
         $this->spFlag = $value;
     }
-
     /**
      * Get the shape flag.
      *
@@ -169,7 +149,6 @@ class SpContainer
     {
         return $this->spFlag;
     }
-
     /**
      * Set the shape index.
      *
@@ -179,7 +158,6 @@ class SpContainer
     {
         $this->spId = $value;
     }
-
     /**
      * Get the shape index.
      *
@@ -189,7 +167,6 @@ class SpContainer
     {
         return $this->spId;
     }
-
     /**
      * Set an option for the Shape Group Container.
      *
@@ -200,7 +177,6 @@ class SpContainer
     {
         $this->OPT[$property] = $value;
     }
-
     /**
      * Get an option for the Shape Group Container.
      *
@@ -213,10 +189,8 @@ class SpContainer
         if (isset($this->OPT[$property])) {
             return $this->OPT[$property];
         }
-
         return null;
     }
-
     /**
      * Get the collection of options.
      *
@@ -226,7 +200,6 @@ class SpContainer
     {
         return $this->OPT;
     }
-
     /**
      * Set cell coordinates of upper-left corner of shape.
      *
@@ -236,7 +209,6 @@ class SpContainer
     {
         $this->startCoordinates = $value;
     }
-
     /**
      * Get cell coordinates of upper-left corner of shape.
      *
@@ -246,7 +218,6 @@ class SpContainer
     {
         return $this->startCoordinates;
     }
-
     /**
      * Set offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.
      *
@@ -256,7 +227,6 @@ class SpContainer
     {
         $this->startOffsetX = $startOffsetX;
     }
-
     /**
      * Get offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.
      *
@@ -266,7 +236,6 @@ class SpContainer
     {
         return $this->startOffsetX;
     }
-
     /**
      * Set offset in y-direction of upper-left corner of shape measured in 1/256 of row height.
      *
@@ -276,7 +245,6 @@ class SpContainer
     {
         $this->startOffsetY = $startOffsetY;
     }
-
     /**
      * Get offset in y-direction of upper-left corner of shape measured in 1/256 of row height.
      *
@@ -286,7 +254,6 @@ class SpContainer
     {
         return $this->startOffsetY;
     }
-
     /**
      * Set cell coordinates of bottom-right corner of shape.
      *
@@ -296,7 +263,6 @@ class SpContainer
     {
         $this->endCoordinates = $value;
     }
-
     /**
      * Get cell coordinates of bottom-right corner of shape.
      *
@@ -306,7 +272,6 @@ class SpContainer
     {
         return $this->endCoordinates;
     }
-
     /**
      * Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.
      *
@@ -316,7 +281,6 @@ class SpContainer
     {
         $this->endOffsetX = $endOffsetX;
     }
-
     /**
      * Get offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.
      *
@@ -326,7 +290,6 @@ class SpContainer
     {
         return $this->endOffsetX;
     }
-
     /**
      * Set offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.
      *
@@ -336,7 +299,6 @@ class SpContainer
     {
         $this->endOffsetY = $endOffsetY;
     }
-
     /**
      * Get offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.
      *
@@ -346,7 +308,6 @@ class SpContainer
     {
         return $this->endOffsetY;
     }
-
     /**
      * Get the nesting level of this spContainer. This is the number of spgrContainers between this spContainer and
      * the dgContainer. A value of 1 = immediately within first spgrContainer
@@ -357,13 +318,11 @@ class SpContainer
     public function getNestingLevel()
     {
         $nestingLevel = 0;
-
         $parent = $this->getParent();
         while ($parent instanceof SpgrContainer) {
             ++$nestingLevel;
             $parent = $parent->getParent();
         }
-
         return $nestingLevel;
     }
 }

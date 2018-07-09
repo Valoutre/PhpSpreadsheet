@@ -9,41 +9,35 @@ class MemoryDrawing extends BaseDrawing
     const RENDERING_PNG = 'imagepng';
     const RENDERING_GIF = 'imagegif';
     const RENDERING_JPEG = 'imagejpeg';
-
     // MIME types
     const MIMETYPE_DEFAULT = 'image/png';
     const MIMETYPE_PNG = 'image/png';
     const MIMETYPE_GIF = 'image/gif';
     const MIMETYPE_JPEG = 'image/jpeg';
-
     /**
      * Image resource.
      *
      * @var resource
      */
     private $imageResource;
-
     /**
      * Rendering function.
      *
      * @var string
      */
     private $renderingFunction;
-
     /**
      * Mime type.
      *
      * @var string
      */
     private $mimeType;
-
     /**
      * Unique name.
      *
      * @var string
      */
     private $uniqueName;
-
     /**
      * Create a new MemoryDrawing.
      */
@@ -54,11 +48,9 @@ class MemoryDrawing extends BaseDrawing
         $this->renderingFunction = self::RENDERING_DEFAULT;
         $this->mimeType = self::MIMETYPE_DEFAULT;
         $this->uniqueName = md5(rand(0, 9999) . time() . rand(0, 9999));
-
         // Initialize parent
         parent::__construct();
     }
-
     /**
      * Get image resource.
      *
@@ -68,7 +60,6 @@ class MemoryDrawing extends BaseDrawing
     {
         return $this->imageResource;
     }
-
     /**
      * Set image resource.
      *
@@ -79,16 +70,13 @@ class MemoryDrawing extends BaseDrawing
     public function setImageResource($value)
     {
         $this->imageResource = $value;
-
         if ($this->imageResource !== null) {
             // Get width/height
             $this->width = imagesx($this->imageResource);
             $this->height = imagesy($this->imageResource);
         }
-
         return $this;
     }
-
     /**
      * Get rendering function.
      *
@@ -98,7 +86,6 @@ class MemoryDrawing extends BaseDrawing
     {
         return $this->renderingFunction;
     }
-
     /**
      * Set rendering function.
      *
@@ -109,10 +96,8 @@ class MemoryDrawing extends BaseDrawing
     public function setRenderingFunction($value)
     {
         $this->renderingFunction = $value;
-
         return $this;
     }
-
     /**
      * Get mime type.
      *
@@ -122,7 +107,6 @@ class MemoryDrawing extends BaseDrawing
     {
         return $this->mimeType;
     }
-
     /**
      * Set mime type.
      *
@@ -133,10 +117,8 @@ class MemoryDrawing extends BaseDrawing
     public function setMimeType($value)
     {
         $this->mimeType = $value;
-
         return $this;
     }
-
     /**
      * Get indexed filename (using image index).
      *
@@ -147,10 +129,8 @@ class MemoryDrawing extends BaseDrawing
         $extension = strtolower($this->getMimeType());
         $extension = explode('/', $extension);
         $extension = $extension[1];
-
         return $this->uniqueName . $this->getImageIndex() . '.' . $extension;
     }
-
     /**
      * Get hash code.
      *
@@ -158,12 +138,6 @@ class MemoryDrawing extends BaseDrawing
      */
     public function getHashCode()
     {
-        return md5(
-            $this->renderingFunction .
-            $this->mimeType .
-            $this->uniqueName .
-            parent::getHashCode() .
-            __CLASS__
-        );
+        return md5($this->renderingFunction . $this->mimeType . $this->uniqueName . parent::getHashCode() . __CLASS__);
     }
 }

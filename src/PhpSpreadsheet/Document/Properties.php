@@ -11,91 +11,78 @@ class Properties
     const PROPERTY_TYPE_DATE = 'd';
     const PROPERTY_TYPE_STRING = 's';
     const PROPERTY_TYPE_UNKNOWN = 'u';
-
     /**
      * Creator.
      *
      * @var string
      */
     private $creator = 'Unknown Creator';
-
     /**
      * LastModifiedBy.
      *
      * @var string
      */
     private $lastModifiedBy;
-
     /**
      * Created.
      *
      * @var int
      */
     private $created;
-
     /**
      * Modified.
      *
      * @var int
      */
     private $modified;
-
     /**
      * Title.
      *
      * @var string
      */
     private $title = 'Untitled Spreadsheet';
-
     /**
      * Description.
      *
      * @var string
      */
     private $description = '';
-
     /**
      * Subject.
      *
      * @var string
      */
     private $subject = '';
-
     /**
      * Keywords.
      *
      * @var string
      */
     private $keywords = '';
-
     /**
      * Category.
      *
      * @var string
      */
     private $category = '';
-
     /**
      * Manager.
      *
      * @var string
      */
     private $manager = '';
-
     /**
      * Company.
      *
      * @var string
      */
     private $company = 'Microsoft Corporation';
-
     /**
      * Custom Properties.
      *
      * @var string
      */
-    private $customProperties = [];
-
+    private $customProperties = array();
     /**
      * Create a new Document Properties instance.
      */
@@ -106,7 +93,6 @@ class Properties
         $this->created = time();
         $this->modified = time();
     }
-
     /**
      * Get Creator.
      *
@@ -116,7 +102,6 @@ class Properties
     {
         return $this->creator;
     }
-
     /**
      * Set Creator.
      *
@@ -127,10 +112,8 @@ class Properties
     public function setCreator($creator)
     {
         $this->creator = $creator;
-
         return $this;
     }
-
     /**
      * Get Last Modified By.
      *
@@ -140,7 +123,6 @@ class Properties
     {
         return $this->lastModifiedBy;
     }
-
     /**
      * Set Last Modified By.
      *
@@ -151,10 +133,8 @@ class Properties
     public function setLastModifiedBy($pValue)
     {
         $this->lastModifiedBy = $pValue;
-
         return $this;
     }
-
     /**
      * Get Created.
      *
@@ -164,7 +144,6 @@ class Properties
     {
         return $this->created;
     }
-
     /**
      * Set Created.
      *
@@ -183,12 +162,9 @@ class Properties
                 $time = strtotime($time);
             }
         }
-
         $this->created = $time;
-
         return $this;
     }
-
     /**
      * Get Modified.
      *
@@ -198,7 +174,6 @@ class Properties
     {
         return $this->modified;
     }
-
     /**
      * Set Modified.
      *
@@ -217,12 +192,9 @@ class Properties
                 $time = strtotime($time);
             }
         }
-
         $this->modified = $time;
-
         return $this;
     }
-
     /**
      * Get Title.
      *
@@ -232,7 +204,6 @@ class Properties
     {
         return $this->title;
     }
-
     /**
      * Set Title.
      *
@@ -243,10 +214,8 @@ class Properties
     public function setTitle($title)
     {
         $this->title = $title;
-
         return $this;
     }
-
     /**
      * Get Description.
      *
@@ -256,7 +225,6 @@ class Properties
     {
         return $this->description;
     }
-
     /**
      * Set Description.
      *
@@ -267,10 +235,8 @@ class Properties
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
-
     /**
      * Get Subject.
      *
@@ -280,7 +246,6 @@ class Properties
     {
         return $this->subject;
     }
-
     /**
      * Set Subject.
      *
@@ -291,10 +256,8 @@ class Properties
     public function setSubject($subject)
     {
         $this->subject = $subject;
-
         return $this;
     }
-
     /**
      * Get Keywords.
      *
@@ -304,7 +267,6 @@ class Properties
     {
         return $this->keywords;
     }
-
     /**
      * Set Keywords.
      *
@@ -315,10 +277,8 @@ class Properties
     public function setKeywords($keywords)
     {
         $this->keywords = $keywords;
-
         return $this;
     }
-
     /**
      * Get Category.
      *
@@ -328,7 +288,6 @@ class Properties
     {
         return $this->category;
     }
-
     /**
      * Set Category.
      *
@@ -339,10 +298,8 @@ class Properties
     public function setCategory($category)
     {
         $this->category = $category;
-
         return $this;
     }
-
     /**
      * Get Company.
      *
@@ -352,7 +309,6 @@ class Properties
     {
         return $this->company;
     }
-
     /**
      * Set Company.
      *
@@ -363,10 +319,8 @@ class Properties
     public function setCompany($company)
     {
         $this->company = $company;
-
         return $this;
     }
-
     /**
      * Get Manager.
      *
@@ -376,7 +330,6 @@ class Properties
     {
         return $this->manager;
     }
-
     /**
      * Set Manager.
      *
@@ -387,10 +340,8 @@ class Properties
     public function setManager($manager)
     {
         $this->manager = $manager;
-
         return $this;
     }
-
     /**
      * Get a List of Custom Property Names.
      *
@@ -400,7 +351,6 @@ class Properties
     {
         return array_keys($this->customProperties);
     }
-
     /**
      * Check if a Custom Property is defined.
      *
@@ -412,7 +362,6 @@ class Properties
     {
         return isset($this->customProperties[$propertyName]);
     }
-
     /**
      * Get a Custom Property Value.
      *
@@ -426,7 +375,6 @@ class Properties
             return $this->customProperties[$propertyName]['value'];
         }
     }
-
     /**
      * Get a Custom Property Type.
      *
@@ -440,7 +388,6 @@ class Properties
             return $this->customProperties[$propertyName]['type'];
         }
     }
-
     /**
      * Set a Custom Property.
      *
@@ -457,11 +404,7 @@ class Properties
      */
     public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
     {
-        if (($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
-                                                                        self::PROPERTY_TYPE_FLOAT,
-                                                                        self::PROPERTY_TYPE_STRING,
-                                                                        self::PROPERTY_TYPE_DATE,
-                                                                        self::PROPERTY_TYPE_BOOLEAN, ]))) {
+        if ($propertyType === null || !in_array($propertyType, array(self::PROPERTY_TYPE_INTEGER, self::PROPERTY_TYPE_FLOAT, self::PROPERTY_TYPE_STRING, self::PROPERTY_TYPE_DATE, self::PROPERTY_TYPE_BOOLEAN))) {
             if ($propertyValue === null) {
                 $propertyType = self::PROPERTY_TYPE_STRING;
             } elseif (is_float($propertyValue)) {
@@ -474,15 +417,9 @@ class Properties
                 $propertyType = self::PROPERTY_TYPE_STRING;
             }
         }
-
-        $this->customProperties[$propertyName] = [
-            'value' => $propertyValue,
-            'type' => $propertyType,
-        ];
-
+        $this->customProperties[$propertyName] = array('value' => $propertyValue, 'type' => $propertyType);
         return $this;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -491,139 +428,188 @@ class Properties
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }
-
     public static function convertProperty($propertyValue, $propertyType)
     {
         switch ($propertyType) {
-            case 'empty':     //    Empty
+            case 'empty':
+                //    Empty
                 return '';
-
                 break;
-            case 'null':      //    Null
+            case 'null':
+                //    Null
                 return null;
-
                 break;
-            case 'i1':        //    1-Byte Signed Integer
-            case 'i2':        //    2-Byte Signed Integer
-            case 'i4':        //    4-Byte Signed Integer
-            case 'i8':        //    8-Byte Signed Integer
-            case 'int':       //    Integer
+            case 'i1':
+            //    1-Byte Signed Integer
+            case 'i2':
+            //    2-Byte Signed Integer
+            case 'i4':
+            //    4-Byte Signed Integer
+            case 'i8':
+            //    8-Byte Signed Integer
+            case 'int':
+                //    Integer
                 return (int) $propertyValue;
-
                 break;
-            case 'ui1':       //    1-Byte Unsigned Integer
-            case 'ui2':       //    2-Byte Unsigned Integer
-            case 'ui4':       //    4-Byte Unsigned Integer
-            case 'ui8':       //    8-Byte Unsigned Integer
-            case 'uint':      //    Unsigned Integer
+            case 'ui1':
+            //    1-Byte Unsigned Integer
+            case 'ui2':
+            //    2-Byte Unsigned Integer
+            case 'ui4':
+            //    4-Byte Unsigned Integer
+            case 'ui8':
+            //    8-Byte Unsigned Integer
+            case 'uint':
+                //    Unsigned Integer
                 return abs((int) $propertyValue);
-
                 break;
-            case 'r4':        //    4-Byte Real Number
-            case 'r8':        //    8-Byte Real Number
-            case 'decimal':   //    Decimal
-                return (float) $propertyValue;
-
+            case 'r4':
+            //    4-Byte Real Number
+            case 'r8':
+            //    8-Byte Real Number
+            case 'decimal':
+                //    Decimal
+                return (double) $propertyValue;
                 break;
-            case 'lpstr':     //    LPSTR
-            case 'lpwstr':    //    LPWSTR
-            case 'bstr':      //    Basic String
+            case 'lpstr':
+            //    LPSTR
+            case 'lpwstr':
+            //    LPWSTR
+            case 'bstr':
+                //    Basic String
                 return $propertyValue;
-
                 break;
-            case 'date':      //    Date and Time
-            case 'filetime':  //    File Time
+            case 'date':
+            //    Date and Time
+            case 'filetime':
+                //    File Time
                 return strtotime($propertyValue);
-
                 break;
-            case 'bool':     //    Boolean
-                return ($propertyValue == 'true') ? true : false;
-
+            case 'bool':
+                //    Boolean
+                return $propertyValue == 'true' ? true : false;
                 break;
-            case 'cy':       //    Currency
-            case 'error':    //    Error Status Code
-            case 'vector':   //    Vector
-            case 'array':    //    Array
-            case 'blob':     //    Binary Blob
-            case 'oblob':    //    Binary Blob Object
-            case 'stream':   //    Binary Stream
-            case 'ostream':  //    Binary Stream Object
-            case 'storage':  //    Binary Storage
-            case 'ostorage': //    Binary Storage Object
-            case 'vstream':  //    Binary Versioned Stream
-            case 'clsid':    //    Class ID
-            case 'cf':       //    Clipboard Data
+            case 'cy':
+            //    Currency
+            case 'error':
+            //    Error Status Code
+            case 'vector':
+            //    Vector
+            case 'array':
+            //    Array
+            case 'blob':
+            //    Binary Blob
+            case 'oblob':
+            //    Binary Blob Object
+            case 'stream':
+            //    Binary Stream
+            case 'ostream':
+            //    Binary Stream Object
+            case 'storage':
+            //    Binary Storage
+            case 'ostorage':
+            //    Binary Storage Object
+            case 'vstream':
+            //    Binary Versioned Stream
+            case 'clsid':
+            //    Class ID
+            case 'cf':
+                //    Clipboard Data
                 return $propertyValue;
-
                 break;
         }
-
         return $propertyValue;
     }
-
     public static function convertPropertyType($propertyType)
     {
         switch ($propertyType) {
-            case 'i1':       //    1-Byte Signed Integer
-            case 'i2':       //    2-Byte Signed Integer
-            case 'i4':       //    4-Byte Signed Integer
-            case 'i8':       //    8-Byte Signed Integer
-            case 'int':      //    Integer
-            case 'ui1':      //    1-Byte Unsigned Integer
-            case 'ui2':      //    2-Byte Unsigned Integer
-            case 'ui4':      //    4-Byte Unsigned Integer
-            case 'ui8':      //    8-Byte Unsigned Integer
-            case 'uint':     //    Unsigned Integer
+            case 'i1':
+            //    1-Byte Signed Integer
+            case 'i2':
+            //    2-Byte Signed Integer
+            case 'i4':
+            //    4-Byte Signed Integer
+            case 'i8':
+            //    8-Byte Signed Integer
+            case 'int':
+            //    Integer
+            case 'ui1':
+            //    1-Byte Unsigned Integer
+            case 'ui2':
+            //    2-Byte Unsigned Integer
+            case 'ui4':
+            //    4-Byte Unsigned Integer
+            case 'ui8':
+            //    8-Byte Unsigned Integer
+            case 'uint':
+                //    Unsigned Integer
                 return self::PROPERTY_TYPE_INTEGER;
-
                 break;
-            case 'r4':       //    4-Byte Real Number
-            case 'r8':       //    8-Byte Real Number
-            case 'decimal':  //    Decimal
+            case 'r4':
+            //    4-Byte Real Number
+            case 'r8':
+            //    8-Byte Real Number
+            case 'decimal':
+                //    Decimal
                 return self::PROPERTY_TYPE_FLOAT;
-
                 break;
-            case 'empty':    //    Empty
-            case 'null':     //    Null
-            case 'lpstr':    //    LPSTR
-            case 'lpwstr':   //    LPWSTR
-            case 'bstr':     //    Basic String
+            case 'empty':
+            //    Empty
+            case 'null':
+            //    Null
+            case 'lpstr':
+            //    LPSTR
+            case 'lpwstr':
+            //    LPWSTR
+            case 'bstr':
+                //    Basic String
                 return self::PROPERTY_TYPE_STRING;
-
                 break;
-            case 'date':     //    Date and Time
-            case 'filetime': //    File Time
+            case 'date':
+            //    Date and Time
+            case 'filetime':
+                //    File Time
                 return self::PROPERTY_TYPE_DATE;
-
                 break;
-            case 'bool':     //    Boolean
+            case 'bool':
+                //    Boolean
                 return self::PROPERTY_TYPE_BOOLEAN;
-
                 break;
-            case 'cy':       //    Currency
-            case 'error':    //    Error Status Code
-            case 'vector':   //    Vector
-            case 'array':    //    Array
-            case 'blob':     //    Binary Blob
-            case 'oblob':    //    Binary Blob Object
-            case 'stream':   //    Binary Stream
-            case 'ostream':  //    Binary Stream Object
-            case 'storage':  //    Binary Storage
-            case 'ostorage': //    Binary Storage Object
-            case 'vstream':  //    Binary Versioned Stream
-            case 'clsid':    //    Class ID
-            case 'cf':       //    Clipboard Data
+            case 'cy':
+            //    Currency
+            case 'error':
+            //    Error Status Code
+            case 'vector':
+            //    Vector
+            case 'array':
+            //    Array
+            case 'blob':
+            //    Binary Blob
+            case 'oblob':
+            //    Binary Blob Object
+            case 'stream':
+            //    Binary Stream
+            case 'ostream':
+            //    Binary Stream Object
+            case 'storage':
+            //    Binary Storage
+            case 'ostorage':
+            //    Binary Storage Object
+            case 'vstream':
+            //    Binary Versioned Stream
+            case 'clsid':
+            //    Class ID
+            case 'cf':
+                //    Clipboard Data
                 return self::PROPERTY_TYPE_UNKNOWN;
-
                 break;
         }
-
         return self::PROPERTY_TYPE_UNKNOWN;
     }
 }

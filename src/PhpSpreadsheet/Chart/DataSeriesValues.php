@@ -6,73 +6,59 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
 class DataSeriesValues
 {
     const DATASERIES_TYPE_STRING = 'String';
     const DATASERIES_TYPE_NUMBER = 'Number';
-
-    private static $dataTypeValues = [
-        self::DATASERIES_TYPE_STRING,
-        self::DATASERIES_TYPE_NUMBER,
-    ];
-
+    private static $dataTypeValues = array(self::DATASERIES_TYPE_STRING, self::DATASERIES_TYPE_NUMBER);
     /**
      * Series Data Type.
      *
      * @var string
      */
     private $dataType;
-
     /**
      * Series Data Source.
      *
      * @var string
      */
     private $dataSource;
-
     /**
      * Format Code.
      *
      * @var string
      */
     private $formatCode;
-
     /**
      * Series Point Marker.
      *
      * @var string
      */
     private $pointMarker;
-
     /**
      * Point Count (The number of datapoints in the dataseries).
      *
      * @var int
      */
     private $pointCount = 0;
-
     /**
      * Data Values.
      *
      * @var array of mixed
      */
-    private $dataValues = [];
-
+    private $dataValues = array();
     /**
      * Fill color.
      *
      * @var string
      */
     private $fillColor;
-
     /**
      * Line Width.
      *
      * @var int
      */
     private $lineWidth = 12700;
-
     /**
      * Create a new DataSeriesValues object.
      *
@@ -84,7 +70,7 @@ class DataSeriesValues
      * @param null|mixed $marker
      * @param null|string $fillColor
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null)
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = array(), $marker = null, $fillColor = null)
     {
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
@@ -94,7 +80,6 @@ class DataSeriesValues
         $this->pointMarker = $marker;
         $this->fillColor = $fillColor;
     }
-
     /**
      * Get Series Data Type.
      *
@@ -104,7 +89,6 @@ class DataSeriesValues
     {
         return $this->dataType;
     }
-
     /**
      * Set Series Data Type.
      *
@@ -125,10 +109,8 @@ class DataSeriesValues
             throw new Exception('Invalid datatype for chart data series values');
         }
         $this->dataType = $dataType;
-
         return $this;
     }
-
     /**
      * Get Series Data Source (formula).
      *
@@ -138,7 +120,6 @@ class DataSeriesValues
     {
         return $this->dataSource;
     }
-
     /**
      * Set Series Data Source (formula).
      *
@@ -149,10 +130,8 @@ class DataSeriesValues
     public function setDataSource($dataSource)
     {
         $this->dataSource = $dataSource;
-
         return $this;
     }
-
     /**
      * Get Point Marker.
      *
@@ -162,7 +141,6 @@ class DataSeriesValues
     {
         return $this->pointMarker;
     }
-
     /**
      * Set Point Marker.
      *
@@ -173,10 +151,8 @@ class DataSeriesValues
     public function setPointMarker($marker)
     {
         $this->pointMarker = $marker;
-
         return $this;
     }
-
     /**
      * Get Series Format Code.
      *
@@ -186,7 +162,6 @@ class DataSeriesValues
     {
         return $this->formatCode;
     }
-
     /**
      * Set Series Format Code.
      *
@@ -197,10 +172,8 @@ class DataSeriesValues
     public function setFormatCode($formatCode)
     {
         $this->formatCode = $formatCode;
-
         return $this;
     }
-
     /**
      * Get Series Point Count.
      *
@@ -210,7 +183,6 @@ class DataSeriesValues
     {
         return $this->pointCount;
     }
-
     /**
      * Get fill color.
      *
@@ -220,7 +192,6 @@ class DataSeriesValues
     {
         return $this->fillColor;
     }
-
     /**
      * Set fill color for series.
      *
@@ -234,10 +205,8 @@ class DataSeriesValues
             throw new Exception('Invalid hex color for chart series');
         }
         $this->fillColor = $color;
-
         return $this;
     }
-
     /**
      * Get line width for series.
      *
@@ -247,7 +216,6 @@ class DataSeriesValues
     {
         return $this->lineWidth;
     }
-
     /**
      * Set line width for the series.
      *
@@ -259,10 +227,8 @@ class DataSeriesValues
     {
         $minWidth = 12700;
         $this->lineWidth = max($minWidth, $width);
-
         return $this;
     }
-
     /**
      * Identify if the Data Series is a multi-level or a simple series.
      *
@@ -273,10 +239,8 @@ class DataSeriesValues
         if (count($this->dataValues) > 0) {
             return is_array($this->dataValues[0]);
         }
-
         return null;
     }
-
     /**
      * Return the level count of a multi-level Data Series.
      *
@@ -288,10 +252,8 @@ class DataSeriesValues
         foreach ($this->dataValues as $dataValueSet) {
             $levelCount = max($levelCount, count($dataValueSet));
         }
-
         return $levelCount;
     }
-
     /**
      * Get Series Data Values.
      *
@@ -301,7 +263,6 @@ class DataSeriesValues
     {
         return $this->dataValues;
     }
-
     /**
      * Get the first Series Data value.
      *
@@ -315,10 +276,8 @@ class DataSeriesValues
         } elseif ($count == 1) {
             return $this->dataValues[0];
         }
-
         return $this->dataValues;
     }
-
     /**
      * Set Series Data Values.
      *
@@ -330,25 +289,17 @@ class DataSeriesValues
     {
         $this->dataValues = Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
-
         return $this;
     }
-
     public function refresh(Worksheet $worksheet, $flatten = true)
     {
         if ($this->dataSource !== null) {
             $calcEngine = Calculation::getInstance($worksheet->getParent());
-            $newDataValues = Calculation::unwrapResult(
-                $calcEngine->_calculateFormulaValue(
-                    '=' . $this->dataSource,
-                    null,
-                    $worksheet->getCell('A1')
-                )
-            );
+            $newDataValues = Calculation::unwrapResult($calcEngine->_calculateFormulaValue('=' . $this->dataSource, null, $worksheet->getCell('A1')));
             if ($flatten) {
                 $this->dataValues = Functions::flattenArray($newDataValues);
                 foreach ($this->dataValues as &$dataValue) {
-                    if ((!empty($dataValue)) && ($dataValue[0] == '#')) {
+                    if (!empty($dataValue) && $dataValue[0] == '#') {
                         $dataValue = 0.0;
                     }
                 }
@@ -358,16 +309,14 @@ class DataSeriesValues
                 if (count($cellRange) > 1) {
                     list(, $cellRange) = $cellRange;
                 }
-
                 $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange));
-                if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
+                if ($dimensions[0] == 1 || $dimensions[1] == 1) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {
                     $newArray = array_values(array_shift($newDataValues));
                     foreach ($newArray as $i => $newDataSet) {
-                        $newArray[$i] = [$newDataSet];
+                        $newArray[$i] = array($newDataSet);
                     }
-
                     foreach ($newDataValues as $newDataSet) {
                         $i = 0;
                         foreach ($newDataSet as $newDataVal) {

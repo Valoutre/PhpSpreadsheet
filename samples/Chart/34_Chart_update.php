@@ -2,33 +2,19 @@
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 require __DIR__ . '/../Header.php';
-
 // Create temporary file that will be read
-$sampleSpreadsheet = require __DIR__ . '/../templates/chartSpreadsheet.php';
+$sampleSpreadsheet = (require __DIR__ . '/../templates/chartSpreadsheet.php');
 $filename = $helper->getTemporaryFilename();
 $writer = new Xlsx($sampleSpreadsheet);
 $writer->save($filename);
-
 $helper->log('Load from Xlsx file');
 $reader = IOFactory::createReader('Xlsx');
 $reader->setIncludeCharts(true);
 $spreadsheet = $reader->load($filename);
-
 $helper->log('Update cell data values that are displayed in the chart');
 $worksheet = $spreadsheet->getActiveSheet();
-$worksheet->fromArray(
-    [
-    [50 - 12, 50 - 15, 50 - 21],
-    [50 - 56, 50 - 73, 50 - 86],
-    [50 - 52, 50 - 61, 50 - 69],
-    [50 - 30, 50 - 32, 50],
-        ],
-    null,
-    'B2'
-);
-
+$worksheet->fromArray(array(array(50 - 12, 50 - 15, 50 - 21), array(50 - 56, 50 - 73, 50 - 86), array(50 - 52, 50 - 61, 50 - 69), array(50 - 30, 50 - 32, 50)), null, 'B2');
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');

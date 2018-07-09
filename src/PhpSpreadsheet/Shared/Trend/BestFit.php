@@ -10,87 +10,64 @@ class BestFit
      * @var bool
      */
     protected $error = false;
-
     /**
      * Algorithm type to use for best-fit.
      *
      * @var string
      */
     protected $bestFitType = 'undetermined';
-
     /**
      * Number of entries in the sets of x- and y-value arrays.
      *
      * @var int
      */
     protected $valueCount = 0;
-
     /**
      * X-value dataseries of values.
      *
      * @var float[]
      */
-    protected $xValues = [];
-
+    protected $xValues = array();
     /**
      * Y-value dataseries of values.
      *
      * @var float[]
      */
-    protected $yValues = [];
-
+    protected $yValues = array();
     /**
      * Flag indicating whether values should be adjusted to Y=0.
      *
      * @var bool
      */
     protected $adjustToZero = false;
-
     /**
      * Y-value series of best-fit values.
      *
      * @var float[]
      */
-    protected $yBestFitValues = [];
-
+    protected $yBestFitValues = array();
     protected $goodnessOfFit = 1;
-
     protected $stdevOfResiduals = 0;
-
     protected $covariance = 0;
-
     protected $correlation = 0;
-
     protected $SSRegression = 0;
-
     protected $SSResiduals = 0;
-
     protected $DFResiduals = 0;
-
     protected $f = 0;
-
     protected $slope = 0;
-
     protected $slopeSE = 0;
-
     protected $intersect = 0;
-
     protected $intersectSE = 0;
-
     protected $xOffset = 0;
-
     protected $yOffset = 0;
-
     public function getError()
     {
         return $this->error;
     }
-
     public function getBestFitType()
     {
         return $this->bestFitType;
     }
-
     /**
      * Return the Y-Value for a specified value of X.
      *
@@ -102,7 +79,6 @@ class BestFit
     {
         return false;
     }
-
     /**
      * Return the X-Value for a specified value of Y.
      *
@@ -114,7 +90,6 @@ class BestFit
     {
         return false;
     }
-
     /**
      * Return the original set of X-Values.
      *
@@ -124,7 +99,6 @@ class BestFit
     {
         return $this->xValues;
     }
-
     /**
      * Return the Equation of the best-fit line.
      *
@@ -136,7 +110,6 @@ class BestFit
     {
         return false;
     }
-
     /**
      * Return the Slope of the line.
      *
@@ -149,10 +122,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->slope, $dp);
         }
-
         return $this->slope;
     }
-
     /**
      * Return the standard error of the Slope.
      *
@@ -165,10 +136,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->slopeSE, $dp);
         }
-
         return $this->slopeSE;
     }
-
     /**
      * Return the Value of X where it intersects Y = 0.
      *
@@ -181,10 +150,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->intersect, $dp);
         }
-
         return $this->intersect;
     }
-
     /**
      * Return the standard error of the Intersect.
      *
@@ -197,10 +164,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->intersectSE, $dp);
         }
-
         return $this->intersectSE;
     }
-
     /**
      * Return the goodness of fit for this regression.
      *
@@ -213,10 +178,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->goodnessOfFit, $dp);
         }
-
         return $this->goodnessOfFit;
     }
-
     /**
      * Return the goodness of fit for this regression.
      *
@@ -229,10 +192,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->goodnessOfFit * 100, $dp);
         }
-
         return $this->goodnessOfFit * 100;
     }
-
     /**
      * Return the standard deviation of the residuals for this regression.
      *
@@ -245,10 +206,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->stdevOfResiduals, $dp);
         }
-
         return $this->stdevOfResiduals;
     }
-
     /**
      * @param int $dp Number of places of decimal precision to return
      *
@@ -259,10 +218,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->SSRegression, $dp);
         }
-
         return $this->SSRegression;
     }
-
     /**
      * @param int $dp Number of places of decimal precision to return
      *
@@ -273,10 +230,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->SSResiduals, $dp);
         }
-
         return $this->SSResiduals;
     }
-
     /**
      * @param int $dp Number of places of decimal precision to return
      *
@@ -287,10 +242,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->DFResiduals, $dp);
         }
-
         return $this->DFResiduals;
     }
-
     /**
      * @param int $dp Number of places of decimal precision to return
      *
@@ -301,10 +254,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->f, $dp);
         }
-
         return $this->f;
     }
-
     /**
      * @param int $dp Number of places of decimal precision to return
      *
@@ -315,10 +266,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->covariance, $dp);
         }
-
         return $this->covariance;
     }
-
     /**
      * @param int $dp Number of places of decimal precision to return
      *
@@ -329,10 +278,8 @@ class BestFit
         if ($dp != 0) {
             return round($this->correlation, $dp);
         }
-
         return $this->correlation;
     }
-
     /**
      * @return float[]
      */
@@ -340,13 +287,11 @@ class BestFit
     {
         return $this->yBestFitValues;
     }
-
     protected function calculateGoodnessOfFit($sumX, $sumY, $sumX2, $sumY2, $sumXY, $meanX, $meanY, $const)
     {
         $SSres = $SScov = $SScor = $SStot = $SSsex = 0.0;
         foreach ($this->xValues as $xKey => $xValue) {
             $bestFitY = $this->yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
-
             $SSres += ($this->yValues[$xKey] - $bestFitY) * ($this->yValues[$xKey] - $bestFitY);
             if ($const) {
                 $SStot += ($this->yValues[$xKey] - $meanY) * ($this->yValues[$xKey] - $meanY);
@@ -360,26 +305,23 @@ class BestFit
                 $SSsex += $this->xValues[$xKey] * $this->xValues[$xKey];
             }
         }
-
         $this->SSResiduals = $SSres;
         $this->DFResiduals = $this->valueCount - 1 - $const;
-
         if ($this->DFResiduals == 0.0) {
             $this->stdevOfResiduals = 0.0;
         } else {
             $this->stdevOfResiduals = sqrt($SSres / $this->DFResiduals);
         }
-        if (($SStot == 0.0) || ($SSres == $SStot)) {
+        if ($SStot == 0.0 || $SSres == $SStot) {
             $this->goodnessOfFit = 1;
         } else {
-            $this->goodnessOfFit = 1 - ($SSres / $SStot);
+            $this->goodnessOfFit = 1 - $SSres / $SStot;
         }
-
         $this->SSRegression = $this->goodnessOfFit * $SStot;
         $this->covariance = $SScov / $this->valueCount;
         $this->correlation = ($this->valueCount * $sumXY - $sumX * $sumY) / sqrt(($this->valueCount * $sumX2 - pow($sumX, 2)) * ($this->valueCount * $sumY2 - pow($sumY, 2)));
         $this->slopeSE = $this->stdevOfResiduals / sqrt($SSsex);
-        $this->intersectSE = $this->stdevOfResiduals * sqrt(1 / ($this->valueCount - ($sumX * $sumX) / $sumX2));
+        $this->intersectSE = $this->stdevOfResiduals * sqrt(1 / ($this->valueCount - $sumX * $sumX / $sumX2));
         if ($this->SSResiduals != 0.0) {
             if ($this->DFResiduals == 0.0) {
                 $this->f = 0.0;
@@ -394,7 +336,6 @@ class BestFit
             }
         }
     }
-
     /**
      * @param float[] $yValues
      * @param float[] $xValues
@@ -412,7 +353,6 @@ class BestFit
             $xy_sum += $xValues[$i] * $yValues[$i];
             $xx_sum += $xValues[$i] * $xValues[$i];
             $yy_sum += $yValues[$i] * $yValues[$i];
-
             if ($const) {
                 $mBase += ($xValues[$i] - $meanX) * ($yValues[$i] - $meanY);
                 $mDivisor += ($xValues[$i] - $meanX) * ($xValues[$i] - $meanX);
@@ -421,20 +361,16 @@ class BestFit
                 $mDivisor += $xValues[$i] * $xValues[$i];
             }
         }
-
         // calculate slope
         $this->slope = $mBase / $mDivisor;
-
         // calculate intersect
         if ($const) {
-            $this->intersect = $meanY - ($this->slope * $meanX);
+            $this->intersect = $meanY - $this->slope * $meanX;
         } else {
             $this->intersect = 0;
         }
-
         $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, $meanX, $meanY, $const);
     }
-
     /**
      * Define the regression.
      *
@@ -442,12 +378,11 @@ class BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct($yValues, $xValues = array(), $const = true)
     {
         //    Calculate number of points
         $nY = count($yValues);
         $nX = count($xValues);
-
         //    Define X Values if necessary
         if ($nX == 0) {
             $xValues = range(1, $nY);
@@ -455,7 +390,6 @@ class BestFit
             //    Ensure both arrays of points are the same size
             $this->error = true;
         }
-
         $this->valueCount = $nY;
         $this->xValues = $xValues;
         $this->yValues = $yValues;

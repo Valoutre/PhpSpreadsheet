@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-
 class Slk extends BaseReader
 {
     /**
@@ -16,28 +15,24 @@ class Slk extends BaseReader
      * @var string
      */
     private $inputEncoding = 'ANSI';
-
     /**
      * Sheet index to read.
      *
      * @var int
      */
     private $sheetIndex = 0;
-
     /**
      * Formats.
      *
      * @var array
      */
-    private $formats = [];
-
+    private $formats = array();
     /**
      * Format Count.
      *
      * @var int
      */
     private $format = 0;
-
     /**
      * Create a new SYLK Reader instance.
      */
@@ -45,7 +40,6 @@ class Slk extends BaseReader
     {
         $this->readFilter = new DefaultReadFilter();
     }
-
     /**
      * Validate that the current file is a SYLK file.
      *
@@ -61,23 +55,18 @@ class Slk extends BaseReader
         } catch (Exception $e) {
             return false;
         }
-
         // Read sample data (first 2 KB will do)
         $data = fread($this->fileHandle, 2048);
-
         // Count delimiters in file
         $delimiterCount = substr_count($data, ';');
         $hasDelimiter = $delimiterCount > 0;
-
         // Analyze first line looking for ID; signature
-        $lines = explode("\n", $data);
+        $lines = explode('
+', $data);
         $hasId = substr($lines[0], 0, 4) === 'ID;P';
-
         fclose($this->fileHandle);
-
         return $hasDelimiter && $hasId;
     }
-
     /**
      * Set input encoding.
      *
@@ -88,10 +77,8 @@ class Slk extends BaseReader
     public function setInputEncoding($pValue)
     {
         $this->inputEncoding = $pValue;
-
         return $this;
     }
-
     /**
      * Get input encoding.
      *
@@ -101,7 +88,6 @@ class Slk extends BaseReader
     {
         return $this->inputEncoding;
     }
-
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
@@ -120,26 +106,21 @@ class Slk extends BaseReader
         $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
-
-        $worksheetInfo = [];
+        $worksheetInfo = array();
         $worksheetInfo[0]['worksheetName'] = 'Worksheet';
         $worksheetInfo[0]['lastColumnLetter'] = 'A';
         $worksheetInfo[0]['lastColumnIndex'] = 0;
         $worksheetInfo[0]['totalRows'] = 0;
         $worksheetInfo[0]['totalColumns'] = 0;
-
         // loop through one row (line) at a time in the file
         $rowIndex = 0;
         while (($rowData = fgets($fileHandle)) !== false) {
             $columnIndex = 0;
-
             // convert SYLK encoded $rowData to UTF-8
             $rowData = StringHelper::SYLKtoUTF8($rowData);
-
             // explode each row at semicolons while taking into account that literal semicolon (;)
             // is escaped like this (;;)
-            $rowData = explode("\t", str_replace('¤', ';', str_replace(';', "\t", str_replace(';;', '¤', rtrim($rowData)))));
-
+            $rowData = explode('	', str_replace('¤', ';', str_replace(';', '	', str_replace(';;', '¤', rtrim($rowData)))));
             $dataType = array_shift($rowData);
             if ($dataType == 'C') {
                 //  Read cell value data
@@ -148,30 +129,23 @@ class Slk extends BaseReader
                         case 'C':
                         case 'X':
                             $columnIndex = substr($rowDatum, 1) - 1;
-
                             break;
                         case 'R':
                         case 'Y':
                             $rowIndex = substr($rowDatum, 1);
-
                             break;
                     }
-
                     $worksheetInfo[0]['totalRows'] = max($worksheetInfo[0]['totalRows'], $rowIndex);
                     $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], $columnIndex);
                 }
             }
         }
-
         $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
-
         // Close file
         fclose($fileHandle);
-
         return $worksheetInfo;
     }
-
     /**
      * Loads PhpSpreadsheet from file.
      *
@@ -185,11 +159,9 @@ class Slk extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
-
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
-
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
@@ -209,46 +181,37 @@ class Slk extends BaseReader
         $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
-
         // Create new Worksheets
         while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
             $spreadsheet->createSheet();
         }
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
-
-        $fromFormats = ['\-', '\ '];
-        $toFormats = ['-', ' '];
-
+        $fromFormats = array('\\-', '\\ ');
+        $toFormats = array('-', ' ');
         // Loop through file
         $column = $row = '';
-
         // loop through one row (line) at a time in the file
         while (($rowData = fgets($fileHandle)) !== false) {
             // convert SYLK encoded $rowData to UTF-8
             $rowData = StringHelper::SYLKtoUTF8($rowData);
-
             // explode each row at semicolons while taking into account that literal semicolon (;)
             // is escaped like this (;;)
-            $rowData = explode("\t", str_replace('¤', ';', str_replace(';', "\t", str_replace(';;', '¤', rtrim($rowData)))));
-
+            $rowData = explode('	', str_replace('¤', ';', str_replace(';', '	', str_replace(';;', '¤', rtrim($rowData)))));
             $dataType = array_shift($rowData);
             //    Read shared styles
             if ($dataType == 'P') {
-                $formatArray = [];
+                $formatArray = array();
                 foreach ($rowData as $rowDatum) {
                     switch ($rowDatum[0]) {
                         case 'P':
                             $formatArray['numberFormat']['formatCode'] = str_replace($fromFormats, $toFormats, substr($rowDatum, 1));
-
                             break;
                         case 'E':
                         case 'F':
                             $formatArray['font']['name'] = substr($rowDatum, 1);
-
                             break;
                         case 'L':
                             $formatArray['font']['size'] = substr($rowDatum, 1);
-
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
@@ -257,36 +220,28 @@ class Slk extends BaseReader
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $formatArray['font']['italic'] = true;
-
                                         break;
                                     case 'D':
                                         $formatArray['font']['bold'] = true;
-
                                         break;
                                     case 'T':
                                         $formatArray['borders']['top']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                     case 'B':
                                         $formatArray['borders']['bottom']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                     case 'L':
                                         $formatArray['borders']['left']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                     case 'R':
                                         $formatArray['borders']['right']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                 }
                             }
-
                             break;
                     }
                 }
                 $this->formats['P' . $this->format++] = $formatArray;
-            //    Read cell value data
             } elseif ($dataType == 'C') {
                 $hasCalculatedValue = false;
                 $cellData = $cellDataFormula = '';
@@ -295,16 +250,13 @@ class Slk extends BaseReader
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
-
                             break;
                         case 'R':
                         case 'Y':
                             $row = substr($rowDatum, 1);
-
                             break;
                         case 'K':
                             $cellData = substr($rowDatum, 1);
-
                             break;
                         case 'E':
                             $cellDataFormula = '=' . substr($rowDatum, 1);
@@ -314,7 +266,7 @@ class Slk extends BaseReader
                             foreach ($temp as &$value) {
                                 //    Only count/replace in alternate array entries
                                 if ($key = !$key) {
-                                    preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+                                    preg_match_all('/(R(\\[?-?\\d*\\]?))(C(\\[?-?\\d*\\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                                     //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
                                     //        through the formula from left to right. Reversing means that we work right to left.through
                                     //        the formula
@@ -341,7 +293,6 @@ class Slk extends BaseReader
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
                                         $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
-
                                         $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                     }
                                 }
@@ -350,42 +301,35 @@ class Slk extends BaseReader
                             //    Then rebuild the formula string
                             $cellDataFormula = implode('"', $temp);
                             $hasCalculatedValue = true;
-
                             break;
                     }
                 }
                 $columnLetter = Coordinate::stringFromColumnIndex($column);
                 $cellData = Calculation::unwrapResult($cellData);
-
                 // Set cell value
-                $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
+                $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setValue($hasCalculatedValue ? $cellDataFormula : $cellData);
                 if ($hasCalculatedValue) {
                     $cellData = Calculation::unwrapResult($cellData);
                     $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setCalculatedValue($cellData);
                 }
-                //    Read cell formatting
             } elseif ($dataType == 'F') {
                 $formatStyle = $columnWidth = $styleSettings = '';
-                $styleData = [];
+                $styleData = array();
                 foreach ($rowData as $rowDatum) {
                     switch ($rowDatum[0]) {
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
-
                             break;
                         case 'R':
                         case 'Y':
                             $row = substr($rowDatum, 1);
-
                             break;
                         case 'P':
                             $formatStyle = $rowDatum;
-
                             break;
                         case 'W':
                             list($startCol, $endCol, $columnWidth) = explode(' ', substr($rowDatum, 1));
-
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
@@ -394,41 +338,34 @@ class Slk extends BaseReader
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $styleData['font']['italic'] = true;
-
                                         break;
                                     case 'D':
                                         $styleData['font']['bold'] = true;
-
                                         break;
                                     case 'T':
                                         $styleData['borders']['top']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                     case 'B':
                                         $styleData['borders']['bottom']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                     case 'L':
                                         $styleData['borders']['left']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                     case 'R':
                                         $styleData['borders']['right']['borderStyle'] = Border::BORDER_THIN;
-
                                         break;
                                 }
                             }
-
                             break;
                     }
                 }
-                if (($formatStyle > '') && ($column > '') && ($row > '')) {
+                if ($formatStyle > '' && $column > '' && $row > '') {
                     $columnLetter = Coordinate::stringFromColumnIndex($column);
                     if (isset($this->formats[$formatStyle])) {
                         $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
                     }
                 }
-                if ((!empty($styleData)) && ($column > '') && ($row > '')) {
+                if (!empty($styleData) && $column > '' && $row > '') {
                     $columnLetter = Coordinate::stringFromColumnIndex($column);
                     $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($styleData);
                 }
@@ -451,25 +388,20 @@ class Slk extends BaseReader
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
-
                             break;
                         case 'R':
                         case 'Y':
                             $row = substr($rowDatum, 1);
-
                             break;
                     }
                 }
             }
         }
-
         // Close file
         fclose($fileHandle);
-
         // Return
         return $spreadsheet;
     }
-
     /**
      * Get sheet index.
      *
@@ -479,7 +411,6 @@ class Slk extends BaseReader
     {
         return $this->sheetIndex;
     }
-
     /**
      * Set sheet index.
      *
@@ -490,7 +421,6 @@ class Slk extends BaseReader
     public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
-
         return $this;
     }
 }

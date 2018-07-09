@@ -22,7 +22,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 //
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
-
 /**
  * Class for creating File PPS's for OLE containers.
  *
@@ -41,9 +40,8 @@ class File extends PPS
      */
     public function __construct($name)
     {
-        parent::__construct(null, $name, OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
+        parent::__construct(null, $name, OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', array());
     }
-
     /**
      * Initialization method. Has to be called right after OLE_PPS_File().
      *
@@ -53,7 +51,6 @@ class File extends PPS
     {
         return true;
     }
-
     /**
      * Append data to PPS.
      *

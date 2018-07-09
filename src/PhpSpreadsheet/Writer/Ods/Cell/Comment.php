@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-
 /**
  * @category   PhpSpreadsheet
  *
@@ -20,7 +19,6 @@ class Comment
             return;
         }
         $comment = $comments[$cell->getCoordinate()];
-
         $objWriter->startElement('office:annotation');
         $objWriter->writeAttribute('svg:width', $comment->getWidth());
         $objWriter->writeAttribute('svg:height', $comment->getHeight());

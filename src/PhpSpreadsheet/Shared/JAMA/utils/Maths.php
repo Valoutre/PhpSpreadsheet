@@ -1,4 +1,5 @@
 <?php
+
 /**
  *    Pythagorean Theorem:.
  *
@@ -25,6 +26,5 @@ function hypo($a, $b)
     } else {
         $r = 0.0;
     }
-
     return $r;
 }

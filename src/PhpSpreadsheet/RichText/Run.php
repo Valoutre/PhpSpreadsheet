@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
 use PhpOffice\PhpSpreadsheet\Style\Font;
-
 class Run extends TextElement implements ITextElement
 {
     /**
@@ -12,7 +11,6 @@ class Run extends TextElement implements ITextElement
      * @var Font
      */
     private $font;
-
     /**
      * Create a new Run instance.
      *
@@ -24,7 +22,6 @@ class Run extends TextElement implements ITextElement
         // Initialise variables
         $this->font = new Font();
     }
-
     /**
      * Get font.
      *
@@ -34,7 +31,6 @@ class Run extends TextElement implements ITextElement
     {
         return $this->font;
     }
-
     /**
      * Set font.
      *
@@ -45,10 +41,8 @@ class Run extends TextElement implements ITextElement
     public function setFont(Font $pFont = null)
     {
         $this->font = $pFont;
-
         return $this;
     }
-
     /**
      * Get hash code.
      *
@@ -56,10 +50,6 @@ class Run extends TextElement implements ITextElement
      */
     public function getHashCode()
     {
-        return md5(
-            $this->getText() .
-            $this->font->getHashCode() .
-            __CLASS__
-        );
+        return md5($this->getText() . $this->font->getHashCode() . __CLASS__);
     }
 }

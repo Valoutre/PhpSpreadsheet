@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
-
 abstract class WriterPart
 {
     /**
@@ -12,7 +11,6 @@ abstract class WriterPart
      * @var Ods
      */
     private $parentWriter;
-
     /**
      * Get Ods writer.
      *
@@ -22,7 +20,6 @@ abstract class WriterPart
     {
         return $this->parentWriter;
     }
-
     /**
      * Set parent Ods writer.
      *

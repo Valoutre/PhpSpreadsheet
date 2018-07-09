@@ -72,91 +72,78 @@ class HeaderFooter
     const IMAGE_FOOTER_LEFT = 'LF';
     const IMAGE_FOOTER_CENTER = 'CF';
     const IMAGE_FOOTER_RIGHT = 'RF';
-
     /**
      * OddHeader.
      *
      * @var string
      */
     private $oddHeader = '';
-
     /**
      * OddFooter.
      *
      * @var string
      */
     private $oddFooter = '';
-
     /**
      * EvenHeader.
      *
      * @var string
      */
     private $evenHeader = '';
-
     /**
      * EvenFooter.
      *
      * @var string
      */
     private $evenFooter = '';
-
     /**
      * FirstHeader.
      *
      * @var string
      */
     private $firstHeader = '';
-
     /**
      * FirstFooter.
      *
      * @var string
      */
     private $firstFooter = '';
-
     /**
      * Different header for Odd/Even, defaults to false.
      *
      * @var bool
      */
     private $differentOddEven = false;
-
     /**
      * Different header for first page, defaults to false.
      *
      * @var bool
      */
     private $differentFirst = false;
-
     /**
      * Scale with document, defaults to true.
      *
      * @var bool
      */
     private $scaleWithDocument = true;
-
     /**
      * Align with margins, defaults to true.
      *
      * @var bool
      */
     private $alignWithMargins = true;
-
     /**
      * Header/footer images.
      *
      * @var HeaderFooterDrawing[]
      */
-    private $headerFooterImages = [];
-
+    private $headerFooterImages = array();
     /**
      * Create a new HeaderFooter.
      */
     public function __construct()
     {
     }
-
     /**
      * Get OddHeader.
      *
@@ -166,7 +153,6 @@ class HeaderFooter
     {
         return $this->oddHeader;
     }
-
     /**
      * Set OddHeader.
      *
@@ -177,10 +163,8 @@ class HeaderFooter
     public function setOddHeader($pValue)
     {
         $this->oddHeader = $pValue;
-
         return $this;
     }
-
     /**
      * Get OddFooter.
      *
@@ -190,7 +174,6 @@ class HeaderFooter
     {
         return $this->oddFooter;
     }
-
     /**
      * Set OddFooter.
      *
@@ -201,10 +184,8 @@ class HeaderFooter
     public function setOddFooter($pValue)
     {
         $this->oddFooter = $pValue;
-
         return $this;
     }
-
     /**
      * Get EvenHeader.
      *
@@ -214,7 +195,6 @@ class HeaderFooter
     {
         return $this->evenHeader;
     }
-
     /**
      * Set EvenHeader.
      *
@@ -225,10 +205,8 @@ class HeaderFooter
     public function setEvenHeader($pValue)
     {
         $this->evenHeader = $pValue;
-
         return $this;
     }
-
     /**
      * Get EvenFooter.
      *
@@ -238,7 +216,6 @@ class HeaderFooter
     {
         return $this->evenFooter;
     }
-
     /**
      * Set EvenFooter.
      *
@@ -249,10 +226,8 @@ class HeaderFooter
     public function setEvenFooter($pValue)
     {
         $this->evenFooter = $pValue;
-
         return $this;
     }
-
     /**
      * Get FirstHeader.
      *
@@ -262,7 +237,6 @@ class HeaderFooter
     {
         return $this->firstHeader;
     }
-
     /**
      * Set FirstHeader.
      *
@@ -273,10 +247,8 @@ class HeaderFooter
     public function setFirstHeader($pValue)
     {
         $this->firstHeader = $pValue;
-
         return $this;
     }
-
     /**
      * Get FirstFooter.
      *
@@ -286,7 +258,6 @@ class HeaderFooter
     {
         return $this->firstFooter;
     }
-
     /**
      * Set FirstFooter.
      *
@@ -297,10 +268,8 @@ class HeaderFooter
     public function setFirstFooter($pValue)
     {
         $this->firstFooter = $pValue;
-
         return $this;
     }
-
     /**
      * Get DifferentOddEven.
      *
@@ -310,7 +279,6 @@ class HeaderFooter
     {
         return $this->differentOddEven;
     }
-
     /**
      * Set DifferentOddEven.
      *
@@ -321,10 +289,8 @@ class HeaderFooter
     public function setDifferentOddEven($pValue)
     {
         $this->differentOddEven = $pValue;
-
         return $this;
     }
-
     /**
      * Get DifferentFirst.
      *
@@ -334,7 +300,6 @@ class HeaderFooter
     {
         return $this->differentFirst;
     }
-
     /**
      * Set DifferentFirst.
      *
@@ -345,10 +310,8 @@ class HeaderFooter
     public function setDifferentFirst($pValue)
     {
         $this->differentFirst = $pValue;
-
         return $this;
     }
-
     /**
      * Get ScaleWithDocument.
      *
@@ -358,7 +321,6 @@ class HeaderFooter
     {
         return $this->scaleWithDocument;
     }
-
     /**
      * Set ScaleWithDocument.
      *
@@ -369,10 +331,8 @@ class HeaderFooter
     public function setScaleWithDocument($pValue)
     {
         $this->scaleWithDocument = $pValue;
-
         return $this;
     }
-
     /**
      * Get AlignWithMargins.
      *
@@ -382,7 +342,6 @@ class HeaderFooter
     {
         return $this->alignWithMargins;
     }
-
     /**
      * Set AlignWithMargins.
      *
@@ -393,10 +352,8 @@ class HeaderFooter
     public function setAlignWithMargins($pValue)
     {
         $this->alignWithMargins = $pValue;
-
         return $this;
     }
-
     /**
      * Add header/footer image.
      *
@@ -408,10 +365,8 @@ class HeaderFooter
     public function addImage(HeaderFooterDrawing $image, $location = self::IMAGE_HEADER_LEFT)
     {
         $this->headerFooterImages[$location] = $image;
-
         return $this;
     }
-
     /**
      * Remove header/footer image.
      *
@@ -424,10 +379,8 @@ class HeaderFooter
         if (isset($this->headerFooterImages[$location])) {
             unset($this->headerFooterImages[$location]);
         }
-
         return $this;
     }
-
     /**
      * Set header/footer images.
      *
@@ -438,10 +391,8 @@ class HeaderFooter
     public function setImages(array $images)
     {
         $this->headerFooterImages = $images;
-
         return $this;
     }
-
     /**
      * Get header/footer images.
      *
@@ -450,7 +401,7 @@ class HeaderFooter
     public function getImages()
     {
         // Sort array
-        $images = [];
+        $images = array();
         if (isset($this->headerFooterImages[self::IMAGE_HEADER_LEFT])) {
             $images[self::IMAGE_HEADER_LEFT] = $this->headerFooterImages[self::IMAGE_HEADER_LEFT];
         }
@@ -470,10 +421,8 @@ class HeaderFooter
             $images[self::IMAGE_FOOTER_RIGHT] = $this->headerFooterImages[self::IMAGE_FOOTER_RIGHT];
         }
         $this->headerFooterImages = $images;
-
         return $this->headerFooterImages;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -482,9 +431,9 @@ class HeaderFooter
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
 class PlotArea
 {
     /**
@@ -12,26 +11,23 @@ class PlotArea
      * @var Layout
      */
     private $layout;
-
     /**
      * Plot Series.
      *
      * @var DataSeries[]
      */
-    private $plotSeries = [];
-
+    private $plotSeries = array();
     /**
      * Create a new PlotArea.
      *
      * @param null|Layout $layout
      * @param DataSeries[] $plotSeries
      */
-    public function __construct(Layout $layout = null, array $plotSeries = [])
+    public function __construct(Layout $layout = null, array $plotSeries = array())
     {
         $this->layout = $layout;
         $this->plotSeries = $plotSeries;
     }
-
     /**
      * Get Layout.
      *
@@ -41,7 +37,6 @@ class PlotArea
     {
         return $this->layout;
     }
-
     /**
      * Get Number of Plot Groups.
      *
@@ -51,7 +46,6 @@ class PlotArea
     {
         return count($this->plotSeries);
     }
-
     /**
      * Get Number of Plot Series.
      *
@@ -63,10 +57,8 @@ class PlotArea
         foreach ($this->plotSeries as $plot) {
             $seriesCount += $plot->getPlotSeriesCount();
         }
-
         return $seriesCount;
     }
-
     /**
      * Get Plot Series.
      *
@@ -76,7 +68,6 @@ class PlotArea
     {
         return $this->plotSeries;
     }
-
     /**
      * Get Plot Series by Index.
      *
@@ -88,7 +79,6 @@ class PlotArea
     {
         return $this->plotSeries[$index];
     }
-
     /**
      * Set Plot Series.
      *
@@ -99,10 +89,8 @@ class PlotArea
     public function setPlotSeries(array $plotSeries)
     {
         $this->plotSeries = $plotSeries;
-
         return $this;
     }
-
     public function refresh(Worksheet $worksheet)
     {
         foreach ($this->plotSeries as $plotSeries) {

@@ -25,17 +25,13 @@ class Database
     {
         $field = strtoupper(Functions::flattenSingleValue($field));
         $fieldNames = array_map('strtoupper', array_shift($database));
-
         if (is_numeric($field)) {
             $keys = array_keys($fieldNames);
-
             return $keys[$field - 1];
         }
         $key = array_search($field, $fieldNames);
-
-        return ($key) ? $key : null;
+        return $key ? $key : null;
     }
-
     /**
      * filter.
      *
@@ -58,12 +54,11 @@ class Database
     {
         $fieldNames = array_shift($database);
         $criteriaNames = array_shift($criteria);
-
         //    Convert the criteria into a set of AND/OR conditions with [:placeholders]
-        $testConditions = $testValues = [];
+        $testConditions = $testValues = array();
         $testConditionsCount = 0;
         foreach ($criteriaNames as $key => $criteriaName) {
-            $testCondition = [];
+            $testCondition = array();
             $testConditionCount = 0;
             foreach ($criteria as $row => $criterion) {
                 if ($criterion[$key] > '') {
@@ -79,13 +74,11 @@ class Database
                 ++$testConditionsCount;
             }
         }
-
         if ($testConditionsCount > 1) {
             $testConditionSet = 'AND(' . implode(',', $testConditions) . ')';
         } elseif ($testConditionsCount == 1) {
             $testConditionSet = $testConditions[0];
         }
-
         //    Loop through each row of the database
         foreach ($database as $dataRow => $dataValues) {
             //    Substitute actual values from the database row for our [:placeholders]
@@ -94,7 +87,7 @@ class Database
                 $k = array_search($criteriaName, $fieldNames);
                 if (isset($dataValues[$k])) {
                     $dataValue = $dataValues[$k];
-                    $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
+                    $dataValue = is_string($dataValue) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
                     $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
                 }
             }
@@ -105,23 +98,19 @@ class Database
                 unset($database[$dataRow]);
             }
         }
-
         return $database;
     }
-
     private static function getFilteredColumn($database, $field, $criteria)
     {
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
         //    extract an array of values for the requested column
-        $colData = [];
+        $colData = array();
         foreach ($database as $row) {
             $colData[] = $row[$field];
         }
-
         return $colData;
     }
-
     /**
      * DAVERAGE.
      *
@@ -155,13 +144,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::AVERAGE(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::AVERAGE(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DCOUNT.
      *
@@ -202,13 +187,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::COUNT(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::COUNT(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DCOUNTA.
      *
@@ -245,21 +226,16 @@ class Database
         if ($field === null) {
             return null;
         }
-
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
         //    extract an array of values for the requested column
-        $colData = [];
+        $colData = array();
         foreach ($database as $row) {
             $colData[] = $row[$field];
         }
-
         // Return
-        return Statistical::COUNTA(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::COUNTA(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DGET.
      *
@@ -294,16 +270,13 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
         $colData = self::getFilteredColumn($database, $field, $criteria);
         if (count($colData) > 1) {
             return Functions::NAN();
         }
-
         return $colData[0];
     }
-
     /**
      * DMAX.
      *
@@ -338,13 +311,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::MAX(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::MAX(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DMIN.
      *
@@ -379,13 +348,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::MIN(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::MIN(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DPRODUCT.
      *
@@ -419,13 +384,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return MathTrig::PRODUCT(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return MathTrig::PRODUCT(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DSTDEV.
      *
@@ -460,13 +421,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::STDEV(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::STDEV(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DSTDEVP.
      *
@@ -501,13 +458,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::STDEVP(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::STDEVP(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DSUM.
      *
@@ -541,13 +494,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return MathTrig::SUM(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return MathTrig::SUM(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DVAR.
      *
@@ -582,13 +531,9 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::VARFunc(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::VARFunc(self::getFilteredColumn($database, $field, $criteria));
     }
-
     /**
      * DVARP.
      *
@@ -623,10 +568,7 @@ class Database
         if ($field === null) {
             return null;
         }
-
         // Return
-        return Statistical::VARP(
-            self::getFilteredColumn($database, $field, $criteria)
-        );
+        return Statistical::VARP(self::getFilteredColumn($database, $field, $criteria));
     }
 }

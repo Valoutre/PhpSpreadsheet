@@ -20,7 +20,6 @@ class Logical
     {
         return true;
     }
-
     /**
      * FALSE.
      *
@@ -37,7 +36,6 @@ class Logical
     {
         return false;
     }
-
     /**
      * LOGICAL_AND.
      *
@@ -64,7 +62,6 @@ class Logical
     {
         // Return value
         $returnValue = true;
-
         // Loop through the arguments
         $aArgs = Functions::flattenArray($args);
         $argCount = -1;
@@ -72,29 +69,26 @@ class Logical
             // Is it a boolean value?
             if (is_bool($arg)) {
                 $returnValue = $returnValue && $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue && ($arg != 0);
+            } elseif (is_numeric($arg) && !is_string($arg)) {
+                $returnValue = $returnValue && $arg != 0;
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
+                if ($arg == 'TRUE' || $arg == Calculation::getTRUE()) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
+                } elseif ($arg == 'FALSE' || $arg == Calculation::getFALSE()) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
                 }
-                $returnValue = $returnValue && ($arg != 0);
+                $returnValue = $returnValue && $arg != 0;
             }
         }
-
         // Return
         if ($argCount < 0) {
             return Functions::VALUE();
         }
-
         return $returnValue;
     }
-
     /**
      * LOGICAL_OR.
      *
@@ -121,7 +115,6 @@ class Logical
     {
         // Return value
         $returnValue = false;
-
         // Loop through the arguments
         $aArgs = Functions::flattenArray($args);
         $argCount = -1;
@@ -129,29 +122,26 @@ class Logical
             // Is it a boolean value?
             if (is_bool($arg)) {
                 $returnValue = $returnValue || $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue || ($arg != 0);
+            } elseif (is_numeric($arg) && !is_string($arg)) {
+                $returnValue = $returnValue || $arg != 0;
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
+                if ($arg == 'TRUE' || $arg == Calculation::getTRUE()) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
+                } elseif ($arg == 'FALSE' || $arg == Calculation::getFALSE()) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
                 }
-                $returnValue = $returnValue || ($arg != 0);
+                $returnValue = $returnValue || $arg != 0;
             }
         }
-
         // Return
         if ($argCount < 0) {
             return Functions::VALUE();
         }
-
         return $returnValue;
     }
-
     /**
      * NOT.
      *
@@ -178,18 +168,15 @@ class Logical
         $logical = Functions::flattenSingleValue($logical);
         if (is_string($logical)) {
             $logical = strtoupper($logical);
-            if (($logical == 'TRUE') || ($logical == Calculation::getTRUE())) {
+            if ($logical == 'TRUE' || $logical == Calculation::getTRUE()) {
                 return false;
-            } elseif (($logical == 'FALSE') || ($logical == Calculation::getFALSE())) {
+            } elseif ($logical == 'FALSE' || $logical == Calculation::getFALSE()) {
                 return true;
             }
-
             return Functions::VALUE();
         }
-
         return !$logical;
     }
-
     /**
      * STATEMENT_IF.
      *
@@ -225,13 +212,11 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition = ($condition === null) ? true : (bool) Functions::flattenSingleValue($condition);
-        $returnIfTrue = ($returnIfTrue === null) ? 0 : Functions::flattenSingleValue($returnIfTrue);
-        $returnIfFalse = ($returnIfFalse === null) ? false : Functions::flattenSingleValue($returnIfFalse);
-
-        return ($condition) ? $returnIfTrue : $returnIfFalse;
+        $condition = $condition === null ? true : (bool) Functions::flattenSingleValue($condition);
+        $returnIfTrue = $returnIfTrue === null ? 0 : Functions::flattenSingleValue($returnIfTrue);
+        $returnIfFalse = $returnIfFalse === null ? false : Functions::flattenSingleValue($returnIfFalse);
+        return $condition ? $returnIfTrue : $returnIfFalse;
     }
-
     /**
      * IFERROR.
      *
@@ -247,9 +232,8 @@ class Logical
      */
     public static function IFERROR($testValue = '', $errorpart = '')
     {
-        $testValue = ($testValue === null) ? '' : Functions::flattenSingleValue($testValue);
-        $errorpart = ($errorpart === null) ? '' : Functions::flattenSingleValue($errorpart);
-
+        $testValue = $testValue === null ? '' : Functions::flattenSingleValue($testValue);
+        $errorpart = $errorpart === null ? '' : Functions::flattenSingleValue($errorpart);
         return self::statementIf(Functions::isError($testValue), $errorpart, $testValue);
     }
 }

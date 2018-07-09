@@ -10,7 +10,6 @@ class TextElement implements ITextElement
      * @var string
      */
     private $text;
-
     /**
      * Create a new TextElement instance.
      *
@@ -21,7 +20,6 @@ class TextElement implements ITextElement
         // Initialise variables
         $this->text = $pText;
     }
-
     /**
      * Get text.
      *
@@ -31,7 +29,6 @@ class TextElement implements ITextElement
     {
         return $this->text;
     }
-
     /**
      * Set text.
      *
@@ -42,10 +39,8 @@ class TextElement implements ITextElement
     public function setText($text)
     {
         $this->text = $text;
-
         return $this;
     }
-
     /**
      * Get font.
      *
@@ -55,7 +50,6 @@ class TextElement implements ITextElement
     {
         return null;
     }
-
     /**
      * Get hash code.
      *
@@ -63,12 +57,8 @@ class TextElement implements ITextElement
      */
     public function getHashCode()
     {
-        return md5(
-            $this->text .
-            __CLASS__
-        );
+        return md5($this->text . __CLASS__);
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -77,9 +67,9 @@ class TextElement implements ITextElement
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

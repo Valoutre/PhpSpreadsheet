@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
-
 /**
  * Validate a cell value according to its validation rules.
  */
@@ -23,23 +22,18 @@ class DataValidator
         if (!$cell->hasDataValidation()) {
             return true;
         }
-
         $cellValue = $cell->getValue();
         $dataValidation = $cell->getDataValidation();
-
         if (!$dataValidation->getAllowBlank() && ($cellValue === null || $cellValue === '')) {
             return false;
         }
-
         // TODO: write check on all cases
         switch ($dataValidation->getType()) {
             case DataValidation::TYPE_LIST:
                 return $this->isValueInList($cell);
         }
-
         return false;
     }
-
     /**
      * Does this cell contain valid value, based on list?
      *
@@ -51,7 +45,6 @@ class DataValidator
     {
         $cellValue = $cell->getValue();
         $dataValidation = $cell->getDataValidation();
-
         $formula1 = $dataValidation->getFormula1();
         if (!empty($formula1)) {
             // inline values list
@@ -61,17 +54,14 @@ class DataValidator
                 // values list cells
                 $matchFormula = '=MATCH(' . $cell->getCoordinate() . ', ' . $formula1 . ', 0)';
                 $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
-
                 try {
                     $result = $calculation->calculateFormula($matchFormula, $cell->getCoordinate(), $cell);
-
                     return $result !== Functions::NA();
                 } catch (Exception $ex) {
                     return false;
                 }
             }
         }
-
         return true;
     }
 }

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-
 class Font
 {
     /**
@@ -12,14 +11,12 @@ class Font
      * @var int
      */
     private $colorIndex;
-
     /**
      * Font.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
     private $font;
-
     /**
      * Constructor.
      *
@@ -27,10 +24,9 @@ class Font
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Style\Font $font)
     {
-        $this->colorIndex = 0x7FFF;
+        $this->colorIndex = 32767;
         $this->font = $font;
     }
-
     /**
      * Set the color index.
      *
@@ -40,7 +36,6 @@ class Font
     {
         $this->colorIndex = $colorIndex;
     }
-
     /**
      * Get font record data.
      *
@@ -50,8 +45,8 @@ class Font
     {
         $font_outline = 0;
         $font_shadow = 0;
-
-        $icv = $this->colorIndex; // Index to color palette
+        $icv = $this->colorIndex;
+        // Index to color palette
         if ($this->font->getSuperscript()) {
             $sss = 1;
         } elseif ($this->font->getSubscript()) {
@@ -59,49 +54,34 @@ class Font
         } else {
             $sss = 0;
         }
-        $bFamily = 0; // Font family
-        $bCharSet = \PhpOffice\PhpSpreadsheet\Shared\Font::getCharsetFromFontName($this->font->getName()); // Character set
-
-        $record = 0x31; // Record identifier
-        $reserved = 0x00; // Reserved
-        $grbit = 0x00; // Font attributes
+        $bFamily = 0;
+        // Font family
+        $bCharSet = \PhpOffice\PhpSpreadsheet\Shared\Font::getCharsetFromFontName($this->font->getName());
+        // Character set
+        $record = 49;
+        // Record identifier
+        $reserved = 0;
+        // Reserved
+        $grbit = 0;
+        // Font attributes
         if ($this->font->getItalic()) {
-            $grbit |= 0x02;
+            $grbit |= 2;
         }
         if ($this->font->getStrikethrough()) {
-            $grbit |= 0x08;
+            $grbit |= 8;
         }
         if ($font_outline) {
-            $grbit |= 0x10;
+            $grbit |= 16;
         }
         if ($font_shadow) {
-            $grbit |= 0x20;
+            $grbit |= 32;
         }
-
-        $data = pack(
-            'vvvvvCCCC',
-            // Fontsize (in twips)
-            $this->font->getSize() * 20,
-            $grbit,
-            // Colour
-            $icv,
-            // Font weight
-            self::mapBold($this->font->getBold()),
-            // Superscript/Subscript
-            $sss,
-            self::mapUnderline($this->font->getUnderline()),
-            $bFamily,
-            $bCharSet,
-            $reserved
-        );
+        $data = pack('vvvvvCCCC', $this->font->getSize() * 20, $grbit, $icv, self::mapBold($this->font->getBold()), $sss, self::mapUnderline($this->font->getUnderline()), $bFamily, $bCharSet, $reserved);
         $data .= StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
-
         $length = strlen($data);
         $header = pack('vv', $record, $length);
-
         return $header . $data;
     }
-
     /**
      * Map to BIFF5-BIFF8 codes for bold.
      *
@@ -112,25 +92,16 @@ class Font
     private static function mapBold($bold)
     {
         if ($bold) {
-            return 0x2BC; //  700 = Bold font weight
+            return 700;
         }
-
-        return 0x190; //  400 = Normal font weight
+        return 400;
     }
-
     /**
      * Map of BIFF2-BIFF8 codes for underline styles.
      *
      * @var array of int
      */
-    private static $mapUnderline = [
-        \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE => 0x00,
-        \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE => 0x01,
-        \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE => 0x02,
-        \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING => 0x21,
-        \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING => 0x22,
-    ];
-
+    private static $mapUnderline = array(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE => 0, \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE => 1, \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE => 2, \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING => 33, \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING => 34);
     /**
      * Map underline.
      *
@@ -143,7 +114,6 @@ class Font
         if (isset(self::$mapUnderline[$underline])) {
             return self::$mapUnderline[$underline];
         }
-
-        return 0x00;
+        return 0;
     }
 }

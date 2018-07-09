@@ -4,33 +4,17 @@ namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-
 require_once __DIR__ . '/Polyfill.php';
-
 class JpGraph implements IRenderer
 {
     private static $width = 640;
-
     private static $height = 480;
-
-    private static $colourSet = [
-        'mediumpurple1', 'palegreen3', 'gold1', 'cadetblue1',
-        'darkmagenta', 'coral', 'dodgerblue3', 'eggplant',
-        'mediumblue', 'magenta', 'sandybrown', 'cyan',
-        'firebrick1', 'forestgreen', 'deeppink4', 'darkolivegreen',
-        'goldenrod2',
-    ];
-
+    private static $colourSet = array('mediumpurple1', 'palegreen3', 'gold1', 'cadetblue1', 'darkmagenta', 'coral', 'dodgerblue3', 'eggplant', 'mediumblue', 'magenta', 'sandybrown', 'cyan', 'firebrick1', 'forestgreen', 'deeppink4', 'darkolivegreen', 'goldenrod2');
     private static $markSet;
-
     private $chart;
-
     private $graph;
-
     private static $plotColour = 0;
-
     private static $plotMark = 0;
-
     /**
      * Create a new jpgraph.
      *
@@ -42,14 +26,12 @@ class JpGraph implements IRenderer
         $this->graph = null;
         $this->chart = $chart;
     }
-
     private static function init()
     {
         static $loaded = false;
         if ($loaded) {
             return;
         }
-
         \JpGraph\JpGraph::load();
         \JpGraph\JpGraph::module('bar');
         \JpGraph\JpGraph::module('contour');
@@ -60,22 +42,9 @@ class JpGraph implements IRenderer
         \JpGraph\JpGraph::module('regstat');
         \JpGraph\JpGraph::module('scatter');
         \JpGraph\JpGraph::module('stock');
-
-        self::$markSet = [
-            'diamond' => MARK_DIAMOND,
-            'square' => MARK_SQUARE,
-            'triangle' => MARK_UTRIANGLE,
-            'x' => MARK_X,
-            'star' => MARK_STAR,
-            'dot' => MARK_FILLEDCIRCLE,
-            'dash' => MARK_DTRIANGLE,
-            'circle' => MARK_CIRCLE,
-            'plus' => MARK_CROSS,
-        ];
-
+        self::$markSet = array('diamond' => MARK_DIAMOND, 'square' => MARK_SQUARE, 'triangle' => MARK_UTRIANGLE, 'x' => MARK_X, 'star' => MARK_STAR, 'dot' => MARK_FILLEDCIRCLE, 'dash' => MARK_DTRIANGLE, 'circle' => MARK_CIRCLE, 'plus' => MARK_CROSS);
         $loaded = true;
     }
-
     private function formatPointMarker($seriesPlot, $markerID)
     {
         $plotMarkKeys = array_keys(self::$markSet);
@@ -99,10 +68,8 @@ class JpGraph implements IRenderer
         $seriesPlot->mark->SetColor(self::$colourSet[self::$plotColour]);
         $seriesPlot->mark->SetFillColor(self::$colourSet[self::$plotColour]);
         $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
-
         return $seriesPlot;
     }
-
     private function formatDataSetLabels($groupID, $datasetLabels, $labelCount, $rotation = '')
     {
         $datasetLabelFormatCode = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode();
@@ -110,7 +77,6 @@ class JpGraph implements IRenderer
             //    Retrieve any label formatting code
             $datasetLabelFormatCode = stripslashes($datasetLabelFormatCode);
         }
-
         $testCurrentIndex = 0;
         foreach ($datasetLabels as $i => $datasetLabel) {
             if (is_array($datasetLabel)) {
@@ -118,7 +84,8 @@ class JpGraph implements IRenderer
                     $datasetLabels[$i] = implode(' ', $datasetLabel);
                 } else {
                     $datasetLabel = array_reverse($datasetLabel);
-                    $datasetLabels[$i] = implode("\n", $datasetLabel);
+                    $datasetLabels[$i] = implode('
+', $datasetLabel);
                 }
             } else {
                 //    Format labels according to any formatting code
@@ -128,10 +95,8 @@ class JpGraph implements IRenderer
             }
             ++$testCurrentIndex;
         }
-
         return $datasetLabels;
     }
-
     private function percentageSumCalculation($groupID, $seriesCount)
     {
         //    Adjust our values to a percentage value across all series in the group
@@ -149,23 +114,19 @@ class JpGraph implements IRenderer
                 }
             }
         }
-
         return $sumValues;
     }
-
     private function percentageAdjustValues($dataValues, $sumValues)
     {
         foreach ($dataValues as $k => $dataValue) {
             $dataValues[$k] = $dataValue / $sumValues[$k] * 100;
         }
-
         return $dataValues;
     }
-
     private function getCaption($captionElement)
     {
         //    Read any caption
-        $caption = ($captionElement !== null) ? $captionElement->getCaption() : null;
+        $caption = $captionElement !== null ? $captionElement->getCaption() : null;
         //    Test if we have a title caption to display
         if ($caption !== null) {
             //    If we do, it could be a plain string or an array
@@ -174,10 +135,8 @@ class JpGraph implements IRenderer
                 $caption = implode('', $caption);
             }
         }
-
         return $caption;
     }
-
     private function renderTitle()
     {
         $title = $this->getCaption($this->chart->getTitle());
@@ -185,7 +144,6 @@ class JpGraph implements IRenderer
             $this->graph->title->Set($title);
         }
     }
-
     private function renderLegend()
     {
         $legend = $this->chart->getLegend();
@@ -193,43 +151,41 @@ class JpGraph implements IRenderer
             $legendPosition = $legend->getPosition();
             switch ($legendPosition) {
                 case 'r':
-                    $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center'); //    right
+                    $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center');
+                    //    right
                     $this->graph->legend->SetColumns(1);
-
                     break;
                 case 'l':
-                    $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center'); //    left
+                    $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center');
+                    //    left
                     $this->graph->legend->SetColumns(1);
-
                     break;
                 case 't':
-                    $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top'); //    top
+                    $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top');
+                    //    top
                     break;
                 case 'b':
-                    $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom'); //    bottom
+                    $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom');
+                    //    bottom
                     break;
                 default:
-                    $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top'); //    top-right
+                    $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top');
+                    //    top-right
                     $this->graph->legend->SetColumns(1);
-
                     break;
             }
         } else {
             $this->graph->legend->Hide();
         }
     }
-
     private function renderCartesianPlotArea($type = 'textlin')
     {
         $this->graph = new \Graph(self::$width, self::$height);
         $this->graph->SetScale($type);
-
         $this->renderTitle();
-
         //    Rotate for bar rather than column chart
         $rotation = $this->chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotDirection();
-        $reverse = ($rotation == 'bar') ? true : false;
-
+        $reverse = $rotation == 'bar' ? true : false;
         $xAxisLabel = $this->chart->getXAxisLabel();
         if ($xAxisLabel !== null) {
             $title = $this->getCaption($xAxisLabel);
@@ -242,7 +198,6 @@ class JpGraph implements IRenderer
                 }
             }
         }
-
         $yAxisLabel = $this->chart->getYAxisLabel();
         if ($yAxisLabel !== null) {
             $title = $this->getCaption($yAxisLabel);
@@ -255,48 +210,38 @@ class JpGraph implements IRenderer
             }
         }
     }
-
     private function renderPiePlotArea()
     {
         $this->graph = new \PieGraph(self::$width, self::$height);
-
         $this->renderTitle();
     }
-
     private function renderRadarPlotArea()
     {
         $this->graph = new \RadarGraph(self::$width, self::$height);
         $this->graph->SetScale('lin');
-
         $this->renderTitle();
     }
-
     private function renderPlotLine($groupID, $filled = false, $combination = false, $dimensions = '2d')
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
-
         $labelCount = count($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
         if ($labelCount > 0) {
             $datasetLabels = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
             $datasetLabels = $this->formatDataSetLabels($groupID, $datasetLabels, $labelCount);
             $this->graph->xaxis->SetTickLabels($datasetLabels);
         }
-
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
-        $seriesPlots = [];
+        $seriesPlots = array();
         if ($grouping == 'percentStacked') {
             $sumValues = $this->percentageSumCalculation($groupID, $seriesCount);
         }
-
         //    Loop through each data series in turn
         for ($i = 0; $i < $seriesCount; ++$i) {
             $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
             $marker = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getPointMarker();
-
             if ($grouping == 'percentStacked') {
                 $dataValues = $this->percentageAdjustValues($dataValues, $sumValues);
             }
-
             //    Fill in any missing values in the $dataValues array
             $testCurrentIndex = 0;
             foreach ($dataValues as $k => $dataValue) {
@@ -306,12 +251,10 @@ class JpGraph implements IRenderer
                 }
                 ++$testCurrentIndex;
             }
-
             $seriesPlot = new \LinePlot($dataValues);
             if ($combination) {
                 $seriesPlot->SetBarCenter();
             }
-
             if ($filled) {
                 $seriesPlot->SetFilled(true);
                 $seriesPlot->SetColor('black');
@@ -322,10 +265,8 @@ class JpGraph implements IRenderer
             }
             $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
             $seriesPlot->SetLegend($dataLabel);
-
             $seriesPlots[] = $seriesPlot;
         }
-
         if ($grouping == 'standard') {
             $groupPlot = $seriesPlots;
         } else {
@@ -333,16 +274,14 @@ class JpGraph implements IRenderer
         }
         $this->graph->Add($groupPlot);
     }
-
     private function renderPlotBar($groupID, $dimensions = '2d')
     {
         $rotation = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotDirection();
         //    Rotate for bar rather than column chart
-        if (($groupID == 0) && ($rotation == 'bar')) {
+        if ($groupID == 0 && $rotation == 'bar') {
             $this->graph->Set90AndMargin();
         }
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
-
         $labelCount = count($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
         if ($labelCount > 0) {
             $datasetLabels = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
@@ -356,20 +295,17 @@ class JpGraph implements IRenderer
             }
             $this->graph->xaxis->SetTickLabels($datasetLabels);
         }
-
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
-        $seriesPlots = [];
+        $seriesPlots = array();
         if ($grouping == 'percentStacked') {
             $sumValues = $this->percentageSumCalculation($groupID, $seriesCount);
         }
-
         //    Loop through each data series in turn
         for ($j = 0; $j < $seriesCount; ++$j) {
             $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($j)->getDataValues();
             if ($grouping == 'percentStacked') {
                 $dataValues = $this->percentageAdjustValues($dataValues, $sumValues);
             }
-
             //    Fill in any missing values in the $dataValues array
             $testCurrentIndex = 0;
             foreach ($dataValues as $k => $dataValue) {
@@ -379,7 +315,6 @@ class JpGraph implements IRenderer
                 }
                 ++$testCurrentIndex;
             }
-
             //    Reverse the $dataValues order for bar rather than column chart
             if ($rotation == 'bar') {
                 $dataValues = array_reverse($dataValues);
@@ -396,14 +331,12 @@ class JpGraph implements IRenderer
                 $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($j)->getDataValue();
             }
             $seriesPlot->SetLegend($dataLabel);
-
             $seriesPlots[] = $seriesPlot;
         }
         //    Reverse the plot order for bar rather than column chart
-        if (($rotation == 'bar') && (!($grouping == 'percentStacked'))) {
+        if ($rotation == 'bar' && !($grouping == 'percentStacked')) {
             $seriesPlots = array_reverse($seriesPlots);
         }
-
         if ($grouping == 'clustered') {
             $groupPlot = new \GroupBarPlot($seriesPlots);
         } elseif ($grouping == 'standard') {
@@ -414,27 +347,21 @@ class JpGraph implements IRenderer
                 $groupPlot->SetShadow();
             }
         }
-
         $this->graph->Add($groupPlot);
     }
-
     private function renderPlotScatter($groupID, $bubble)
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
         $scatterStyle = $bubbleSize = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
-
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
-        $seriesPlots = [];
-
+        $seriesPlots = array();
         //    Loop through each data series in turn
         for ($i = 0; $i < $seriesCount; ++$i) {
             $dataValuesY = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex($i)->getDataValues();
             $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
-
             foreach ($dataValuesY as $k => $dataValueY) {
                 $dataValuesY[$k] = $k;
             }
-
             $seriesPlot = new \ScatterPlot($dataValuesX, $dataValuesY);
             if ($scatterStyle == 'lineMarker') {
                 $seriesPlot->SetLinkPoints();
@@ -444,10 +371,8 @@ class JpGraph implements IRenderer
                 list($splineDataY, $splineDataX) = $spline->Get(count($dataValuesX) * self::$width / 20);
                 $lplot = new \LinePlot($splineDataX, $splineDataY);
                 $lplot->SetColor(self::$colourSet[self::$plotColour]);
-
                 $this->graph->Add($lplot);
             }
-
             if ($bubble) {
                 $this->formatPointMarker($seriesPlot, 'dot');
                 $seriesPlot->mark->SetColor('black');
@@ -458,25 +383,20 @@ class JpGraph implements IRenderer
             }
             $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
             $seriesPlot->SetLegend($dataLabel);
-
             $this->graph->Add($seriesPlot);
         }
     }
-
     private function renderPlotRadar($groupID)
     {
         $radarStyle = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
-
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
-        $seriesPlots = [];
-
+        $seriesPlots = array();
         //    Loop through each data series in turn
         for ($i = 0; $i < $seriesCount; ++$i) {
             $dataValuesY = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex($i)->getDataValues();
             $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
             $marker = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getPointMarker();
-
-            $dataValues = [];
+            $dataValues = array();
             foreach ($dataValuesY as $k => $dataValueY) {
                 $dataValues[$k] = implode(' ', array_reverse($dataValueY));
             }
@@ -484,11 +404,8 @@ class JpGraph implements IRenderer
             $dataValues[] = $tmp;
             $tmp = array_shift($dataValuesX);
             $dataValuesX[] = $tmp;
-
             $this->graph->SetTitles(array_reverse($dataValues));
-
             $seriesPlot = new \RadarPlot(array_reverse($dataValuesX));
-
             $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
             $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
             if ($radarStyle == 'filled') {
@@ -496,37 +413,29 @@ class JpGraph implements IRenderer
             }
             $this->formatPointMarker($seriesPlot, $marker);
             $seriesPlot->SetLegend($dataLabel);
-
             $this->graph->Add($seriesPlot);
         }
     }
-
     private function renderPlotContour($groupID)
     {
         $contourStyle = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
-
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
-        $seriesPlots = [];
-
-        $dataValues = [];
+        $seriesPlots = array();
+        $dataValues = array();
         //    Loop through each data series in turn
         for ($i = 0; $i < $seriesCount; ++$i) {
             $dataValuesY = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex($i)->getDataValues();
             $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
-
             $dataValues[$i] = $dataValuesX;
         }
         $seriesPlot = new \ContourPlot($dataValues);
-
         $this->graph->Add($seriesPlot);
     }
-
     private function renderPlotStock($groupID)
     {
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
         $plotOrder = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder();
-
-        $dataValues = [];
+        $dataValues = array();
         //    Loop through each data series in turn and build the plot arrays
         foreach ($plotOrder as $i => $v) {
             $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v)->getDataValues();
@@ -537,8 +446,7 @@ class JpGraph implements IRenderer
         if (empty($dataValues)) {
             return;
         }
-
-        $dataValuesPlot = [];
+        $dataValuesPlot = array();
         // Flatten the plot arrays to a single dimensional array to work with jpgraph
         $jMax = count($dataValues[0]);
         for ($j = 0; $j < $jMax; ++$j) {
@@ -546,7 +454,6 @@ class JpGraph implements IRenderer
                 $dataValuesPlot[] = $dataValues[$i][$j];
             }
         }
-
         // Set the x-axis labels
         $labelCount = count($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
         if ($labelCount > 0) {
@@ -554,63 +461,49 @@ class JpGraph implements IRenderer
             $datasetLabels = $this->formatDataSetLabels($groupID, $datasetLabels, $labelCount);
             $this->graph->xaxis->SetTickLabels($datasetLabels);
         }
-
         $seriesPlot = new \StockPlot($dataValuesPlot);
         $seriesPlot->SetWidth(20);
-
         $this->graph->Add($seriesPlot);
     }
-
     private function renderAreaChart($groupCount, $dimensions = '2d')
     {
         $this->renderCartesianPlotArea();
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $this->renderPlotLine($i, true, false, $dimensions);
         }
     }
-
     private function renderLineChart($groupCount, $dimensions = '2d')
     {
         $this->renderCartesianPlotArea();
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $this->renderPlotLine($i, false, false, $dimensions);
         }
     }
-
     private function renderBarChart($groupCount, $dimensions = '2d')
     {
         $this->renderCartesianPlotArea();
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $this->renderPlotBar($i, $dimensions);
         }
     }
-
     private function renderScatterChart($groupCount)
     {
         $this->renderCartesianPlotArea('linlin');
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $this->renderPlotScatter($i, false);
         }
     }
-
     private function renderBubbleChart($groupCount)
     {
         $this->renderCartesianPlotArea('linlin');
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $this->renderPlotScatter($i, true);
         }
     }
-
     private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false)
     {
         $this->renderPiePlotArea();
-
-        $iLimit = ($multiplePlots) ? $groupCount : 1;
+        $iLimit = $multiplePlots ? $groupCount : 1;
         for ($groupID = 0; $groupID < $iLimit; ++$groupID) {
             $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
             $exploded = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
@@ -621,15 +514,13 @@ class JpGraph implements IRenderer
                     $datasetLabels = $this->formatDataSetLabels($groupID, $datasetLabels, $labelCount);
                 }
             }
-
             $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
-            $seriesPlots = [];
+            $seriesPlots = array();
             //    For pie charts, we only display the first series: doughnut charts generally display all series
-            $jLimit = ($multiplePlots) ? $seriesCount : 1;
+            $jLimit = $multiplePlots ? $seriesCount : 1;
             //    Loop through each data series in turn
             for ($j = 0; $j < $jLimit; ++$j) {
                 $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($j)->getDataValues();
-
                 //    Fill in any missing values in the $dataValues array
                 $testCurrentIndex = 0;
                 foreach ($dataValues as $k => $dataValue) {
@@ -639,7 +530,6 @@ class JpGraph implements IRenderer
                     }
                     ++$testCurrentIndex;
                 }
-
                 if ($dimensions == '3d') {
                     $seriesPlot = new \PiePlot3D($dataValues);
                 } else {
@@ -649,15 +539,12 @@ class JpGraph implements IRenderer
                         $seriesPlot = new \PiePlot($dataValues);
                     }
                 }
-
                 if ($multiplePlots) {
                     $seriesPlot->SetSize(($jLimit - $j) / ($jLimit * 4));
                 }
-
                 if ($doughnut) {
                     $seriesPlot->SetMidColor('white');
                 }
-
                 $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
                 if (count($datasetLabels) > 0) {
                     $seriesPlot->SetLabels(array_fill(0, count($datasetLabels), ''));
@@ -671,43 +558,34 @@ class JpGraph implements IRenderer
                     }
                     $seriesPlot->SetLegends($datasetLabels);
                 }
-
                 $this->graph->Add($seriesPlot);
             }
         }
     }
-
     private function renderRadarChart($groupCount)
     {
         $this->renderRadarPlotArea();
-
         for ($groupID = 0; $groupID < $groupCount; ++$groupID) {
             $this->renderPlotRadar($groupID);
         }
     }
-
     private function renderStockChart($groupCount)
     {
         $this->renderCartesianPlotArea('intint');
-
         for ($groupID = 0; $groupID < $groupCount; ++$groupID) {
             $this->renderPlotStock($groupID);
         }
     }
-
     private function renderContourChart($groupCount, $dimensions)
     {
         $this->renderCartesianPlotArea('intint');
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $this->renderPlotContour($i);
         }
     }
-
     private function renderCombinationChart($groupCount, $dimensions, $outputDestination)
     {
         $this->renderCartesianPlotArea();
-
         for ($i = 0; $i < $groupCount; ++$i) {
             $dimensions = null;
             $chartType = $this->chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
@@ -717,55 +595,43 @@ class JpGraph implements IRenderer
                 // no break
                 case 'areaChart':
                     $this->renderPlotLine($i, true, true, $dimensions);
-
                     break;
                 case 'bar3DChart':
                     $dimensions = '3d';
                 // no break
                 case 'barChart':
                     $this->renderPlotBar($i, $dimensions);
-
                     break;
                 case 'line3DChart':
                     $dimensions = '3d';
                 // no break
                 case 'lineChart':
                     $this->renderPlotLine($i, false, true, $dimensions);
-
                     break;
                 case 'scatterChart':
                     $this->renderPlotScatter($i, false);
-
                     break;
                 case 'bubbleChart':
                     $this->renderPlotScatter($i, true);
-
                     break;
                 default:
                     $this->graph = null;
-
                     return false;
             }
         }
-
         $this->renderLegend();
-
         $this->graph->Stroke($outputDestination);
-
         return true;
     }
-
     public function render($outputDestination)
     {
         self::$plotColour = 0;
-
         $groupCount = $this->chart->getPlotArea()->getPlotGroupCount();
-
         $dimensions = null;
         if ($groupCount == 1) {
             $chartType = $this->chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
         } else {
-            $chartTypes = [];
+            $chartTypes = array();
             for ($i = 0; $i < $groupCount; ++$i) {
                 $chartTypes[] = $this->chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
             }
@@ -774,81 +640,66 @@ class JpGraph implements IRenderer
                 $chartType = array_pop($chartTypes);
             } elseif (count($chartTypes) == 0) {
                 echo 'Chart is not yet implemented<br />';
-
                 return false;
             } else {
                 return $this->renderCombinationChart($groupCount, $dimensions, $outputDestination);
             }
         }
-
         switch ($chartType) {
             case 'area3DChart':
                 $dimensions = '3d';
             // no break
             case 'areaChart':
                 $this->renderAreaChart($groupCount, $dimensions);
-
                 break;
             case 'bar3DChart':
                 $dimensions = '3d';
             // no break
             case 'barChart':
                 $this->renderBarChart($groupCount, $dimensions);
-
                 break;
             case 'line3DChart':
                 $dimensions = '3d';
             // no break
             case 'lineChart':
                 $this->renderLineChart($groupCount, $dimensions);
-
                 break;
             case 'pie3DChart':
                 $dimensions = '3d';
             // no break
             case 'pieChart':
                 $this->renderPieChart($groupCount, $dimensions, false, false);
-
                 break;
             case 'doughnut3DChart':
                 $dimensions = '3d';
             // no break
             case 'doughnutChart':
                 $this->renderPieChart($groupCount, $dimensions, true, true);
-
                 break;
             case 'scatterChart':
                 $this->renderScatterChart($groupCount);
-
                 break;
             case 'bubbleChart':
                 $this->renderBubbleChart($groupCount);
-
                 break;
             case 'radarChart':
                 $this->renderRadarChart($groupCount);
-
                 break;
             case 'surface3DChart':
                 $dimensions = '3d';
             // no break
             case 'surfaceChart':
                 $this->renderContourChart($groupCount, $dimensions);
-
                 break;
             case 'stockChart':
                 $this->renderStockChart($groupCount);
-
                 break;
             default:
                 echo $chartType . ' is not yet implemented<br />';
-
                 return false;
         }
         $this->renderLegend();
-
         $this->graph->Stroke($outputDestination);
-
         return true;
     }
 }

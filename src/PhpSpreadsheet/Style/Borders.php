@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 class Borders extends Supervisor
 {
     // Diagonal directions
@@ -11,84 +10,72 @@ class Borders extends Supervisor
     const DIAGONAL_UP = 1;
     const DIAGONAL_DOWN = 2;
     const DIAGONAL_BOTH = 3;
-
     /**
      * Left.
      *
      * @var Border
      */
     protected $left;
-
     /**
      * Right.
      *
      * @var Border
      */
     protected $right;
-
     /**
      * Top.
      *
      * @var Border
      */
     protected $top;
-
     /**
      * Bottom.
      *
      * @var Border
      */
     protected $bottom;
-
     /**
      * Diagonal.
      *
      * @var Border
      */
     protected $diagonal;
-
     /**
      * DiagonalDirection.
      *
      * @var int
      */
     protected $diagonalDirection;
-
     /**
      * All borders pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $allBorders;
-
     /**
      * Outline pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $outline;
-
     /**
      * Inside pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $inside;
-
     /**
      * Vertical pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $vertical;
-
     /**
      * Horizontal pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $horizontal;
-
     /**
      * Create a new Borders.
      *
@@ -103,7 +90,6 @@ class Borders extends Supervisor
     {
         // Supervisor?
         parent::__construct($isSupervisor);
-
         // Initialise values
         $this->left = new Border($isSupervisor, $isConditional);
         $this->right = new Border($isSupervisor, $isConditional);
@@ -111,7 +97,6 @@ class Borders extends Supervisor
         $this->bottom = new Border($isSupervisor, $isConditional);
         $this->diagonal = new Border($isSupervisor, $isConditional);
         $this->diagonalDirection = self::DIAGONAL_NONE;
-
         // Specially for supervisor
         if ($isSupervisor) {
             // Initialize pseudo-borders
@@ -120,7 +105,6 @@ class Borders extends Supervisor
             $this->inside = new Border(true);
             $this->vertical = new Border(true);
             $this->horizontal = new Border(true);
-
             // bind parent if we are a supervisor
             $this->left->bindParent($this, 'left');
             $this->right->bindParent($this, 'right');
@@ -134,7 +118,6 @@ class Borders extends Supervisor
             $this->horizontal->bindParent($this, 'horizontal');
         }
     }
-
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
@@ -145,7 +128,6 @@ class Borders extends Supervisor
     {
         return $this->parent->getSharedComponent()->getBorders();
     }
-
     /**
      * Build style array from subcomponents.
      *
@@ -155,9 +137,8 @@ class Borders extends Supervisor
      */
     public function getStyleArray($array)
     {
-        return ['borders' => $array];
+        return array('borders' => $array);
     }
-
     /**
      * Apply styles from array.
      *
@@ -229,10 +210,8 @@ class Borders extends Supervisor
                 $this->getBottom()->applyFromArray($pStyles['allBorders']);
             }
         }
-
         return $this;
     }
-
     /**
      * Get Left.
      *
@@ -242,7 +221,6 @@ class Borders extends Supervisor
     {
         return $this->left;
     }
-
     /**
      * Get Right.
      *
@@ -252,7 +230,6 @@ class Borders extends Supervisor
     {
         return $this->right;
     }
-
     /**
      * Get Top.
      *
@@ -262,7 +239,6 @@ class Borders extends Supervisor
     {
         return $this->top;
     }
-
     /**
      * Get Bottom.
      *
@@ -272,7 +248,6 @@ class Borders extends Supervisor
     {
         return $this->bottom;
     }
-
     /**
      * Get Diagonal.
      *
@@ -282,7 +257,6 @@ class Borders extends Supervisor
     {
         return $this->diagonal;
     }
-
     /**
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
@@ -295,10 +269,8 @@ class Borders extends Supervisor
         if (!$this->isSupervisor) {
             throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
-
         return $this->allBorders;
     }
-
     /**
      * Get Outline (pseudo-border). Only applies to supervisor.
      *
@@ -311,10 +283,8 @@ class Borders extends Supervisor
         if (!$this->isSupervisor) {
             throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
-
         return $this->outline;
     }
-
     /**
      * Get Inside (pseudo-border). Only applies to supervisor.
      *
@@ -327,10 +297,8 @@ class Borders extends Supervisor
         if (!$this->isSupervisor) {
             throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
-
         return $this->inside;
     }
-
     /**
      * Get Vertical (pseudo-border). Only applies to supervisor.
      *
@@ -343,10 +311,8 @@ class Borders extends Supervisor
         if (!$this->isSupervisor) {
             throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
-
         return $this->vertical;
     }
-
     /**
      * Get Horizontal (pseudo-border). Only applies to supervisor.
      *
@@ -359,10 +325,8 @@ class Borders extends Supervisor
         if (!$this->isSupervisor) {
             throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
-
         return $this->horizontal;
     }
-
     /**
      * Get DiagonalDirection.
      *
@@ -373,10 +337,8 @@ class Borders extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getDiagonalDirection();
         }
-
         return $this->diagonalDirection;
     }
-
     /**
      * Set DiagonalDirection.
      *
@@ -390,15 +352,13 @@ class Borders extends Supervisor
             $pValue = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['diagonalDirection' => $pValue]);
+            $styleArray = $this->getStyleArray(array('diagonalDirection' => $pValue));
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->diagonalDirection = $pValue;
         }
-
         return $this;
     }
-
     /**
      * Get hash code.
      *
@@ -409,15 +369,6 @@ class Borders extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashcode();
         }
-
-        return md5(
-            $this->getLeft()->getHashCode() .
-            $this->getRight()->getHashCode() .
-            $this->getTop()->getHashCode() .
-            $this->getBottom()->getHashCode() .
-            $this->getDiagonal()->getHashCode() .
-            $this->getDiagonalDirection() .
-            __CLASS__
-        );
+        return md5($this->getLeft()->getHashCode() . $this->getRight()->getHashCode() . $this->getTop()->getHashCode() . $this->getBottom()->getHashCode() . $this->getDiagonal()->getHashCode() . $this->getDiagonalDirection() . __CLASS__);
     }
 }

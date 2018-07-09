@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Token;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-
 class Stack
 {
     /**
@@ -11,15 +10,13 @@ class Stack
      *
      * @var mixed[]
      */
-    private $stack = [];
-
+    private $stack = array();
     /**
      * Count of entries in the parser stack.
      *
      * @var int
      */
     private $count = 0;
-
     /**
      * Return the number of entries on the stack.
      *
@@ -29,7 +26,6 @@ class Stack
     {
         return $this->count;
     }
-
     /**
      * Push a new entry onto the stack.
      *
@@ -39,19 +35,14 @@ class Stack
      */
     public function push($type, $value, $reference = null)
     {
-        $this->stack[$this->count++] = [
-            'type' => $type,
-            'value' => $value,
-            'reference' => $reference,
-        ];
+        $this->stack[$this->count++] = array('type' => $type, 'value' => $value, 'reference' => $reference);
         if ($type == 'Function') {
             $localeFunction = Calculation::localeFunc($value);
             if ($localeFunction != $value) {
-                $this->stack[($this->count - 1)]['localeValue'] = $localeFunction;
+                $this->stack[$this->count - 1]['localeValue'] = $localeFunction;
             }
         }
     }
-
     /**
      * Pop the last entry from the stack.
      *
@@ -62,10 +53,8 @@ class Stack
         if ($this->count > 0) {
             return $this->stack[--$this->count];
         }
-
         return null;
     }
-
     /**
      * Return an entry from the stack without removing it.
      *
@@ -78,16 +67,14 @@ class Stack
         if ($this->count - $n < 0) {
             return null;
         }
-
         return $this->stack[$this->count - $n];
     }
-
     /**
      * Clear the stack.
      */
     public function clear()
     {
-        $this->stack = [];
+        $this->stack = array();
         $this->count = 0;
     }
 }

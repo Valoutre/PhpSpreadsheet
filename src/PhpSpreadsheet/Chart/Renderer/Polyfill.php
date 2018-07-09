@@ -4,6 +4,5 @@
 if (!function_exists('imageantialias')) {
     function imageantialias(...$args)
     {
-        // Do nothing
     }
 }

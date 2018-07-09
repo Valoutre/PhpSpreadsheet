@@ -11,7 +11,6 @@ class ExponentialBestFit extends BestFit
      * @var string
      */
     protected $bestFitType = 'exponential';
-
     /**
      * Return the Y-Value for a specified value of X.
      *
@@ -21,9 +20,8 @@ class ExponentialBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->xOffset));
+        return $this->getIntersect() * pow($this->getSlope(), $xValue - $this->xOffset);
     }
-
     /**
      * Return the X-Value for a specified value of Y.
      *
@@ -35,7 +33,6 @@ class ExponentialBestFit extends BestFit
     {
         return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
     }
-
     /**
      * Return the Equation of the best-fit line.
      *
@@ -47,10 +44,8 @@ class ExponentialBestFit extends BestFit
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
-
         return 'Y = ' . $intersect . ' * ' . $slope . '^X';
     }
-
     /**
      * Return the Slope of the line.
      *
@@ -63,10 +58,8 @@ class ExponentialBestFit extends BestFit
         if ($dp != 0) {
             return round(exp($this->slope), $dp);
         }
-
         return exp($this->slope);
     }
-
     /**
      * Return the Value of X where it intersects Y = 0.
      *
@@ -79,10 +72,8 @@ class ExponentialBestFit extends BestFit
         if ($dp != 0) {
             return round(exp($this->intersect), $dp);
         }
-
         return exp($this->intersect);
     }
-
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -100,10 +91,8 @@ class ExponentialBestFit extends BestFit
             }
         }
         unset($value);
-
         $this->leastSquareFit($yValues, $xValues, $const);
     }
-
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -111,7 +100,7 @@ class ExponentialBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct($yValues, $xValues = array(), $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
             $this->exponentialRegression($yValues, $xValues, $const);

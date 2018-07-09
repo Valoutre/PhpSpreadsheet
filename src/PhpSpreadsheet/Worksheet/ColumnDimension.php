@@ -10,7 +10,6 @@ class ColumnDimension extends Dimension
      * @var string
      */
     private $columnIndex;
-
     /**
      * Column width.
      *
@@ -19,14 +18,12 @@ class ColumnDimension extends Dimension
      * @var float
      */
     private $width = -1;
-
     /**
      * Auto size?
      *
      * @var bool
      */
     private $autoSize = false;
-
     /**
      * Create a new ColumnDimension.
      *
@@ -36,11 +33,9 @@ class ColumnDimension extends Dimension
     {
         // Initialise values
         $this->columnIndex = $pIndex;
-
         // set dimension as unformatted by default
         parent::__construct(0);
     }
-
     /**
      * Get ColumnIndex.
      *
@@ -50,7 +45,6 @@ class ColumnDimension extends Dimension
     {
         return $this->columnIndex;
     }
-
     /**
      * Set ColumnIndex.
      *
@@ -61,10 +55,8 @@ class ColumnDimension extends Dimension
     public function setColumnIndex($pValue)
     {
         $this->columnIndex = $pValue;
-
         return $this;
     }
-
     /**
      * Get Width.
      *
@@ -74,7 +66,6 @@ class ColumnDimension extends Dimension
     {
         return $this->width;
     }
-
     /**
      * Set Width.
      *
@@ -85,10 +76,8 @@ class ColumnDimension extends Dimension
     public function setWidth($pValue)
     {
         $this->width = $pValue;
-
         return $this;
     }
-
     /**
      * Get Auto Size.
      *
@@ -98,7 +87,6 @@ class ColumnDimension extends Dimension
     {
         return $this->autoSize;
     }
-
     /**
      * Set Auto Size.
      *
@@ -109,7 +97,6 @@ class ColumnDimension extends Dimension
     public function setAutoSize($pValue)
     {
         $this->autoSize = $pValue;
-
         return $this;
     }
 }

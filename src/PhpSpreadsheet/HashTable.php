@@ -9,15 +9,13 @@ class HashTable
      *
      * @var IComparable[]
      */
-    protected $items = [];
-
+    protected $items = array();
     /**
      * HashTable key map.
      *
      * @var string[]
      */
-    protected $keyMap = [];
-
+    protected $keyMap = array();
     /**
      * Create a new \PhpOffice\PhpSpreadsheet\HashTable.
      *
@@ -32,7 +30,6 @@ class HashTable
             $this->addFromSource($pSource);
         }
     }
-
     /**
      * Add HashTable items from source.
      *
@@ -46,12 +43,10 @@ class HashTable
         if ($pSource == null) {
             return;
         }
-
         foreach ($pSource as $item) {
             $this->add($item);
         }
     }
-
     /**
      * Add HashTable item.
      *
@@ -65,7 +60,6 @@ class HashTable
             $this->keyMap[count($this->items) - 1] = $hash;
         }
     }
-
     /**
      * Remove HashTable item.
      *
@@ -76,13 +70,11 @@ class HashTable
         $hash = $pSource->getHashCode();
         if (isset($this->items[$hash])) {
             unset($this->items[$hash]);
-
             $deleteKey = -1;
             foreach ($this->keyMap as $key => $value) {
                 if ($deleteKey >= 0) {
                     $this->keyMap[$key - 1] = $value;
                 }
-
                 if ($value == $hash) {
                     $deleteKey = $key;
                 }
@@ -90,16 +82,14 @@ class HashTable
             unset($this->keyMap[count($this->keyMap) - 1]);
         }
     }
-
     /**
      * Clear HashTable.
      */
     public function clear()
     {
-        $this->items = [];
-        $this->keyMap = [];
+        $this->items = array();
+        $this->keyMap = array();
     }
-
     /**
      * Count.
      *
@@ -109,7 +99,6 @@ class HashTable
     {
         return count($this->items);
     }
-
     /**
      * Get index for hash code.
      *
@@ -121,7 +110,6 @@ class HashTable
     {
         return array_search($pHashCode, $this->keyMap);
     }
-
     /**
      * Get by index.
      *
@@ -134,10 +122,8 @@ class HashTable
         if (isset($this->keyMap[$pIndex])) {
             return $this->getByHashCode($this->keyMap[$pIndex]);
         }
-
         return null;
     }
-
     /**
      * Get by hashcode.
      *
@@ -150,10 +136,8 @@ class HashTable
         if (isset($this->items[$pHashCode])) {
             return $this->items[$pHashCode];
         }
-
         return null;
     }
-
     /**
      * HashTable to array.
      *
@@ -163,7 +147,6 @@ class HashTable
     {
         return $this->items;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -172,7 +155,7 @@ class HashTable
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             }
         }
     }

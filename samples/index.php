@@ -1,17 +1,7 @@
 <?php
 
 require_once 'Header.php';
-
-$requirements = [
-    'PHP 5.6.0' => version_compare(PHP_VERSION, '5.6.0', '>='),
-    'PHP extension XML' => extension_loaded('xml'),
-    'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
-    'PHP extension mbstring' => extension_loaded('mbstring'),
-    'PHP extension ZipArchive' => extension_loaded('zip'),
-    'PHP extension GD (optional)' => extension_loaded('gd'),
-    'PHP extension dom (optional)' => extension_loaded('dom'),
-];
-
+$requirements = array('PHP 5.6.0' => version_compare(PHP_VERSION, '5.6.0', '>='), 'PHP extension XML' => extension_loaded('xml'), 'PHP extension xmlwriter' => extension_loaded('xmlwriter'), 'PHP extension mbstring' => extension_loaded('mbstring'), 'PHP extension ZipArchive' => extension_loaded('zip'), 'PHP extension GD (optional)' => extension_loaded('gd'), 'PHP extension dom (optional)' => extension_loaded('dom'));
 if (!$helper->isCli()) {
     ?>
     <div class="jumbotron">
@@ -22,7 +12,7 @@ if (!$helper->isCli()) {
             <a class="btn btn-lg btn-primary" href="https://phpspreadsheet.readthedocs.io" role="button"><i class="fa fa-book fa-lg" title="Docs"></i>  Read the Docs</a>
         </p>
     </div>
-    <?php
+    <?php 
     echo '<h3>Requirement check</h3>';
     echo '<ul>';
     foreach ($requirements as $label => $result) {
@@ -34,6 +24,6 @@ if (!$helper->isCli()) {
     echo 'Requirement check:' . PHP_EOL;
     foreach ($requirements as $label => $result) {
         $status = $result ? '32m passed' : '31m failed';
-        echo "{$label} ... \033[{$status}\033[0m" . PHP_EOL;
+        echo "{$label} ... [{$status}[0m" . PHP_EOL;
     }
 }

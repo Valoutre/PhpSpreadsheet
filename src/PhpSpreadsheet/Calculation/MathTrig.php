@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
-
 class MathTrig
 {
     //
@@ -13,10 +12,9 @@ class MathTrig
     private static function factors($value)
     {
         $startVal = floor(sqrt($value));
-
-        $factorArray = [];
+        $factorArray = array();
         for ($i = $startVal; $i > 1; --$i) {
-            if (($value % $i) == 0) {
+            if ($value % $i == 0) {
                 $factorArray = array_merge($factorArray, self::factors($value / $i));
                 $factorArray = array_merge($factorArray, self::factors($i));
                 if ($i <= sqrt($value)) {
@@ -26,18 +24,14 @@ class MathTrig
         }
         if (!empty($factorArray)) {
             rsort($factorArray);
-
             return $factorArray;
         }
-
-        return [(int) $value];
+        return array((int) $value);
     }
-
     private static function romanCut($num, $n)
     {
-        return ($num - ($num % $n)) / $n;
+        return ($num - $num % $n) / $n;
     }
-
     /**
      * ATAN2.
      *
@@ -65,25 +59,18 @@ class MathTrig
     {
         $xCoordinate = Functions::flattenSingleValue($xCoordinate);
         $yCoordinate = Functions::flattenSingleValue($yCoordinate);
-
-        $xCoordinate = ($xCoordinate !== null) ? $xCoordinate : 0.0;
-        $yCoordinate = ($yCoordinate !== null) ? $yCoordinate : 0.0;
-
-        if (((is_numeric($xCoordinate)) || (is_bool($xCoordinate))) &&
-            ((is_numeric($yCoordinate))) || (is_bool($yCoordinate))) {
-            $xCoordinate = (float) $xCoordinate;
-            $yCoordinate = (float) $yCoordinate;
-
-            if (($xCoordinate == 0) && ($yCoordinate == 0)) {
+        $xCoordinate = $xCoordinate !== null ? $xCoordinate : 0.0;
+        $yCoordinate = $yCoordinate !== null ? $yCoordinate : 0.0;
+        if ((is_numeric($xCoordinate) || is_bool($xCoordinate)) && is_numeric($yCoordinate) || is_bool($yCoordinate)) {
+            $xCoordinate = (double) $xCoordinate;
+            $yCoordinate = (double) $yCoordinate;
+            if ($xCoordinate == 0 && $yCoordinate == 0) {
                 return Functions::DIV0();
             }
-
             return atan2($yCoordinate, $xCoordinate);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * CEILING.
      *
@@ -106,25 +93,19 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
-
-        if (($significance === null) &&
-            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
+        if ($significance === null && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
             $significance = $number / abs($number);
         }
-
-        if ((is_numeric($number)) && (is_numeric($significance))) {
-            if (($number == 0.0) || ($significance == 0.0)) {
+        if (is_numeric($number) && is_numeric($significance)) {
+            if ($number == 0.0 || $significance == 0.0) {
                 return 0.0;
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return ceil($number / $significance) * $significance;
             }
-
             return Functions::NAN();
         }
-
         return Functions::VALUE();
     }
-
     /**
      * COMBIN.
      *
@@ -145,20 +126,16 @@ class MathTrig
     {
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
-
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
+        if (is_numeric($numObjs) && is_numeric($numInSet)) {
             if ($numObjs < $numInSet) {
                 return Functions::NAN();
             } elseif ($numInSet < 0) {
                 return Functions::NAN();
             }
-
             return round(self::FACT($numObjs) / self::FACT($numObjs - $numInSet)) / self::FACT($numInSet);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * EVEN.
      *
@@ -180,22 +157,17 @@ class MathTrig
     public static function EVEN($number)
     {
         $number = Functions::flattenSingleValue($number);
-
         if ($number === null) {
             return 0;
         } elseif (is_bool($number)) {
             $number = (int) $number;
         }
-
         if (is_numeric($number)) {
             $significance = 2 * self::SIGN($number);
-
             return (int) self::CEILING($number, $significance);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * FACT.
      *
@@ -214,7 +186,6 @@ class MathTrig
     public static function FACT($factVal)
     {
         $factVal = Functions::flattenSingleValue($factVal);
-
         if (is_numeric($factVal)) {
             if ($factVal < 0) {
                 return Functions::NAN();
@@ -225,18 +196,14 @@ class MathTrig
                     return Functions::NAN();
                 }
             }
-
             $factorial = 1;
             while ($factLoop > 1) {
                 $factorial *= $factLoop--;
             }
-
             return $factorial;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * FACTDOUBLE.
      *
@@ -254,7 +221,6 @@ class MathTrig
     public static function FACTDOUBLE($factVal)
     {
         $factLoop = Functions::flattenSingleValue($factVal);
-
         if (is_numeric($factLoop)) {
             $factLoop = floor($factLoop);
             if ($factVal < 0) {
@@ -265,13 +231,10 @@ class MathTrig
                 $factorial *= $factLoop--;
                 --$factLoop;
             }
-
             return $factorial;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * FLOOR.
      *
@@ -291,13 +254,10 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
-
-        if (($significance === null) &&
-            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
+        if ($significance === null && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
             $significance = $number / abs($number);
         }
-
-        if ((is_numeric($number)) && (is_numeric($significance))) {
+        if (is_numeric($number) && is_numeric($significance)) {
             if ($significance == 0.0) {
                 return Functions::DIV0();
             } elseif ($number == 0.0) {
@@ -305,18 +265,14 @@ class MathTrig
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return floor($number / $significance) * $significance;
             }
-
             return Functions::NAN();
         }
-
         return Functions::VALUE();
     }
-
     private static function evaluateGCD($a, $b)
     {
         return $b ? self::evaluateGCD($b, $a % $b) : $a;
     }
-
     /**
      * GCD.
      *
@@ -344,15 +300,12 @@ class MathTrig
                 return Functions::NAN();
             }
         }
-
         $gcd = (int) array_pop($args);
         do {
             $gcd = self::evaluateGCD($gcd, (int) array_pop($args));
         } while (!empty($args));
-
         return $gcd;
     }
-
     /**
      * INT.
      *
@@ -370,7 +323,6 @@ class MathTrig
     public static function INT($number)
     {
         $number = Functions::flattenSingleValue($number);
-
         if ($number === null) {
             return 0;
         } elseif (is_bool($number)) {
@@ -379,10 +331,8 @@ class MathTrig
         if (is_numeric($number)) {
             return (int) floor($number);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * LCM.
      *
@@ -403,7 +353,7 @@ class MathTrig
     public static function LCM(...$args)
     {
         $returnValue = 1;
-        $allPoweredFactors = [];
+        $allPoweredFactors = array();
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $value) {
             if (!is_numeric($value)) {
@@ -416,7 +366,7 @@ class MathTrig
             }
             $myFactors = self::factors(floor($value));
             $myCountedFactors = array_count_values($myFactors);
-            $myPoweredFactors = [];
+            $myPoweredFactors = array();
             foreach ($myCountedFactors as $myCountedFactor => $myCountedPower) {
                 $myPoweredFactors[$myCountedFactor] = pow($myCountedFactor, $myCountedPower);
             }
@@ -433,10 +383,8 @@ class MathTrig
         foreach ($allPoweredFactors as $allPoweredFactor) {
             $returnValue *= (int) $allPoweredFactor;
         }
-
         return $returnValue;
     }
-
     /**
      * LOG_BASE.
      *
@@ -455,18 +403,15 @@ class MathTrig
     public static function logBase($number = null, $base = 10)
     {
         $number = Functions::flattenSingleValue($number);
-        $base = ($base === null) ? 10 : (float) Functions::flattenSingleValue($base);
-
-        if ((!is_numeric($base)) || (!is_numeric($number))) {
+        $base = $base === null ? 10 : (double) Functions::flattenSingleValue($base);
+        if (!is_numeric($base) || !is_numeric($number)) {
             return Functions::VALUE();
         }
-        if (($base <= 0) || ($number <= 0)) {
+        if ($base <= 0 || $number <= 0) {
             return Functions::NAN();
         }
-
         return log($number, $base);
     }
-
     /**
      * MDETERM.
      *
@@ -483,19 +428,18 @@ class MathTrig
      */
     public static function MDETERM($matrixValues)
     {
-        $matrixData = [];
+        $matrixData = array();
         if (!is_array($matrixValues)) {
-            $matrixValues = [[$matrixValues]];
+            $matrixValues = array(array($matrixValues));
         }
-
         $row = $maxColumn = 0;
         foreach ($matrixValues as $matrixRow) {
             if (!is_array($matrixRow)) {
-                $matrixRow = [$matrixRow];
+                $matrixRow = array($matrixRow);
             }
             $column = 0;
             foreach ($matrixRow as $matrixCell) {
-                if ((is_string($matrixCell)) || ($matrixCell === null)) {
+                if (is_string($matrixCell) || $matrixCell === null) {
                     return Functions::VALUE();
                 }
                 $matrixData[$column][$row] = $matrixCell;
@@ -509,16 +453,13 @@ class MathTrig
         if ($row != $maxColumn) {
             return Functions::VALUE();
         }
-
         try {
             $matrix = new Matrix($matrixData);
-
             return $matrix->det();
         } catch (PhpSpreadsheetException $ex) {
             return Functions::VALUE();
         }
     }
-
     /**
      * MINVERSE.
      *
@@ -535,19 +476,18 @@ class MathTrig
      */
     public static function MINVERSE($matrixValues)
     {
-        $matrixData = [];
+        $matrixData = array();
         if (!is_array($matrixValues)) {
-            $matrixValues = [[$matrixValues]];
+            $matrixValues = array(array($matrixValues));
         }
-
         $row = $maxColumn = 0;
         foreach ($matrixValues as $matrixRow) {
             if (!is_array($matrixRow)) {
-                $matrixRow = [$matrixRow];
+                $matrixRow = array($matrixRow);
             }
             $column = 0;
             foreach ($matrixRow as $matrixCell) {
-                if ((is_string($matrixCell)) || ($matrixCell === null)) {
+                if (is_string($matrixCell) || $matrixCell === null) {
                     return Functions::VALUE();
                 }
                 $matrixData[$column][$row] = $matrixCell;
@@ -563,16 +503,13 @@ class MathTrig
                 return Functions::VALUE();
             }
         }
-
         try {
             $matrix = new Matrix($matrixData);
-
             return $matrix->inverse()->getArray();
         } catch (PhpSpreadsheetException $ex) {
             return Functions::VALUE();
         }
     }
-
     /**
      * MMULT.
      *
@@ -583,23 +520,22 @@ class MathTrig
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
-        $matrixAData = $matrixBData = [];
+        $matrixAData = $matrixBData = array();
         if (!is_array($matrixData1)) {
-            $matrixData1 = [[$matrixData1]];
+            $matrixData1 = array(array($matrixData1));
         }
         if (!is_array($matrixData2)) {
-            $matrixData2 = [[$matrixData2]];
+            $matrixData2 = array(array($matrixData2));
         }
-
         try {
             $rowA = 0;
             foreach ($matrixData1 as $matrixRow) {
                 if (!is_array($matrixRow)) {
-                    $matrixRow = [$matrixRow];
+                    $matrixRow = array($matrixRow);
                 }
                 $columnA = 0;
                 foreach ($matrixRow as $matrixCell) {
-                    if ((!is_numeric($matrixCell)) || ($matrixCell === null)) {
+                    if (!is_numeric($matrixCell) || $matrixCell === null) {
                         return Functions::VALUE();
                     }
                     $matrixAData[$rowA][$columnA] = $matrixCell;
@@ -611,11 +547,11 @@ class MathTrig
             $rowB = 0;
             foreach ($matrixData2 as $matrixRow) {
                 if (!is_array($matrixRow)) {
-                    $matrixRow = [$matrixRow];
+                    $matrixRow = array($matrixRow);
                 }
                 $columnB = 0;
                 foreach ($matrixRow as $matrixCell) {
-                    if ((!is_numeric($matrixCell)) || ($matrixCell === null)) {
+                    if (!is_numeric($matrixCell) || $matrixCell === null) {
                         return Functions::VALUE();
                     }
                     $matrixBData[$rowB][$columnB] = $matrixCell;
@@ -624,17 +560,14 @@ class MathTrig
                 ++$rowB;
             }
             $matrixB = new Matrix($matrixBData);
-
             if ($columnA != $rowB) {
                 return Functions::VALUE();
             }
-
             return $matrixA->times($matrixB)->getArray();
         } catch (PhpSpreadsheetException $ex) {
             return Functions::VALUE();
         }
     }
-
     /**
      * MOD.
      *
@@ -645,20 +578,17 @@ class MathTrig
      */
     public static function MOD($a = 1, $b = 1)
     {
-        $a = (float) Functions::flattenSingleValue($a);
-        $b = (float) Functions::flattenSingleValue($b);
-
+        $a = (double) Functions::flattenSingleValue($a);
+        $b = (double) Functions::flattenSingleValue($b);
         if ($b == 0.0) {
             return Functions::DIV0();
-        } elseif (($a < 0.0) && ($b > 0.0)) {
+        } elseif ($a < 0.0 && $b > 0.0) {
             return $b - fmod(abs($a), $b);
-        } elseif (($a > 0.0) && ($b < 0.0)) {
+        } elseif ($a > 0.0 && $b < 0.0) {
             return $b + fmod($a, abs($b));
         }
-
         return fmod($a, $b);
     }
-
     /**
      * MROUND.
      *
@@ -673,23 +603,18 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
         $multiple = Functions::flattenSingleValue($multiple);
-
-        if ((is_numeric($number)) && (is_numeric($multiple))) {
+        if (is_numeric($number) && is_numeric($multiple)) {
             if ($multiple == 0) {
                 return 0;
             }
-            if ((self::SIGN($number)) == (self::SIGN($multiple))) {
+            if (self::SIGN($number) == self::SIGN($multiple)) {
                 $multiplier = 1 / $multiple;
-
                 return round($number * $multiplier) / $multiplier;
             }
-
             return Functions::NAN();
         }
-
         return Functions::VALUE();
     }
-
     /**
      * MULTINOMIAL.
      *
@@ -716,17 +641,13 @@ class MathTrig
                 return Functions::VALUE();
             }
         }
-
         // Return
         if ($summer > 0) {
             $summer = self::FACT($summer);
-
             return $summer / $divisor;
         }
-
         return 0;
     }
-
     /**
      * ODD.
      *
@@ -739,7 +660,6 @@ class MathTrig
     public static function ODD($number)
     {
         $number = Functions::flattenSingleValue($number);
-
         if ($number === null) {
             return 1;
         } elseif (is_bool($number)) {
@@ -749,18 +669,14 @@ class MathTrig
             if ($significance == 0) {
                 return 1;
             }
-
             $result = self::CEILING($number, $significance);
             if ($result == self::EVEN($result)) {
                 $result += $significance;
             }
-
             return (int) $result;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * POWER.
      *
@@ -775,20 +691,16 @@ class MathTrig
     {
         $x = Functions::flattenSingleValue($x);
         $y = Functions::flattenSingleValue($y);
-
         // Validate parameters
         if ($x == 0.0 && $y == 0.0) {
             return Functions::NAN();
         } elseif ($x == 0.0 && $y < 0.0) {
             return Functions::DIV0();
         }
-
         // Return
         $result = pow($x, $y);
-
-        return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NAN();
+        return !is_nan($result) && !is_infinite($result) ? $result : Functions::NAN();
     }
-
     /**
      * PRODUCT.
      *
@@ -807,11 +719,10 @@ class MathTrig
     {
         // Return value
         $returnValue = null;
-
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if (is_numeric($arg) && !is_string($arg)) {
                 if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {
@@ -819,15 +730,12 @@ class MathTrig
                 }
             }
         }
-
         // Return
         if ($returnValue === null) {
             return 0;
         }
-
         return $returnValue;
     }
-
     /**
      * QUOTIENT.
      *
@@ -847,15 +755,14 @@ class MathTrig
     {
         // Return value
         $returnValue = null;
-
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if (is_numeric($arg) && !is_string($arg)) {
                 if ($returnValue === null) {
-                    $returnValue = ($arg == 0) ? 0 : $arg;
+                    $returnValue = $arg == 0 ? 0 : $arg;
                 } else {
-                    if (($returnValue == 0) || ($arg == 0)) {
+                    if ($returnValue == 0 || $arg == 0) {
                         $returnValue = 0;
                     } else {
                         $returnValue /= $arg;
@@ -863,11 +770,9 @@ class MathTrig
                 }
             }
         }
-
         // Return
         return (int) $returnValue;
     }
-
     /**
      * RAND.
      *
@@ -880,31 +785,26 @@ class MathTrig
     {
         $min = Functions::flattenSingleValue($min);
         $max = Functions::flattenSingleValue($max);
-
         if ($min == 0 && $max == 0) {
-            return (mt_rand(0, 10000000)) / 10000000;
+            return mt_rand(0, 10000000) / 10000000;
         }
-
         return mt_rand($min, $max);
     }
-
     public static function ROMAN($aValue, $style = 0)
     {
         $aValue = Functions::flattenSingleValue($aValue);
-        $style = ($style === null) ? 0 : (int) Functions::flattenSingleValue($style);
-        if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
+        $style = $style === null ? 0 : (int) Functions::flattenSingleValue($style);
+        if (!is_numeric($aValue) || $aValue < 0 || $aValue >= 4000) {
             return Functions::VALUE();
         }
         $aValue = (int) $aValue;
         if ($aValue == 0) {
             return '';
         }
-
-        $mill = ['', 'M', 'MM', 'MMM', 'MMMM', 'MMMMM'];
-        $cent = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
-        $tens = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
-        $ones = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-
+        $mill = array('', 'M', 'MM', 'MMM', 'MMMM', 'MMMMM');
+        $cent = array('', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM');
+        $tens = array('', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC');
+        $ones = array('', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX');
         $roman = '';
         while ($aValue > 5999) {
             $roman .= 'M';
@@ -916,10 +816,8 @@ class MathTrig
         $aValue %= 100;
         $t = self::romanCut($aValue, 10);
         $aValue %= 10;
-
         return $roman . $mill[$m] . $cent[$c] . $tens[$t] . $ones[$aValue];
     }
-
     /**
      * ROUNDUP.
      *
@@ -934,19 +832,15 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
         $digits = Functions::flattenSingleValue($digits);
-
-        if ((is_numeric($number)) && (is_numeric($digits))) {
+        if (is_numeric($number) && is_numeric($digits)) {
             $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
                 return floor($number * $significance) / $significance;
             }
-
             return ceil($number * $significance) / $significance;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * ROUNDDOWN.
      *
@@ -961,19 +855,15 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
         $digits = Functions::flattenSingleValue($digits);
-
-        if ((is_numeric($number)) && (is_numeric($digits))) {
+        if (is_numeric($number) && is_numeric($digits)) {
             $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
                 return ceil($number * $significance) / $significance;
             }
-
             return floor($number * $significance) / $significance;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * SERIESSUM.
      *
@@ -989,32 +879,26 @@ class MathTrig
     public static function SERIESSUM(...$args)
     {
         $returnValue = 0;
-
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
-
         $x = array_shift($aArgs);
         $n = array_shift($aArgs);
         $m = array_shift($aArgs);
-
-        if ((is_numeric($x)) && (is_numeric($n)) && (is_numeric($m))) {
+        if (is_numeric($x) && is_numeric($n) && is_numeric($m)) {
             // Calculate
             $i = 0;
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $returnValue += $arg * pow($x, $n + ($m * $i++));
+                if (is_numeric($arg) && !is_string($arg)) {
+                    $returnValue += $arg * pow($x, $n + $m * $i++);
                 } else {
                     return Functions::VALUE();
                 }
             }
-
             return $returnValue;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * SIGN.
      *
@@ -1028,7 +912,6 @@ class MathTrig
     public static function SIGN($number)
     {
         $number = Functions::flattenSingleValue($number);
-
         if (is_bool($number)) {
             return (int) $number;
         }
@@ -1036,13 +919,10 @@ class MathTrig
             if ($number == 0.0) {
                 return 0;
             }
-
             return $number / abs($number);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * SQRTPI.
      *
@@ -1055,52 +935,34 @@ class MathTrig
     public static function SQRTPI($number)
     {
         $number = Functions::flattenSingleValue($number);
-
         if (is_numeric($number)) {
             if ($number < 0) {
                 return Functions::NAN();
             }
-
             return sqrt($number * M_PI);
         }
-
         return Functions::VALUE();
     }
-
     protected static function filterHiddenArgs($cellReference, $args)
     {
-        return array_filter(
-            $args,
-            function ($index) use ($cellReference) {
-                list(, $row, $column) = explode('.', $index);
-
-                return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
-                    $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
-            },
-            ARRAY_FILTER_USE_KEY
-        );
+        return array_filter($args, function ($index) use($cellReference) {
+            list(, $row, $column) = explode('.', $index);
+            return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() && $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
+        }, ARRAY_FILTER_USE_KEY);
     }
-
     protected static function filterFormulaArgs($cellReference, $args)
     {
-        return array_filter(
-            $args,
-            function ($index) use ($cellReference) {
-                list(, $row, $column) = explode('.', $index);
-                if ($cellReference->getWorksheet()->cellExists($column . $row)) {
-                    //take this cell out if it contains the SUBTOTAL formula
-                    $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
-                    $cellFormula = !preg_match('/^=.*\bSUBTOTAL\s*\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
-
-                    return !$isFormula || $cellFormula;
-                }
-
-                return true;
-            },
-            ARRAY_FILTER_USE_KEY
-        );
+        return array_filter($args, function ($index) use($cellReference) {
+            list(, $row, $column) = explode('.', $index);
+            if ($cellReference->getWorksheet()->cellExists($column . $row)) {
+                //take this cell out if it contains the SUBTOTAL formula
+                $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
+                $cellFormula = !preg_match('/^=.*\\bSUBTOTAL\\s*\\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
+                return !$isFormula || $cellFormula;
+            }
+            return true;
+        }, ARRAY_FILTER_USE_KEY);
     }
-
     /**
      * SUBTOTAL.
      *
@@ -1121,14 +983,12 @@ class MathTrig
         $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
         $subtotal = array_shift($aArgs);
-
         // Calculate
-        if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
+        if (is_numeric($subtotal) && !is_string($subtotal)) {
             if ($subtotal > 100) {
                 $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 $subtotal -= 100;
             }
-
             $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
@@ -1155,10 +1015,8 @@ class MathTrig
                     return Statistical::VARP($aArgs);
             }
         }
-
         return Functions::VALUE();
     }
-
     /**
      * SUM.
      *
@@ -1176,18 +1034,15 @@ class MathTrig
     public static function SUM(...$args)
     {
         $returnValue = 0;
-
         // Loop through the arguments
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if (is_numeric($arg) && !is_string($arg)) {
                 $returnValue += $arg;
             }
         }
-
         return $returnValue;
     }
-
     /**
      * SUMIF.
      *
@@ -1204,10 +1059,9 @@ class MathTrig
      *
      * @return float
      */
-    public static function SUMIF($aArgs, $condition, $sumArgs = [])
+    public static function SUMIF($aArgs, $condition, $sumArgs = array())
     {
         $returnValue = 0;
-
         $aArgs = Functions::flattenArray($aArgs);
         $sumArgs = Functions::flattenArray($sumArgs);
         if (empty($sumArgs)) {
@@ -1220,17 +1074,14 @@ class MathTrig
                 $arg = str_replace('"', '""', $arg);
                 $arg = Calculation::wrapResult(strtoupper($arg));
             }
-
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 $returnValue += $sumArgs[$key];
             }
         }
-
         return $returnValue;
     }
-
     /**
      * SUMIFS.
      *
@@ -1249,21 +1100,16 @@ class MathTrig
     public static function SUMIFS(...$args)
     {
         $arrayList = $args;
-
         // Return value
         $returnValue = 0;
-
         $sumArgs = Functions::flattenArray(array_shift($arrayList));
-
         while (count($arrayList) > 0) {
             $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
             $conditions[] = Functions::ifCondition(array_shift($arrayList));
         }
-
         // Loop through each set of arguments and conditions
         foreach ($conditions as $index => $condition) {
             $aArgs = $aArgsArray[$index];
-
             // Loop through arguments
             foreach ($aArgs as $key => $arg) {
                 if (!is_numeric($arg)) {
@@ -1276,11 +1122,9 @@ class MathTrig
                 }
             }
         }
-
         // Return
         return $returnValue;
     }
-
     /**
      * SUMPRODUCT.
      *
@@ -1296,34 +1140,28 @@ class MathTrig
     public static function SUMPRODUCT(...$args)
     {
         $arrayList = $args;
-
         $wrkArray = Functions::flattenArray(array_shift($arrayList));
         $wrkCellCount = count($wrkArray);
-
         for ($i = 0; $i < $wrkCellCount; ++$i) {
-            if ((!is_numeric($wrkArray[$i])) || (is_string($wrkArray[$i]))) {
+            if (!is_numeric($wrkArray[$i]) || is_string($wrkArray[$i])) {
                 $wrkArray[$i] = 0;
             }
         }
-
         foreach ($arrayList as $matrixData) {
             $array2 = Functions::flattenArray($matrixData);
             $count = count($array2);
             if ($wrkCellCount != $count) {
                 return Functions::VALUE();
             }
-
             foreach ($array2 as $i => $val) {
-                if ((!is_numeric($val)) || (is_string($val))) {
+                if (!is_numeric($val) || is_string($val)) {
                     $val = 0;
                 }
                 $wrkArray[$i] *= $val;
             }
         }
-
         return array_sum($wrkArray);
     }
-
     /**
      * SUMSQ.
      *
@@ -1341,18 +1179,15 @@ class MathTrig
     public static function SUMSQ(...$args)
     {
         $returnValue = 0;
-
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue += ($arg * $arg);
+            if (is_numeric($arg) && !is_string($arg)) {
+                $returnValue += $arg * $arg;
             }
         }
-
         return $returnValue;
     }
-
     /**
      * SUMX2MY2.
      *
@@ -1366,18 +1201,14 @@ class MathTrig
         $array1 = Functions::flattenArray($matrixData1);
         $array2 = Functions::flattenArray($matrixData2);
         $count = min(count($array1), count($array2));
-
         $result = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if (((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))) {
-                $result += ($array1[$i] * $array1[$i]) - ($array2[$i] * $array2[$i]);
+            if (is_numeric($array1[$i]) && !is_string($array1[$i]) && (is_numeric($array2[$i]) && !is_string($array2[$i]))) {
+                $result += $array1[$i] * $array1[$i] - $array2[$i] * $array2[$i];
             }
         }
-
         return $result;
     }
-
     /**
      * SUMX2PY2.
      *
@@ -1391,18 +1222,14 @@ class MathTrig
         $array1 = Functions::flattenArray($matrixData1);
         $array2 = Functions::flattenArray($matrixData2);
         $count = min(count($array1), count($array2));
-
         $result = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if (((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))) {
-                $result += ($array1[$i] * $array1[$i]) + ($array2[$i] * $array2[$i]);
+            if (is_numeric($array1[$i]) && !is_string($array1[$i]) && (is_numeric($array2[$i]) && !is_string($array2[$i]))) {
+                $result += $array1[$i] * $array1[$i] + $array2[$i] * $array2[$i];
             }
         }
-
         return $result;
     }
-
     /**
      * SUMXMY2.
      *
@@ -1416,18 +1243,14 @@ class MathTrig
         $array1 = Functions::flattenArray($matrixData1);
         $array2 = Functions::flattenArray($matrixData2);
         $count = min(count($array1), count($array2));
-
         $result = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if (((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))) {
+            if (is_numeric($array1[$i]) && !is_string($array1[$i]) && (is_numeric($array2[$i]) && !is_string($array2[$i]))) {
                 $result += ($array1[$i] - $array2[$i]) * ($array1[$i] - $array2[$i]);
             }
         }
-
         return $result;
     }
-
     /**
      * TRUNC.
      *
@@ -1442,20 +1265,16 @@ class MathTrig
     {
         $value = Functions::flattenSingleValue($value);
         $digits = Functions::flattenSingleValue($digits);
-
         // Validate parameters
-        if ((!is_numeric($value)) || (!is_numeric($digits))) {
+        if (!is_numeric($value) || !is_numeric($digits)) {
             return Functions::VALUE();
         }
         $digits = floor($digits);
-
         // Truncate
         $adjust = pow(10, $digits);
-
-        if (($digits > 0) && (rtrim((int) ((abs($value) - abs((int) $value)) * $adjust), '0') < $adjust / 10)) {
+        if ($digits > 0 && rtrim((int) ((abs($value) - abs((int) $value)) * $adjust), '0') < $adjust / 10) {
             return $value;
         }
-
-        return ((int) ($value * $adjust)) / $adjust;
+        return (int) ($value * $adjust) / $adjust;
     }
 }

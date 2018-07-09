@@ -10,14 +10,12 @@ class Column
      * @var Worksheet
      */
     private $parent;
-
     /**
      * Column index.
      *
      * @var string
      */
     private $columnIndex;
-
     /**
      * Create a new column.
      *
@@ -30,7 +28,6 @@ class Column
         $this->parent = $parent;
         $this->columnIndex = $columnIndex;
     }
-
     /**
      * Destructor.
      */
@@ -38,7 +35,6 @@ class Column
     {
         unset($this->parent);
     }
-
     /**
      * Get column index.
      *
@@ -48,7 +44,6 @@ class Column
     {
         return $this->columnIndex;
     }
-
     /**
      * Get cell iterator.
      *

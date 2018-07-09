@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 abstract class WriterPart
 {
     /**
@@ -12,7 +11,6 @@ abstract class WriterPart
      * @var Xlsx
      */
     private $parentWriter;
-
     /**
      * Get parent Xlsx object.
      *
@@ -22,7 +20,6 @@ abstract class WriterPart
     {
         return $this->parentWriter;
     }
-
     /**
      * Set parent Xlsx object.
      *

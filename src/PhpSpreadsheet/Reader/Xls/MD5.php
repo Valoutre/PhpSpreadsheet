@@ -6,13 +6,9 @@ class MD5
 {
     // Context
     private $a;
-
     private $b;
-
     private $c;
-
     private $d;
-
     /**
      * MD5 stream constructor.
      */
@@ -20,18 +16,16 @@ class MD5
     {
         $this->reset();
     }
-
     /**
      * Reset the MD5 stream context.
      */
     public function reset()
     {
-        $this->a = 0x67452301;
-        $this->b = 0xEFCDAB89;
-        $this->c = 0x98BADCFE;
-        $this->d = 0x10325476;
+        $this->a = 1732584193;
+        $this->b = 0.0;
+        $this->c = 0.0;
+        $this->d = 271733878;
     }
-
     /**
      * Get MD5 stream context.
      *
@@ -40,17 +34,15 @@ class MD5
     public function getContext()
     {
         $s = '';
-        foreach (['a', 'b', 'c', 'd'] as $i) {
+        foreach (array('a', 'b', 'c', 'd') as $i) {
             $v = $this->{$i};
-            $s .= chr($v & 0xff);
-            $s .= chr(($v >> 8) & 0xff);
-            $s .= chr(($v >> 16) & 0xff);
-            $s .= chr(($v >> 24) & 0xff);
+            $s .= chr($v & 255);
+            $s .= chr($v >> 8 & 255);
+            $s .= chr($v >> 16 & 255);
+            $s .= chr($v >> 24 & 255);
         }
-
         return $s;
     }
-
     /**
      * Add data to context.
      *
@@ -59,126 +51,112 @@ class MD5
     public function add($data)
     {
         $words = array_values(unpack('V16', $data));
-
         $A = $this->a;
         $B = $this->b;
         $C = $this->c;
         $D = $this->d;
-
-        $F = ['self', 'f'];
-        $G = ['self', 'g'];
-        $H = ['self', 'h'];
-        $I = ['self', 'i'];
-
+        $F = array('self', 'f');
+        $G = array('self', 'g');
+        $H = array('self', 'h');
+        $I = array('self', 'i');
         // ROUND 1
-        self::step($F, $A, $B, $C, $D, $words[0], 7, 0xd76aa478);
-        self::step($F, $D, $A, $B, $C, $words[1], 12, 0xe8c7b756);
-        self::step($F, $C, $D, $A, $B, $words[2], 17, 0x242070db);
-        self::step($F, $B, $C, $D, $A, $words[3], 22, 0xc1bdceee);
-        self::step($F, $A, $B, $C, $D, $words[4], 7, 0xf57c0faf);
-        self::step($F, $D, $A, $B, $C, $words[5], 12, 0x4787c62a);
-        self::step($F, $C, $D, $A, $B, $words[6], 17, 0xa8304613);
-        self::step($F, $B, $C, $D, $A, $words[7], 22, 0xfd469501);
-        self::step($F, $A, $B, $C, $D, $words[8], 7, 0x698098d8);
-        self::step($F, $D, $A, $B, $C, $words[9], 12, 0x8b44f7af);
-        self::step($F, $C, $D, $A, $B, $words[10], 17, 0xffff5bb1);
-        self::step($F, $B, $C, $D, $A, $words[11], 22, 0x895cd7be);
-        self::step($F, $A, $B, $C, $D, $words[12], 7, 0x6b901122);
-        self::step($F, $D, $A, $B, $C, $words[13], 12, 0xfd987193);
-        self::step($F, $C, $D, $A, $B, $words[14], 17, 0xa679438e);
-        self::step($F, $B, $C, $D, $A, $words[15], 22, 0x49b40821);
-
+        self::step($F, $A, $B, $C, $D, $words[0], 7, 3614090360.0);
+        self::step($F, $D, $A, $B, $C, $words[1], 12, 0.0);
+        self::step($F, $C, $D, $A, $B, $words[2], 17, 606105819);
+        self::step($F, $B, $C, $D, $A, $words[3], 22, 0.0);
+        self::step($F, $A, $B, $C, $D, $words[4], 7, 4118548399.0);
+        self::step($F, $D, $A, $B, $C, $words[5], 12, 1200080426);
+        self::step($F, $C, $D, $A, $B, $words[6], 17, 2821735955.0);
+        self::step($F, $B, $C, $D, $A, $words[7], 22, 4249261313.0);
+        self::step($F, $A, $B, $C, $D, $words[8], 7, 1770035416);
+        self::step($F, $D, $A, $B, $C, $words[9], 12, 2336552879.0);
+        self::step($F, $C, $D, $A, $B, $words[10], 17, 4294925233.0);
+        self::step($F, $B, $C, $D, $A, $words[11], 22, 0.0);
+        self::step($F, $A, $B, $C, $D, $words[12], 7, 1804603682);
+        self::step($F, $D, $A, $B, $C, $words[13], 12, 4254626195.0);
+        self::step($F, $C, $D, $A, $B, $words[14], 17, 0.0);
+        self::step($F, $B, $C, $D, $A, $words[15], 22, 1236535329);
         // ROUND 2
-        self::step($G, $A, $B, $C, $D, $words[1], 5, 0xf61e2562);
-        self::step($G, $D, $A, $B, $C, $words[6], 9, 0xc040b340);
-        self::step($G, $C, $D, $A, $B, $words[11], 14, 0x265e5a51);
-        self::step($G, $B, $C, $D, $A, $words[0], 20, 0xe9b6c7aa);
-        self::step($G, $A, $B, $C, $D, $words[5], 5, 0xd62f105d);
-        self::step($G, $D, $A, $B, $C, $words[10], 9, 0x02441453);
-        self::step($G, $C, $D, $A, $B, $words[15], 14, 0xd8a1e681);
-        self::step($G, $B, $C, $D, $A, $words[4], 20, 0xe7d3fbc8);
-        self::step($G, $A, $B, $C, $D, $words[9], 5, 0x21e1cde6);
-        self::step($G, $D, $A, $B, $C, $words[14], 9, 0xc33707d6);
-        self::step($G, $C, $D, $A, $B, $words[3], 14, 0xf4d50d87);
-        self::step($G, $B, $C, $D, $A, $words[8], 20, 0x455a14ed);
-        self::step($G, $A, $B, $C, $D, $words[13], 5, 0xa9e3e905);
-        self::step($G, $D, $A, $B, $C, $words[2], 9, 0xfcefa3f8);
-        self::step($G, $C, $D, $A, $B, $words[7], 14, 0x676f02d9);
-        self::step($G, $B, $C, $D, $A, $words[12], 20, 0x8d2a4c8a);
-
+        self::step($G, $A, $B, $C, $D, $words[1], 5, 0.0);
+        self::step($G, $D, $A, $B, $C, $words[6], 9, 3225465664.0);
+        self::step($G, $C, $D, $A, $B, $words[11], 14, 643717713);
+        self::step($G, $B, $C, $D, $A, $words[0], 20, 0.0);
+        self::step($G, $A, $B, $C, $D, $words[5], 5, 3593408605.0);
+        self::step($G, $D, $A, $B, $C, $words[10], 9, 38016083);
+        self::step($G, $C, $D, $A, $B, $words[15], 14, 0.0);
+        self::step($G, $B, $C, $D, $A, $words[4], 20, 0.0);
+        self::step($G, $A, $B, $C, $D, $words[9], 5, 568446438);
+        self::step($G, $D, $A, $B, $C, $words[14], 9, 3275163606.0);
+        self::step($G, $C, $D, $A, $B, $words[3], 14, 4107603335.0);
+        self::step($G, $B, $C, $D, $A, $words[8], 20, 1163531501);
+        self::step($G, $A, $B, $C, $D, $words[13], 5, 0.0);
+        self::step($G, $D, $A, $B, $C, $words[2], 9, 0.0);
+        self::step($G, $C, $D, $A, $B, $words[7], 14, 1735328473);
+        self::step($G, $B, $C, $D, $A, $words[12], 20, 2368359562.0);
         // ROUND 3
-        self::step($H, $A, $B, $C, $D, $words[5], 4, 0xfffa3942);
-        self::step($H, $D, $A, $B, $C, $words[8], 11, 0x8771f681);
-        self::step($H, $C, $D, $A, $B, $words[11], 16, 0x6d9d6122);
-        self::step($H, $B, $C, $D, $A, $words[14], 23, 0xfde5380c);
-        self::step($H, $A, $B, $C, $D, $words[1], 4, 0xa4beea44);
-        self::step($H, $D, $A, $B, $C, $words[4], 11, 0x4bdecfa9);
-        self::step($H, $C, $D, $A, $B, $words[7], 16, 0xf6bb4b60);
-        self::step($H, $B, $C, $D, $A, $words[10], 23, 0xbebfbc70);
-        self::step($H, $A, $B, $C, $D, $words[13], 4, 0x289b7ec6);
-        self::step($H, $D, $A, $B, $C, $words[0], 11, 0xeaa127fa);
-        self::step($H, $C, $D, $A, $B, $words[3], 16, 0xd4ef3085);
-        self::step($H, $B, $C, $D, $A, $words[6], 23, 0x04881d05);
-        self::step($H, $A, $B, $C, $D, $words[9], 4, 0xd9d4d039);
-        self::step($H, $D, $A, $B, $C, $words[12], 11, 0xe6db99e5);
-        self::step($H, $C, $D, $A, $B, $words[15], 16, 0x1fa27cf8);
-        self::step($H, $B, $C, $D, $A, $words[2], 23, 0xc4ac5665);
-
+        self::step($H, $A, $B, $C, $D, $words[5], 4, 4294588738.0);
+        self::step($H, $D, $A, $B, $C, $words[8], 11, 2272392833.0);
+        self::step($H, $C, $D, $A, $B, $words[11], 16, 1839030562);
+        self::step($H, $B, $C, $D, $A, $words[14], 23, 0.0);
+        self::step($H, $A, $B, $C, $D, $words[1], 4, 0.0);
+        self::step($H, $D, $A, $B, $C, $words[4], 11, 1272893353);
+        self::step($H, $C, $D, $A, $B, $words[7], 16, 4139469664.0);
+        self::step($H, $B, $C, $D, $A, $words[10], 23, 0.0);
+        self::step($H, $A, $B, $C, $D, $words[13], 4, 681279174);
+        self::step($H, $D, $A, $B, $C, $words[0], 11, 0.0);
+        self::step($H, $C, $D, $A, $B, $words[3], 16, 0.0);
+        self::step($H, $B, $C, $D, $A, $words[6], 23, 76029189);
+        self::step($H, $A, $B, $C, $D, $words[9], 4, 3654602809.0);
+        self::step($H, $D, $A, $B, $C, $words[12], 11, 0.0);
+        self::step($H, $C, $D, $A, $B, $words[15], 16, 530742520);
+        self::step($H, $B, $C, $D, $A, $words[2], 23, 3299628645.0);
         // ROUND 4
-        self::step($I, $A, $B, $C, $D, $words[0], 6, 0xf4292244);
-        self::step($I, $D, $A, $B, $C, $words[7], 10, 0x432aff97);
-        self::step($I, $C, $D, $A, $B, $words[14], 15, 0xab9423a7);
-        self::step($I, $B, $C, $D, $A, $words[5], 21, 0xfc93a039);
-        self::step($I, $A, $B, $C, $D, $words[12], 6, 0x655b59c3);
-        self::step($I, $D, $A, $B, $C, $words[3], 10, 0x8f0ccc92);
-        self::step($I, $C, $D, $A, $B, $words[10], 15, 0xffeff47d);
-        self::step($I, $B, $C, $D, $A, $words[1], 21, 0x85845dd1);
-        self::step($I, $A, $B, $C, $D, $words[8], 6, 0x6fa87e4f);
-        self::step($I, $D, $A, $B, $C, $words[15], 10, 0xfe2ce6e0);
-        self::step($I, $C, $D, $A, $B, $words[6], 15, 0xa3014314);
-        self::step($I, $B, $C, $D, $A, $words[13], 21, 0x4e0811a1);
-        self::step($I, $A, $B, $C, $D, $words[4], 6, 0xf7537e82);
-        self::step($I, $D, $A, $B, $C, $words[11], 10, 0xbd3af235);
-        self::step($I, $C, $D, $A, $B, $words[2], 15, 0x2ad7d2bb);
-        self::step($I, $B, $C, $D, $A, $words[9], 21, 0xeb86d391);
-
-        $this->a = ($this->a + $A) & 0xffffffff;
-        $this->b = ($this->b + $B) & 0xffffffff;
-        $this->c = ($this->c + $C) & 0xffffffff;
-        $this->d = ($this->d + $D) & 0xffffffff;
+        self::step($I, $A, $B, $C, $D, $words[0], 6, 4096336452.0);
+        self::step($I, $D, $A, $B, $C, $words[7], 10, 1126891415);
+        self::step($I, $C, $D, $A, $B, $words[14], 15, 2878612391.0);
+        self::step($I, $B, $C, $D, $A, $words[5], 21, 4237533241.0);
+        self::step($I, $A, $B, $C, $D, $words[12], 6, 1700485571);
+        self::step($I, $D, $A, $B, $C, $words[3], 10, 2399980690.0);
+        self::step($I, $C, $D, $A, $B, $words[10], 15, 0.0);
+        self::step($I, $B, $C, $D, $A, $words[1], 21, 2240044497.0);
+        self::step($I, $A, $B, $C, $D, $words[8], 6, 1873313359);
+        self::step($I, $D, $A, $B, $C, $words[15], 10, 0.0);
+        self::step($I, $C, $D, $A, $B, $words[6], 15, 2734768916.0);
+        self::step($I, $B, $C, $D, $A, $words[13], 21, 1309151649);
+        self::step($I, $A, $B, $C, $D, $words[4], 6, 0.0);
+        self::step($I, $D, $A, $B, $C, $words[11], 10, 3174756917.0);
+        self::step($I, $C, $D, $A, $B, $words[2], 15, 718787259);
+        self::step($I, $B, $C, $D, $A, $words[9], 21, 0.0);
+        $this->a = $this->a + $A & 4294967295.0;
+        $this->b = $this->b + $B & 4294967295.0;
+        $this->c = $this->c + $C & 4294967295.0;
+        $this->d = $this->d + $D & 4294967295.0;
     }
-
     private static function f($X, $Y, $Z)
     {
-        return ($X & $Y) | ((~$X) & $Z); // X AND Y OR NOT X AND Z
+        return $X & $Y | ~$X & $Z;
     }
-
     private static function g($X, $Y, $Z)
     {
-        return ($X & $Z) | ($Y & (~$Z)); // X AND Z OR Y AND NOT Z
+        return $X & $Z | $Y & ~$Z;
     }
-
     private static function h($X, $Y, $Z)
     {
-        return $X ^ $Y ^ $Z; // X XOR Y XOR Z
+        return $X ^ $Y ^ $Z;
     }
-
     private static function i($X, $Y, $Z)
     {
-        return $Y ^ ($X | (~$Z)); // Y XOR (X OR NOT Z)
+        return $Y ^ ($X | ~$Z);
     }
-
     private static function step($func, &$A, $B, $C, $D, $M, $s, $t)
     {
-        $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t) & 0xffffffff;
+        $A = $A + call_user_func($func, $B, $C, $D) + $M + $t & 4294967295.0;
         $A = self::rotate($A, $s);
-        $A = ($B + $A) & 0xffffffff;
+        $A = $B + $A & 4294967295.0;
     }
-
     private static function rotate($decimal, $bits)
     {
         $binary = str_pad(decbin($decimal), 32, '0', STR_PAD_LEFT);
-
         return bindec(substr($binary, $bits) . substr($binary, 0, $bits));
     }
 }

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Document;
 
 use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
-
 class Security
 {
     /**
@@ -12,42 +11,36 @@ class Security
      * @var bool
      */
     private $lockRevision = false;
-
     /**
      * LockStructure.
      *
      * @var bool
      */
     private $lockStructure = false;
-
     /**
      * LockWindows.
      *
      * @var bool
      */
     private $lockWindows = false;
-
     /**
      * RevisionsPassword.
      *
      * @var string
      */
     private $revisionsPassword = '';
-
     /**
      * WorkbookPassword.
      *
      * @var string
      */
     private $workbookPassword = '';
-
     /**
      * Create a new Document Security instance.
      */
     public function __construct()
     {
     }
-
     /**
      * Is some sort of document security enabled?
      *
@@ -55,11 +48,8 @@ class Security
      */
     public function isSecurityEnabled()
     {
-        return  $this->lockRevision ||
-                $this->lockStructure ||
-                $this->lockWindows;
+        return $this->lockRevision || $this->lockStructure || $this->lockWindows;
     }
-
     /**
      * Get LockRevision.
      *
@@ -69,7 +59,6 @@ class Security
     {
         return $this->lockRevision;
     }
-
     /**
      * Set LockRevision.
      *
@@ -80,10 +69,8 @@ class Security
     public function setLockRevision($pValue)
     {
         $this->lockRevision = $pValue;
-
         return $this;
     }
-
     /**
      * Get LockStructure.
      *
@@ -93,7 +80,6 @@ class Security
     {
         return $this->lockStructure;
     }
-
     /**
      * Set LockStructure.
      *
@@ -104,10 +90,8 @@ class Security
     public function setLockStructure($pValue)
     {
         $this->lockStructure = $pValue;
-
         return $this;
     }
-
     /**
      * Get LockWindows.
      *
@@ -117,7 +101,6 @@ class Security
     {
         return $this->lockWindows;
     }
-
     /**
      * Set LockWindows.
      *
@@ -128,10 +111,8 @@ class Security
     public function setLockWindows($pValue)
     {
         $this->lockWindows = $pValue;
-
         return $this;
     }
-
     /**
      * Get RevisionsPassword (hashed).
      *
@@ -141,7 +122,6 @@ class Security
     {
         return $this->revisionsPassword;
     }
-
     /**
      * Set RevisionsPassword.
      *
@@ -156,10 +136,8 @@ class Security
             $pValue = PasswordHasher::hashPassword($pValue);
         }
         $this->revisionsPassword = $pValue;
-
         return $this;
     }
-
     /**
      * Get WorkbookPassword (hashed).
      *
@@ -169,7 +147,6 @@ class Security
     {
         return $this->workbookPassword;
     }
-
     /**
      * Set WorkbookPassword.
      *
@@ -184,10 +161,8 @@ class Security
             $pValue = PasswordHasher::hashPassword($pValue);
         }
         $this->workbookPassword = $pValue;
-
         return $this;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -196,9 +171,9 @@ class Security
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

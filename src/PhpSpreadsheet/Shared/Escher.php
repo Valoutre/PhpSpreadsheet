@@ -10,14 +10,12 @@ class Escher
      * @var Escher\DggContainer
      */
     private $dggContainer;
-
     /**
      * Drawing Container.
      *
      * @var Escher\DgContainer
      */
     private $dgContainer;
-
     /**
      * Get Drawing Group Container.
      *
@@ -27,7 +25,6 @@ class Escher
     {
         return $this->dggContainer;
     }
-
     /**
      * Set Drawing Group Container.
      *
@@ -39,7 +36,6 @@ class Escher
     {
         return $this->dggContainer = $dggContainer;
     }
-
     /**
      * Get Drawing Container.
      *
@@ -49,7 +45,6 @@ class Escher
     {
         return $this->dgContainer;
     }
-
     /**
      * Set Drawing Container.
      *

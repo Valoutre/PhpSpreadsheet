@@ -25,36 +25,31 @@ class SingularValueDecomposition
      *
      * @var array
      */
-    private $U = [];
-
+    private $U = array();
     /**
      * Internal storage of V.
      *
      * @var array
      */
-    private $V = [];
-
+    private $V = array();
     /**
      * Internal storage of singular values.
      *
      * @var array
      */
-    private $s = [];
-
+    private $s = array();
     /**
      * Row dimension.
      *
      * @var int
      */
     private $m;
-
     /**
      * Column dimension.
      *
      * @var int
      */
     private $n;
-
     /**
      * Construct the singular value decomposition.
      *
@@ -69,13 +64,12 @@ class SingularValueDecomposition
         $this->m = $Arg->getRowDimension();
         $this->n = $Arg->getColumnDimension();
         $nu = min($this->m, $this->n);
-        $e = [];
-        $work = [];
+        $e = array();
+        $work = array();
         $wantu = true;
         $wantv = true;
         $nct = min($this->m - 1, $this->n);
         $nrt = max(0, min($this->n - 2, $this->m));
-
         // Reduce A to bidiagonal form, storing the diagonal elements
         // in s and the super-diagonal elements in e.
         $kMax = max($nct, $nrt);
@@ -99,9 +93,8 @@ class SingularValueDecomposition
                 }
                 $this->s[$k] = -$this->s[$k];
             }
-
             for ($j = $k + 1; $j < $this->n; ++$j) {
-                if (($k < $nct) & ($this->s[$k] != 0.0)) {
+                if ($k < $nct & $this->s[$k] != 0.0) {
                     // Apply the transformation.
                     $t = 0;
                     for ($i = $k; $i < $this->m; ++$i) {
@@ -116,15 +109,13 @@ class SingularValueDecomposition
                     $e[$j] = $A[$k][$j];
                 }
             }
-
-            if ($wantu and ($k < $nct)) {
+            if ($wantu and $k < $nct) {
                 // Place the transformation in U for subsequent back
                 // multiplication.
                 for ($i = $k; $i < $this->m; ++$i) {
                     $this->U[$i][$k] = $A[$i][$k];
                 }
             }
-
             if ($k < $nrt) {
                 // Compute the k-th row transformation and place the
                 // k-th super-diagonal in e[$k].
@@ -143,7 +134,7 @@ class SingularValueDecomposition
                     $e[$k + 1] += 1.0;
                 }
                 $e[$k] = -$e[$k];
-                if (($k + 1 < $this->m) and ($e[$k] != 0.0)) {
+                if ($k + 1 < $this->m and $e[$k] != 0.0) {
                     // Apply the transformation.
                     for ($i = $k + 1; $i < $this->m; ++$i) {
                         $work[$i] = 0.0;
@@ -169,7 +160,6 @@ class SingularValueDecomposition
                 }
             }
         }
-
         // Set up the final bidiagonal matrix or order p.
         $p = min($this->n, $this->m + 1);
         if ($nct < $this->n) {
@@ -217,11 +207,10 @@ class SingularValueDecomposition
                 }
             }
         }
-
         // If required, generate V.
         if ($wantv) {
             for ($k = $this->n - 1; $k >= 0; --$k) {
-                if (($k < $nrt) and ($e[$k] != 0.0)) {
+                if ($k < $nrt and $e[$k] != 0.0) {
                     for ($j = $k + 1; $j < $nu; ++$j) {
                         $t = 0;
                         for ($i = $k + 1; $i < $this->n; ++$i) {
@@ -239,12 +228,10 @@ class SingularValueDecomposition
                 $this->V[$k][$k] = 1.0;
             }
         }
-
         // Main iteration loop for the singular values.
         $pp = $p - 1;
         $iter = 0;
         $eps = pow(2.0, -52.0);
-
         while ($p > 0) {
             // Here is where a test for too many iterations would go.
             // This section of the program inspects for negligible
@@ -261,7 +248,6 @@ class SingularValueDecomposition
                 }
                 if (abs($e[$k]) <= $eps * (abs($this->s[$k]) + abs($this->s[$k + 1]))) {
                     $e[$k] = 0.0;
-
                     break;
                 }
             }
@@ -272,10 +258,9 @@ class SingularValueDecomposition
                     if ($ks == $k) {
                         break;
                     }
-                    $t = ($ks != $p ? abs($e[$ks]) : 0.) + ($ks != $k + 1 ? abs($e[$ks - 1]) : 0.);
+                    $t = ($ks != $p ? abs($e[$ks]) : 0.0) + ($ks != $k + 1 ? abs($e[$ks - 1]) : 0.0);
                     if (abs($this->s[$ks]) <= $eps * $t) {
                         $this->s[$ks] = 0.0;
-
                         break;
                     }
                 }
@@ -289,7 +274,6 @@ class SingularValueDecomposition
                 }
             }
             ++$k;
-
             // Perform the task indicated by kase.
             switch ($kase) {
                 // Deflate negligible s(p).
@@ -313,7 +297,6 @@ class SingularValueDecomposition
                             }
                         }
                     }
-
                     break;
                 // Split at negligible s(k).
                 case 2:
@@ -334,7 +317,6 @@ class SingularValueDecomposition
                             }
                         }
                     }
-
                     break;
                 // Perform one qr step.
                 case 3:
@@ -346,9 +328,9 @@ class SingularValueDecomposition
                     $sk = $this->s[$k] / $scale;
                     $ek = $e[$k] / $scale;
                     $b = (($spm1 + $sp) * ($spm1 - $sp) + $epm1 * $epm1) / 2.0;
-                    $c = ($sp * $epm1) * ($sp * $epm1);
+                    $c = $sp * $epm1 * ($sp * $epm1);
                     $shift = 0.0;
-                    if (($b != 0.0) || ($c != 0.0)) {
+                    if ($b != 0.0 || $c != 0.0) {
                         $shift = sqrt($b * $b + $c);
                         if ($b < 0.0) {
                             $shift = -$shift;
@@ -384,7 +366,7 @@ class SingularValueDecomposition
                         $this->s[$j + 1] = -$sn * $e[$j] + $cs * $this->s[$j + 1];
                         $g = $sn * $e[$j + 1];
                         $e[$j + 1] = $cs * $e[$j + 1];
-                        if ($wantu && ($j < $this->m - 1)) {
+                        if ($wantu && $j < $this->m - 1) {
                             for ($i = 0; $i < $this->m; ++$i) {
                                 $t = $cs * $this->U[$i][$j] + $sn * $this->U[$i][$j + 1];
                                 $this->U[$i][$j + 1] = -$sn * $this->U[$i][$j] + $cs * $this->U[$i][$j + 1];
@@ -394,13 +376,12 @@ class SingularValueDecomposition
                     }
                     $e[$p - 2] = $f;
                     $iter = $iter + 1;
-
                     break;
                 // Convergence.
                 case 4:
                     // Make the singular values positive.
                     if ($this->s[$k] <= 0.0) {
-                        $this->s[$k] = ($this->s[$k] < 0.0 ? -$this->s[$k] : 0.0);
+                        $this->s[$k] = $this->s[$k] < 0.0 ? -$this->s[$k] : 0.0;
                         if ($wantv) {
                             for ($i = 0; $i <= $pp; ++$i) {
                                 $this->V[$i][$k] = -$this->V[$i][$k];
@@ -415,14 +396,14 @@ class SingularValueDecomposition
                         $t = $this->s[$k];
                         $this->s[$k] = $this->s[$k + 1];
                         $this->s[$k + 1] = $t;
-                        if ($wantv and ($k < $this->n - 1)) {
+                        if ($wantv and $k < $this->n - 1) {
                             for ($i = 0; $i < $this->n; ++$i) {
                                 $t = $this->V[$i][$k + 1];
                                 $this->V[$i][$k + 1] = $this->V[$i][$k];
                                 $this->V[$i][$k] = $t;
                             }
                         }
-                        if ($wantu and ($k < $this->m - 1)) {
+                        if ($wantu and $k < $this->m - 1) {
                             for ($i = 0; $i < $this->m; ++$i) {
                                 $t = $this->U[$i][$k + 1];
                                 $this->U[$i][$k + 1] = $this->U[$i][$k];
@@ -433,12 +414,10 @@ class SingularValueDecomposition
                     }
                     $iter = 0;
                     --$p;
-
                     break;
-            } // end switch
-        } // end while
+            }
+        }
     }
-
     /**
      * Return the left singular vectors.
      *
@@ -448,7 +427,6 @@ class SingularValueDecomposition
     {
         return new Matrix($this->U, $this->m, min($this->m + 1, $this->n));
     }
-
     /**
      * Return the right singular vectors.
      *
@@ -458,7 +436,6 @@ class SingularValueDecomposition
     {
         return new Matrix($this->V);
     }
-
     /**
      * Return the one-dimensional array of singular values.
      *
@@ -468,7 +445,6 @@ class SingularValueDecomposition
     {
         return $this->s;
     }
-
     /**
      * Return the diagonal matrix of singular values.
      *
@@ -482,10 +458,8 @@ class SingularValueDecomposition
             }
             $S[$i][$i] = $this->s[$i];
         }
-
         return new Matrix($S);
     }
-
     /**
      * Two norm.
      *
@@ -495,7 +469,6 @@ class SingularValueDecomposition
     {
         return $this->s[0];
     }
-
     /**
      * Two norm condition number.
      *
@@ -505,7 +478,6 @@ class SingularValueDecomposition
     {
         return $this->s[0] / $this->s[min($this->m, $this->n) - 1];
     }
-
     /**
      * Effective numerical matrix rank.
      *
@@ -522,7 +494,6 @@ class SingularValueDecomposition
                 ++$r;
             }
         }
-
         return $r;
     }
 }

@@ -37,7 +37,6 @@ class FormulaToken
     const TOKEN_TYPE_OPERATORPOSTFIX = 'OperatorPostfix';
     const TOKEN_TYPE_WHITESPACE = 'Whitespace';
     const TOKEN_TYPE_UNKNOWN = 'Unknown';
-
     // Token subtypes
     const TOKEN_SUBTYPE_NOTHING = 'Nothing';
     const TOKEN_SUBTYPE_START = 'Start';
@@ -51,28 +50,24 @@ class FormulaToken
     const TOKEN_SUBTYPE_CONCATENATION = 'Concatenation';
     const TOKEN_SUBTYPE_INTERSECTION = 'Intersection';
     const TOKEN_SUBTYPE_UNION = 'Union';
-
     /**
      * Value.
      *
      * @var string
      */
     private $value;
-
     /**
      * Token Type (represented by TOKEN_TYPE_*).
      *
      * @var string
      */
     private $tokenType;
-
     /**
      * Token SubType (represented by TOKEN_SUBTYPE_*).
      *
      * @var string
      */
     private $tokenSubType;
-
     /**
      * Create a new FormulaToken.
      *
@@ -87,7 +82,6 @@ class FormulaToken
         $this->tokenType = $pTokenType;
         $this->tokenSubType = $pTokenSubType;
     }
-
     /**
      * Get Value.
      *
@@ -97,7 +91,6 @@ class FormulaToken
     {
         return $this->value;
     }
-
     /**
      * Set Value.
      *
@@ -107,7 +100,6 @@ class FormulaToken
     {
         $this->value = $value;
     }
-
     /**
      * Get Token Type (represented by TOKEN_TYPE_*).
      *
@@ -117,7 +109,6 @@ class FormulaToken
     {
         return $this->tokenType;
     }
-
     /**
      * Set Token Type (represented by TOKEN_TYPE_*).
      *
@@ -127,7 +118,6 @@ class FormulaToken
     {
         $this->tokenType = $value;
     }
-
     /**
      * Get Token SubType (represented by TOKEN_SUBTYPE_*).
      *
@@ -137,7 +127,6 @@ class FormulaToken
     {
         return $this->tokenSubType;
     }
-
     /**
      * Set Token SubType (represented by TOKEN_SUBTYPE_*).
      *

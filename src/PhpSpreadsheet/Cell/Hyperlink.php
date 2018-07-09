@@ -10,14 +10,12 @@ class Hyperlink
      * @var string
      */
     private $url;
-
     /**
      * Tooltip to display on the hyperlink.
      *
      * @var string
      */
     private $tooltip;
-
     /**
      * Create a new Hyperlink.
      *
@@ -30,7 +28,6 @@ class Hyperlink
         $this->url = $pUrl;
         $this->tooltip = $pTooltip;
     }
-
     /**
      * Get URL.
      *
@@ -40,7 +37,6 @@ class Hyperlink
     {
         return $this->url;
     }
-
     /**
      * Set URL.
      *
@@ -51,10 +47,8 @@ class Hyperlink
     public function setUrl($value)
     {
         $this->url = $value;
-
         return $this;
     }
-
     /**
      * Get tooltip.
      *
@@ -64,7 +58,6 @@ class Hyperlink
     {
         return $this->tooltip;
     }
-
     /**
      * Set tooltip.
      *
@@ -75,10 +68,8 @@ class Hyperlink
     public function setTooltip($value)
     {
         $this->tooltip = $value;
-
         return $this;
     }
-
     /**
      * Is this hyperlink internal? (to another worksheet).
      *
@@ -88,7 +79,6 @@ class Hyperlink
     {
         return strpos($this->url, 'sheet://') !== false;
     }
-
     /**
      * Get hash code.
      *
@@ -96,10 +86,6 @@ class Hyperlink
      */
     public function getHashCode()
     {
-        return md5(
-            $this->url .
-            $this->tooltip .
-            __CLASS__
-        );
+        return md5($this->url . $this->tooltip . __CLASS__);
     }
 }

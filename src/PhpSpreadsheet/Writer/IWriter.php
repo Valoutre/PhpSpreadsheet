@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 interface IWriter
 {
     /**
@@ -12,7 +11,6 @@ interface IWriter
      * @param Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet);
-
     /**
      * Save PhpSpreadsheet to file.
      *

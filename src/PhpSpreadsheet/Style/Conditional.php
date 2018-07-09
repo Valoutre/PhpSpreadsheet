@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\IComparable;
-
 class Conditional implements IComparable
 {
     // Condition types
@@ -12,7 +11,6 @@ class Conditional implements IComparable
     const CONDITION_CONTAINSTEXT = 'containsText';
     const CONDITION_EXPRESSION = 'expression';
     const CONDITION_CONTAINSBLANKS = 'containsBlanks';
-
     // Operator types
     const OPERATOR_NONE = '';
     const OPERATOR_BEGINSWITH = 'beginsWith';
@@ -26,49 +24,42 @@ class Conditional implements IComparable
     const OPERATOR_CONTAINSTEXT = 'containsText';
     const OPERATOR_NOTCONTAINS = 'notContains';
     const OPERATOR_BETWEEN = 'between';
-
     /**
      * Condition type.
      *
      * @var string
      */
     private $conditionType = self::CONDITION_NONE;
-
     /**
      * Operator type.
      *
      * @var string
      */
     private $operatorType = self::OPERATOR_NONE;
-
     /**
      * Text.
      *
      * @var string
      */
     private $text;
-
     /**
      * Stop on this condition, if it matches.
      *
      * @var bool
      */
     private $stopIfTrue = false;
-
     /**
      * Condition.
      *
      * @var string[]
      */
-    private $condition = [];
-
+    private $condition = array();
     /**
      * Style.
      *
      * @var Style
      */
     private $style;
-
     /**
      * Create a new Conditional.
      */
@@ -77,7 +68,6 @@ class Conditional implements IComparable
         // Initialise values
         $this->style = new Style(false, true);
     }
-
     /**
      * Get Condition type.
      *
@@ -87,7 +77,6 @@ class Conditional implements IComparable
     {
         return $this->conditionType;
     }
-
     /**
      * Set Condition type.
      *
@@ -98,10 +87,8 @@ class Conditional implements IComparable
     public function setConditionType($pValue)
     {
         $this->conditionType = $pValue;
-
         return $this;
     }
-
     /**
      * Get Operator type.
      *
@@ -111,7 +98,6 @@ class Conditional implements IComparable
     {
         return $this->operatorType;
     }
-
     /**
      * Set Operator type.
      *
@@ -122,10 +108,8 @@ class Conditional implements IComparable
     public function setOperatorType($pValue)
     {
         $this->operatorType = $pValue;
-
         return $this;
     }
-
     /**
      * Get text.
      *
@@ -135,7 +119,6 @@ class Conditional implements IComparable
     {
         return $this->text;
     }
-
     /**
      * Set text.
      *
@@ -146,10 +129,8 @@ class Conditional implements IComparable
     public function setText($value)
     {
         $this->text = $value;
-
         return $this;
     }
-
     /**
      * Get StopIfTrue.
      *
@@ -159,7 +140,6 @@ class Conditional implements IComparable
     {
         return $this->stopIfTrue;
     }
-
     /**
      * Set StopIfTrue.
      *
@@ -170,10 +150,8 @@ class Conditional implements IComparable
     public function setStopIfTrue($value)
     {
         $this->stopIfTrue = $value;
-
         return $this;
     }
-
     /**
      * Get Conditions.
      *
@@ -183,7 +161,6 @@ class Conditional implements IComparable
     {
         return $this->condition;
     }
-
     /**
      * Set Conditions.
      *
@@ -194,13 +171,11 @@ class Conditional implements IComparable
     public function setConditions($pValue)
     {
         if (!is_array($pValue)) {
-            $pValue = [$pValue];
+            $pValue = array($pValue);
         }
         $this->condition = $pValue;
-
         return $this;
     }
-
     /**
      * Add Condition.
      *
@@ -211,10 +186,8 @@ class Conditional implements IComparable
     public function addCondition($pValue)
     {
         $this->condition[] = $pValue;
-
         return $this;
     }
-
     /**
      * Get Style.
      *
@@ -224,7 +197,6 @@ class Conditional implements IComparable
     {
         return $this->style;
     }
-
     /**
      * Set Style.
      *
@@ -235,10 +207,8 @@ class Conditional implements IComparable
     public function setStyle(Style $pValue = null)
     {
         $this->style = $pValue;
-
         return $this;
     }
-
     /**
      * Get hash code.
      *
@@ -246,15 +216,8 @@ class Conditional implements IComparable
      */
     public function getHashCode()
     {
-        return md5(
-            $this->conditionType .
-            $this->operatorType .
-            implode(';', $this->condition) .
-            $this->style->getHashCode() .
-            __CLASS__
-        );
+        return md5($this->conditionType . $this->operatorType . implode(';', $this->condition) . $this->style->getHashCode() . __CLASS__);
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -263,9 +226,9 @@ class Conditional implements IComparable
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

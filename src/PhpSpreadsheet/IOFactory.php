@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
-
 /**
  * Factory to create readers and writers easily.
  *
@@ -12,28 +11,8 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
  */
 abstract class IOFactory
 {
-    private static $readers = [
-        'Xlsx' => Reader\Xlsx::class,
-        'Xls' => Reader\Xls::class,
-        'Xml' => Reader\Xml::class,
-        'Ods' => Reader\Ods::class,
-        'Slk' => Reader\Slk::class,
-        'Gnumeric' => Reader\Gnumeric::class,
-        'Html' => Reader\Html::class,
-        'Csv' => Reader\Csv::class,
-    ];
-
-    private static $writers = [
-        'Xls' => Writer\Xls::class,
-        'Xlsx' => Writer\Xlsx::class,
-        'Ods' => Writer\Ods::class,
-        'Csv' => Writer\Csv::class,
-        'Html' => Writer\Html::class,
-        'Tcpdf' => Writer\Pdf\Tcpdf::class,
-        'Dompdf' => Writer\Pdf\Dompdf::class,
-        'Mpdf' => Writer\Pdf\Mpdf::class,
-    ];
-
+    private static $readers = array('Xlsx' => Reader\Xlsx::class, 'Xls' => Reader\Xls::class, 'Xml' => Reader\Xml::class, 'Ods' => Reader\Ods::class, 'Slk' => Reader\Slk::class, 'Gnumeric' => Reader\Gnumeric::class, 'Html' => Reader\Html::class, 'Csv' => Reader\Csv::class);
+    private static $writers = array('Xls' => Writer\Xls::class, 'Xlsx' => Writer\Xlsx::class, 'Ods' => Writer\Ods::class, 'Csv' => Writer\Csv::class, 'Html' => Writer\Html::class, 'Tcpdf' => Writer\Pdf\Tcpdf::class, 'Dompdf' => Writer\Pdf\Dompdf::class, 'Mpdf' => Writer\Pdf\Mpdf::class);
     /**
      * Create Writer\IWriter.
      *
@@ -47,16 +26,13 @@ abstract class IOFactory
     public static function createWriter(Spreadsheet $spreadsheet, $writerType)
     {
         if (!isset(self::$writers[$writerType])) {
-            throw new Writer\Exception("No writer found for type $writerType");
+            throw new Writer\Exception("No writer found for type {$writerType}");
         }
-
         // Instantiate writer
         $className = self::$writers[$writerType];
         $writer = new $className($spreadsheet);
-
         return $writer;
     }
-
     /**
      * Create Reader\IReader.
      *
@@ -69,16 +45,13 @@ abstract class IOFactory
     public static function createReader($readerType)
     {
         if (!isset(self::$readers[$readerType])) {
-            throw new Reader\Exception("No reader found for type $readerType");
+            throw new Reader\Exception("No reader found for type {$readerType}");
         }
-
         // Instantiate reader
         $className = self::$readers[$readerType];
         $reader = new $className();
-
         return $reader;
     }
-
     /**
      * Loads Spreadsheet from file using automatic Reader\IReader resolution.
      *
@@ -91,10 +64,8 @@ abstract class IOFactory
     public static function load($pFilename)
     {
         $reader = self::createReaderForFile($pFilename);
-
         return $reader->load($pFilename);
     }
-
     /**
      * Identify file type using automatic Reader\IReader resolution.
      *
@@ -110,10 +81,8 @@ abstract class IOFactory
         $className = get_class($reader);
         $classType = explode('\\', $className);
         unset($reader);
-
         return array_pop($classType);
     }
-
     /**
      * Create Reader\IReader for file using automatic Reader\IReader resolution.
      *
@@ -126,18 +95,15 @@ abstract class IOFactory
     public static function createReaderForFile($filename)
     {
         File::assertFile($filename);
-
         // First, lucky guess by inspecting file extension
         $guessedReader = self::getReaderTypeFromExtension($filename);
         if ($guessedReader !== null) {
             $reader = self::createReader($guessedReader);
-
             // Let's see if we are lucky
             if (isset($reader) && $reader->canRead($filename)) {
                 return $reader;
             }
         }
-
         // If we reach here then "lucky guess" didn't give any result
         // Try walking through all the options in self::$autoResolveClasses
         foreach (self::$readers as $type => $class) {
@@ -149,10 +115,8 @@ abstract class IOFactory
                 }
             }
         }
-
         throw new Reader\Exception('Unable to identify a reader for this file');
     }
-
     /**
      * Guess a reader type from the file extension, if any.
      *
@@ -166,22 +130,30 @@ abstract class IOFactory
         if (!isset($pathinfo['extension'])) {
             return null;
         }
-
         switch (strtolower($pathinfo['extension'])) {
-            case 'xlsx': // Excel (OfficeOpenXML) Spreadsheet
-            case 'xlsm': // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
-            case 'xltx': // Excel (OfficeOpenXML) Template
-            case 'xltm': // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
+            case 'xlsx':
+            // Excel (OfficeOpenXML) Spreadsheet
+            case 'xlsm':
+            // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
+            case 'xltx':
+            // Excel (OfficeOpenXML) Template
+            case 'xltm':
+                // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
                 return 'Xlsx';
-            case 'xls': // Excel (BIFF) Spreadsheet
-            case 'xlt': // Excel (BIFF) Template
+            case 'xls':
+            // Excel (BIFF) Spreadsheet
+            case 'xlt':
+                // Excel (BIFF) Template
                 return 'Xls';
-            case 'ods': // Open/Libre Offic Calc
-            case 'ots': // Open/Libre Offic Calc Template
+            case 'ods':
+            // Open/Libre Offic Calc
+            case 'ots':
+                // Open/Libre Offic Calc Template
                 return 'Ods';
             case 'slk':
                 return 'Slk';
-            case 'xml': // Excel 2003 SpreadSheetML
+            case 'xml':
+                // Excel 2003 SpreadSheetML
                 return 'Xml';
             case 'gnumeric':
                 return 'Gnumeric';
@@ -197,7 +169,6 @@ abstract class IOFactory
                 return null;
         }
     }
-
     /**
      * Register a writer with its type and class name.
      *
@@ -209,10 +180,8 @@ abstract class IOFactory
         if (!is_a($writerClass, Writer\IWriter::class, true)) {
             throw new Writer\Exception('Registered writers must implement ' . Writer\IWriter::class);
         }
-
         self::$writers[$writerType] = $writerClass;
     }
-
     /**
      * Register a reader with its type and class name.
      *
@@ -224,7 +193,6 @@ abstract class IOFactory
         if (!is_a($readerClass, Reader\IReader::class, true)) {
             throw new Reader\Exception('Registered readers must implement ' . Reader\IReader::class);
         }
-
         self::$readers[$readerType] = $readerClass;
     }
 }

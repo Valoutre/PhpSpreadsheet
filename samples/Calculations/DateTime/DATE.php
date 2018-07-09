@@ -1,34 +1,20 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 require __DIR__ . '/../../Header.php';
-
 $helper->log('Returns the serial number of a particular date.');
-
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
-
 // Add some data
-$testDates = [[2012, 3, 26], [2012, 2, 29], [2012, 4, 1], [2012, 12, 25],
-    [2012, 10, 31], [2012, 11, 5], [2012, 1, 1], [2012, 3, 17],
-    [2011, 2, 29], [7, 5, 3], [2012, 13, 1], [2012, 11, 45],
-    [2012, 0, 0], [2012, 1, 0], [2012, 0, 1],
-    [2012, -2, 2], [2012, 2, -2], [2012, -2, -2],
-];
+$testDates = array(array(2012, 3, 26), array(2012, 2, 29), array(2012, 4, 1), array(2012, 12, 25), array(2012, 10, 31), array(2012, 11, 5), array(2012, 1, 1), array(2012, 3, 17), array(2011, 2, 29), array(7, 5, 3), array(2012, 13, 1), array(2012, 11, 45), array(2012, 0, 0), array(2012, 1, 0), array(2012, 0, 1), array(2012, -2, 2), array(2012, 2, -2), array(2012, -2, -2));
 $testDateCount = count($testDates);
-
 $worksheet->fromArray($testDates, null, 'A1', true);
-
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $worksheet->setCellValue('D' . $row, '=DATE(A' . $row . ',B' . $row . ',C' . $row . ')');
     $worksheet->setCellValue('E' . $row, '=D' . $row);
 }
-$worksheet->getStyle('E1:E' . $testDateCount)
-    ->getNumberFormat()
-    ->setFormatCode('yyyy-mmm-dd');
-
+$worksheet->getStyle('E1:E' . $testDateCount)->getNumberFormat()->setFormatCode('yyyy-mmm-dd');
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log('Year: ' . $worksheet->getCell('A' . $row)->getFormattedValue());

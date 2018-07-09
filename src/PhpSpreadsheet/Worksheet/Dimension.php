@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 abstract class Dimension
 {
     /**
@@ -12,28 +11,24 @@ abstract class Dimension
      * @var bool
      */
     private $visible = true;
-
     /**
      * Outline level.
      *
      * @var int
      */
     private $outlineLevel = 0;
-
     /**
      * Collapsed.
      *
      * @var bool
      */
     private $collapsed = false;
-
     /**
      * Index to cellXf. Null value means row has no explicit cellXf format.
      *
      * @var null|int
      */
     private $xfIndex;
-
     /**
      * Create a new Dimension.
      *
@@ -44,7 +39,6 @@ abstract class Dimension
         // set dimension as unformatted by default
         $this->xfIndex = $initialValue;
     }
-
     /**
      * Get Visible.
      *
@@ -54,7 +48,6 @@ abstract class Dimension
     {
         return $this->visible;
     }
-
     /**
      * Set Visible.
      *
@@ -65,10 +58,8 @@ abstract class Dimension
     public function setVisible($pValue)
     {
         $this->visible = $pValue;
-
         return $this;
     }
-
     /**
      * Get Outline Level.
      *
@@ -78,7 +69,6 @@ abstract class Dimension
     {
         return $this->outlineLevel;
     }
-
     /**
      * Set Outline Level.
      * Value must be between 0 and 7.
@@ -94,12 +84,9 @@ abstract class Dimension
         if ($pValue < 0 || $pValue > 7) {
             throw new PhpSpreadsheetException('Outline level must range between 0 and 7.');
         }
-
         $this->outlineLevel = $pValue;
-
         return $this;
     }
-
     /**
      * Get Collapsed.
      *
@@ -109,7 +96,6 @@ abstract class Dimension
     {
         return $this->collapsed;
     }
-
     /**
      * Set Collapsed.
      *
@@ -120,10 +106,8 @@ abstract class Dimension
     public function setCollapsed($pValue)
     {
         $this->collapsed = $pValue;
-
         return $this;
     }
-
     /**
      * Get index to cellXf.
      *
@@ -133,7 +117,6 @@ abstract class Dimension
     {
         return $this->xfIndex;
     }
-
     /**
      * Set index to cellXf.
      *
@@ -144,10 +127,8 @@ abstract class Dimension
     public function setXfIndex($pValue)
     {
         $this->xfIndex = $pValue;
-
         return $this;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -156,9 +137,9 @@ abstract class Dimension
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

@@ -5,12 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 class RC4
 {
     // Context
-    protected $s = [];
-
+    protected $s = array();
     protected $i = 0;
-
     protected $j = 0;
-
     /**
      * RC4 stream decryption/encryption constrcutor.
      *
@@ -19,11 +16,9 @@ class RC4
     public function __construct($key)
     {
         $len = strlen($key);
-
         for ($this->i = 0; $this->i < 256; ++$this->i) {
             $this->s[$this->i] = $this->i;
         }
-
         $this->j = 0;
         for ($this->i = 0; $this->i < 256; ++$this->i) {
             $this->j = ($this->j + $this->s[$this->i] + ord($key[$this->i % $len])) % 256;
@@ -33,7 +28,6 @@ class RC4
         }
         $this->i = $this->j = 0;
     }
-
     /**
      * Symmetric decryption/encryption function.
      *
@@ -50,12 +44,9 @@ class RC4
             $t = $this->s[$this->i];
             $this->s[$this->i] = $this->s[$this->j];
             $this->s[$this->j] = $t;
-
             $t = ($this->s[$this->i] + $this->s[$this->j]) % 256;
-
             $data[$c] = chr(ord($data[$c]) ^ $this->s[$t]);
         }
-
         return $data;
     }
 }

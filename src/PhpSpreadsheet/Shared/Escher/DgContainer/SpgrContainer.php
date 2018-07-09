@@ -10,14 +10,12 @@ class SpgrContainer
      * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
      */
     private $parent;
-
     /**
      * Shape Container collection.
      *
      * @var array
      */
-    private $children = [];
-
+    private $children = array();
     /**
      * Set parent Shape Group Container.
      *
@@ -27,7 +25,6 @@ class SpgrContainer
     {
         $this->parent = $parent;
     }
-
     /**
      * Get the parent Shape Group Container if any.
      *
@@ -37,7 +34,6 @@ class SpgrContainer
     {
         return $this->parent;
     }
-
     /**
      * Add a child. This will be either spgrContainer or spContainer.
      *
@@ -48,7 +44,6 @@ class SpgrContainer
         $this->children[] = $child;
         $child->setParent($this);
     }
-
     /**
      * Get collection of Shape Containers.
      */
@@ -56,7 +51,6 @@ class SpgrContainer
     {
         return $this->children;
     }
-
     /**
      * Recursively get all spContainers within this spgrContainer.
      *
@@ -64,8 +58,7 @@ class SpgrContainer
      */
     public function getAllSpContainers()
     {
-        $allSpContainers = [];
-
+        $allSpContainers = array();
         foreach ($this->children as $child) {
             if ($child instanceof self) {
                 $allSpContainers = array_merge($allSpContainers, $child->getAllSpContainers());
@@ -73,7 +66,6 @@ class SpgrContainer
                 $allSpContainers[] = $child;
             }
         }
-
         return $allSpContainers;
     }
 }

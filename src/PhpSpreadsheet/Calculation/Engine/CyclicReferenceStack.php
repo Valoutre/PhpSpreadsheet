@@ -9,8 +9,7 @@ class CyclicReferenceStack
      *
      * @var mixed[]
      */
-    private $stack = [];
-
+    private $stack = array();
     /**
      * Return the number of entries on the stack.
      *
@@ -20,7 +19,6 @@ class CyclicReferenceStack
     {
         return count($this->stack);
     }
-
     /**
      * Push a new entry onto the stack.
      *
@@ -30,7 +28,6 @@ class CyclicReferenceStack
     {
         $this->stack[$value] = $value;
     }
-
     /**
      * Pop the last entry from the stack.
      *
@@ -40,7 +37,6 @@ class CyclicReferenceStack
     {
         return array_pop($this->stack);
     }
-
     /**
      * Test to see if a specified entry exists on the stack.
      *
@@ -52,15 +48,13 @@ class CyclicReferenceStack
     {
         return isset($this->stack[$value]);
     }
-
     /**
      * Clear the stack.
      */
     public function clear()
     {
-        $this->stack = [];
+        $this->stack = array();
     }
-
     /**
      * Return an array of all entries on the stack.
      *

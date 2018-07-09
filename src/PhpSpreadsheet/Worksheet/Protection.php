@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
-
 class Protection
 {
     /**
@@ -12,126 +11,108 @@ class Protection
      * @var bool
      */
     private $sheet = false;
-
     /**
      * Objects.
      *
      * @var bool
      */
     private $objects = false;
-
     /**
      * Scenarios.
      *
      * @var bool
      */
     private $scenarios = false;
-
     /**
      * Format cells.
      *
      * @var bool
      */
     private $formatCells = false;
-
     /**
      * Format columns.
      *
      * @var bool
      */
     private $formatColumns = false;
-
     /**
      * Format rows.
      *
      * @var bool
      */
     private $formatRows = false;
-
     /**
      * Insert columns.
      *
      * @var bool
      */
     private $insertColumns = false;
-
     /**
      * Insert rows.
      *
      * @var bool
      */
     private $insertRows = false;
-
     /**
      * Insert hyperlinks.
      *
      * @var bool
      */
     private $insertHyperlinks = false;
-
     /**
      * Delete columns.
      *
      * @var bool
      */
     private $deleteColumns = false;
-
     /**
      * Delete rows.
      *
      * @var bool
      */
     private $deleteRows = false;
-
     /**
      * Select locked cells.
      *
      * @var bool
      */
     private $selectLockedCells = false;
-
     /**
      * Sort.
      *
      * @var bool
      */
     private $sort = false;
-
     /**
      * AutoFilter.
      *
      * @var bool
      */
     private $autoFilter = false;
-
     /**
      * Pivot tables.
      *
      * @var bool
      */
     private $pivotTables = false;
-
     /**
      * Select unlocked cells.
      *
      * @var bool
      */
     private $selectUnlockedCells = false;
-
     /**
      * Password.
      *
      * @var string
      */
     private $password = '';
-
     /**
      * Create a new Protection.
      */
     public function __construct()
     {
     }
-
     /**
      * Is some sort of protection enabled?
      *
@@ -139,24 +120,8 @@ class Protection
      */
     public function isProtectionEnabled()
     {
-        return $this->sheet ||
-            $this->objects ||
-            $this->scenarios ||
-            $this->formatCells ||
-            $this->formatColumns ||
-            $this->formatRows ||
-            $this->insertColumns ||
-            $this->insertRows ||
-            $this->insertHyperlinks ||
-            $this->deleteColumns ||
-            $this->deleteRows ||
-            $this->selectLockedCells ||
-            $this->sort ||
-            $this->autoFilter ||
-            $this->pivotTables ||
-            $this->selectUnlockedCells;
+        return $this->sheet || $this->objects || $this->scenarios || $this->formatCells || $this->formatColumns || $this->formatRows || $this->insertColumns || $this->insertRows || $this->insertHyperlinks || $this->deleteColumns || $this->deleteRows || $this->selectLockedCells || $this->sort || $this->autoFilter || $this->pivotTables || $this->selectUnlockedCells;
     }
-
     /**
      * Get Sheet.
      *
@@ -166,7 +131,6 @@ class Protection
     {
         return $this->sheet;
     }
-
     /**
      * Set Sheet.
      *
@@ -177,10 +141,8 @@ class Protection
     public function setSheet($pValue)
     {
         $this->sheet = $pValue;
-
         return $this;
     }
-
     /**
      * Get Objects.
      *
@@ -190,7 +152,6 @@ class Protection
     {
         return $this->objects;
     }
-
     /**
      * Set Objects.
      *
@@ -201,10 +162,8 @@ class Protection
     public function setObjects($pValue)
     {
         $this->objects = $pValue;
-
         return $this;
     }
-
     /**
      * Get Scenarios.
      *
@@ -214,7 +173,6 @@ class Protection
     {
         return $this->scenarios;
     }
-
     /**
      * Set Scenarios.
      *
@@ -225,10 +183,8 @@ class Protection
     public function setScenarios($pValue)
     {
         $this->scenarios = $pValue;
-
         return $this;
     }
-
     /**
      * Get FormatCells.
      *
@@ -238,7 +194,6 @@ class Protection
     {
         return $this->formatCells;
     }
-
     /**
      * Set FormatCells.
      *
@@ -249,10 +204,8 @@ class Protection
     public function setFormatCells($pValue)
     {
         $this->formatCells = $pValue;
-
         return $this;
     }
-
     /**
      * Get FormatColumns.
      *
@@ -262,7 +215,6 @@ class Protection
     {
         return $this->formatColumns;
     }
-
     /**
      * Set FormatColumns.
      *
@@ -273,10 +225,8 @@ class Protection
     public function setFormatColumns($pValue)
     {
         $this->formatColumns = $pValue;
-
         return $this;
     }
-
     /**
      * Get FormatRows.
      *
@@ -286,7 +236,6 @@ class Protection
     {
         return $this->formatRows;
     }
-
     /**
      * Set FormatRows.
      *
@@ -297,10 +246,8 @@ class Protection
     public function setFormatRows($pValue)
     {
         $this->formatRows = $pValue;
-
         return $this;
     }
-
     /**
      * Get InsertColumns.
      *
@@ -310,7 +257,6 @@ class Protection
     {
         return $this->insertColumns;
     }
-
     /**
      * Set InsertColumns.
      *
@@ -321,10 +267,8 @@ class Protection
     public function setInsertColumns($pValue)
     {
         $this->insertColumns = $pValue;
-
         return $this;
     }
-
     /**
      * Get InsertRows.
      *
@@ -334,7 +278,6 @@ class Protection
     {
         return $this->insertRows;
     }
-
     /**
      * Set InsertRows.
      *
@@ -345,10 +288,8 @@ class Protection
     public function setInsertRows($pValue)
     {
         $this->insertRows = $pValue;
-
         return $this;
     }
-
     /**
      * Get InsertHyperlinks.
      *
@@ -358,7 +299,6 @@ class Protection
     {
         return $this->insertHyperlinks;
     }
-
     /**
      * Set InsertHyperlinks.
      *
@@ -369,10 +309,8 @@ class Protection
     public function setInsertHyperlinks($pValue)
     {
         $this->insertHyperlinks = $pValue;
-
         return $this;
     }
-
     /**
      * Get DeleteColumns.
      *
@@ -382,7 +320,6 @@ class Protection
     {
         return $this->deleteColumns;
     }
-
     /**
      * Set DeleteColumns.
      *
@@ -393,10 +330,8 @@ class Protection
     public function setDeleteColumns($pValue)
     {
         $this->deleteColumns = $pValue;
-
         return $this;
     }
-
     /**
      * Get DeleteRows.
      *
@@ -406,7 +341,6 @@ class Protection
     {
         return $this->deleteRows;
     }
-
     /**
      * Set DeleteRows.
      *
@@ -417,10 +351,8 @@ class Protection
     public function setDeleteRows($pValue)
     {
         $this->deleteRows = $pValue;
-
         return $this;
     }
-
     /**
      * Get SelectLockedCells.
      *
@@ -430,7 +362,6 @@ class Protection
     {
         return $this->selectLockedCells;
     }
-
     /**
      * Set SelectLockedCells.
      *
@@ -441,10 +372,8 @@ class Protection
     public function setSelectLockedCells($pValue)
     {
         $this->selectLockedCells = $pValue;
-
         return $this;
     }
-
     /**
      * Get Sort.
      *
@@ -454,7 +383,6 @@ class Protection
     {
         return $this->sort;
     }
-
     /**
      * Set Sort.
      *
@@ -465,10 +393,8 @@ class Protection
     public function setSort($pValue)
     {
         $this->sort = $pValue;
-
         return $this;
     }
-
     /**
      * Get AutoFilter.
      *
@@ -478,7 +404,6 @@ class Protection
     {
         return $this->autoFilter;
     }
-
     /**
      * Set AutoFilter.
      *
@@ -489,10 +414,8 @@ class Protection
     public function setAutoFilter($pValue)
     {
         $this->autoFilter = $pValue;
-
         return $this;
     }
-
     /**
      * Get PivotTables.
      *
@@ -502,7 +425,6 @@ class Protection
     {
         return $this->pivotTables;
     }
-
     /**
      * Set PivotTables.
      *
@@ -513,10 +435,8 @@ class Protection
     public function setPivotTables($pValue)
     {
         $this->pivotTables = $pValue;
-
         return $this;
     }
-
     /**
      * Get SelectUnlockedCells.
      *
@@ -526,7 +446,6 @@ class Protection
     {
         return $this->selectUnlockedCells;
     }
-
     /**
      * Set SelectUnlockedCells.
      *
@@ -537,10 +456,8 @@ class Protection
     public function setSelectUnlockedCells($pValue)
     {
         $this->selectUnlockedCells = $pValue;
-
         return $this;
     }
-
     /**
      * Get Password (hashed).
      *
@@ -550,7 +467,6 @@ class Protection
     {
         return $this->password;
     }
-
     /**
      * Set Password.
      *
@@ -565,10 +481,8 @@ class Protection
             $pValue = PasswordHasher::hashPassword($pValue);
         }
         $this->password = $pValue;
-
         return $this;
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
@@ -577,9 +491,9 @@ class Protection
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                $this->$key = clone $value;
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

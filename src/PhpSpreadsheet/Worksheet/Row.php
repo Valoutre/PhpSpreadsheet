@@ -10,14 +10,12 @@ class Row
      * @var Worksheet
      */
     private $worksheet;
-
     /**
      * Row index.
      *
      * @var int
      */
     private $rowIndex = 0;
-
     /**
      * Create a new row.
      *
@@ -30,7 +28,6 @@ class Row
         $this->worksheet = $worksheet;
         $this->rowIndex = $rowIndex;
     }
-
     /**
      * Destructor.
      */
@@ -38,7 +35,6 @@ class Row
     {
         unset($this->worksheet);
     }
-
     /**
      * Get row index.
      *
@@ -48,7 +44,6 @@ class Row
     {
         return $this->rowIndex;
     }
-
     /**
      * Get cell iterator.
      *
@@ -61,7 +56,6 @@ class Row
     {
         return new RowCellIterator($this->worksheet, $this->rowIndex, $startColumn, $endColumn);
     }
-
     /**
      * Returns bound worksheet.
      *

@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use InvalidArgumentException;
 use ZipArchive;
-
 class File
 {
     /**
@@ -13,7 +12,6 @@ class File
      * @var bool
      */
     protected static $useUploadTempDirectory = false;
-
     /**
      * Set the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
@@ -23,7 +21,6 @@ class File
     {
         self::$useUploadTempDirectory = (bool) $useUploadTempDir;
     }
-
     /**
      * Get the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
@@ -33,7 +30,6 @@ class File
     {
         return self::$useUploadTempDirectory;
     }
-
     /**
      * Verify if a file exists.
      *
@@ -50,21 +46,16 @@ class File
             // Open ZIP file and verify if the file exists
             $zipFile = substr($pFilename, 6, strpos($pFilename, '#') - 6);
             $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
-
             $zip = new ZipArchive();
             if ($zip->open($zipFile) === true) {
-                $returnValue = ($zip->getFromName($archiveFile) !== false);
+                $returnValue = $zip->getFromName($archiveFile) !== false;
                 $zip->close();
-
                 return $returnValue;
             }
-
             return false;
         }
-
         return file_exists($pFilename);
     }
-
     /**
      * Returns canonicalized absolute pathname, also for ZIP archives.
      *
@@ -76,32 +67,27 @@ class File
     {
         // Returnvalue
         $returnValue = '';
-
         // Try using realpath()
         if (file_exists($pFilename)) {
             $returnValue = realpath($pFilename);
         }
-
         // Found something?
-        if ($returnValue == '' || ($returnValue === null)) {
+        if ($returnValue == '' || $returnValue === null) {
             $pathArray = explode('/', $pFilename);
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
                 $iMax = count($pathArray);
                 for ($i = 0; $i < $iMax; ++$i) {
                     if ($pathArray[$i] == '..' && $i > 0) {
                         unset($pathArray[$i], $pathArray[$i - 1]);
-
                         break;
                     }
                 }
             }
             $returnValue = implode('/', $pathArray);
         }
-
         // Return
         return $returnValue;
     }
-
     /**
      * Get the systems temporary directory.
      *
@@ -120,10 +106,8 @@ class File
                 }
             }
         }
-
         return realpath(sys_get_temp_dir());
     }
-
     /**
      * Assert that given path is an existing file and is readable, otherwise throw exception.
      *
@@ -136,7 +120,6 @@ class File
         if (!is_file($filename)) {
             throw new InvalidArgumentException('File "' . $filename . '" does not exist.');
         }
-
         if (!is_readable($filename)) {
             throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
         }

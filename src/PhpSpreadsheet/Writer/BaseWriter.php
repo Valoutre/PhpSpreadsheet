@@ -11,7 +11,6 @@ abstract class BaseWriter implements IWriter
      * @var bool
      */
     protected $includeCharts = false;
-
     /**
      * Pre-calculate formulas
      * Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
@@ -20,21 +19,18 @@ abstract class BaseWriter implements IWriter
      * @var bool
      */
     protected $preCalculateFormulas = true;
-
     /**
      * Use disk caching where possible?
      *
      * @var bool
      */
     private $useDiskCaching = false;
-
     /**
      * Disk caching directory.
      *
      * @var string
      */
     private $diskCachingDirectory = './';
-
     /**
      * Write charts in workbook?
      *        If this is true, then the Writer will write definitions for any charts that exist in the PhpSpreadsheet object.
@@ -46,7 +42,6 @@ abstract class BaseWriter implements IWriter
     {
         return $this->includeCharts;
     }
-
     /**
      * Set write charts in workbook
      *        Set to true, to advise the Writer to include any charts that exist in the PhpSpreadsheet object.
@@ -59,10 +54,8 @@ abstract class BaseWriter implements IWriter
     public function setIncludeCharts($pValue)
     {
         $this->includeCharts = (bool) $pValue;
-
         return $this;
     }
-
     /**
      * Get Pre-Calculate Formulas flag
      *     If this is true (the default), then the writer will recalculate all formulae in a workbook when saving,
@@ -77,7 +70,6 @@ abstract class BaseWriter implements IWriter
     {
         return $this->preCalculateFormulas;
     }
-
     /**
      * Set Pre-Calculate Formulas
      *        Set to true (the default) to advise the Writer to calculate all formulae on save
@@ -90,10 +82,8 @@ abstract class BaseWriter implements IWriter
     public function setPreCalculateFormulas($pValue)
     {
         $this->preCalculateFormulas = (bool) $pValue;
-
         return $this;
     }
-
     /**
      * Get use disk caching where possible?
      *
@@ -103,7 +93,6 @@ abstract class BaseWriter implements IWriter
     {
         return $this->useDiskCaching;
     }
-
     /**
      * Set use disk caching where possible?
      *
@@ -117,18 +106,15 @@ abstract class BaseWriter implements IWriter
     public function setUseDiskCaching($pValue, $pDirectory = null)
     {
         $this->useDiskCaching = $pValue;
-
         if ($pDirectory !== null) {
             if (is_dir($pDirectory)) {
                 $this->diskCachingDirectory = $pDirectory;
             } else {
-                throw new Exception("Directory does not exist: $pDirectory");
+                throw new Exception("Directory does not exist: {$pDirectory}");
             }
         }
-
         return $this;
     }
-
     /**
      * Get disk caching directory.
      *

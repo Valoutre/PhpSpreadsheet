@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 class ColumnCellIterator extends CellIterator
 {
     /**
@@ -13,28 +12,24 @@ class ColumnCellIterator extends CellIterator
      * @var int
      */
     private $currentRow;
-
     /**
      * Column index.
      *
      * @var string
      */
     private $columnIndex;
-
     /**
      * Start position.
      *
      * @var int
      */
     private $startRow = 1;
-
     /**
      * End position.
      *
      * @var int
      */
     private $endRow = 1;
-
     /**
      * Create a new row iterator.
      *
@@ -51,7 +46,6 @@ class ColumnCellIterator extends CellIterator
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
     }
-
     /**
      * (Re)Set the start row and the current row pointer.
      *
@@ -66,10 +60,8 @@ class ColumnCellIterator extends CellIterator
         $this->startRow = $startRow;
         $this->adjustForExistingOnlyRange();
         $this->seek($startRow);
-
         return $this;
     }
-
     /**
      * (Re)Set the end row.
      *
@@ -81,12 +73,10 @@ class ColumnCellIterator extends CellIterator
      */
     public function resetEnd($endRow = null)
     {
-        $this->endRow = ($endRow) ? $endRow : $this->worksheet->getHighestRow();
+        $this->endRow = $endRow ? $endRow : $this->worksheet->getHighestRow();
         $this->adjustForExistingOnlyRange();
-
         return $this;
     }
-
     /**
      * Set the row pointer to the selected row.
      *
@@ -98,16 +88,14 @@ class ColumnCellIterator extends CellIterator
      */
     public function seek($row = 1)
     {
-        if (($row < $this->startRow) || ($row > $this->endRow)) {
-            throw new PhpSpreadsheetException("Row $row is out of range ({$this->startRow} - {$this->endRow})");
-        } elseif ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $row))) {
+        if ($row < $this->startRow || $row > $this->endRow) {
+            throw new PhpSpreadsheetException("Row {$row} is out of range ({$this->startRow} - {$this->endRow})");
+        } elseif ($this->onlyExistingCells && !$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $row)) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
         }
         $this->currentRow = $row;
-
         return $this;
     }
-
     /**
      * Rewind the iterator to the starting row.
      */
@@ -115,7 +103,6 @@ class ColumnCellIterator extends CellIterator
     {
         $this->currentRow = $this->startRow;
     }
-
     /**
      * Return the current cell in this worksheet column.
      *
@@ -125,7 +112,6 @@ class ColumnCellIterator extends CellIterator
     {
         return $this->worksheet->getCellByColumnAndRow($this->columnIndex, $this->currentRow);
     }
-
     /**
      * Return the current iterator key.
      *
@@ -135,7 +121,6 @@ class ColumnCellIterator extends CellIterator
     {
         return $this->currentRow;
     }
-
     /**
      * Set the iterator to its next value.
      */
@@ -143,11 +128,8 @@ class ColumnCellIterator extends CellIterator
     {
         do {
             ++$this->currentRow;
-        } while (($this->onlyExistingCells) &&
-            (!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->currentRow)) &&
-            ($this->currentRow <= $this->endRow));
+        } while ($this->onlyExistingCells && !$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->currentRow) && $this->currentRow <= $this->endRow);
     }
-
     /**
      * Set the iterator to its previous value.
      */
@@ -156,14 +138,10 @@ class ColumnCellIterator extends CellIterator
         if ($this->currentRow <= $this->startRow) {
             throw new PhpSpreadsheetException("Row is already at the beginning of range ({$this->startRow} - {$this->endRow})");
         }
-
         do {
             --$this->currentRow;
-        } while (($this->onlyExistingCells) &&
-            (!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->currentRow)) &&
-            ($this->currentRow >= $this->startRow));
+        } while ($this->onlyExistingCells && !$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->currentRow) && $this->currentRow >= $this->startRow);
     }
-
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating.
      *
@@ -173,7 +151,6 @@ class ColumnCellIterator extends CellIterator
     {
         return $this->currentRow <= $this->endRow;
     }
-
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
@@ -182,15 +159,13 @@ class ColumnCellIterator extends CellIterator
     protected function adjustForExistingOnlyRange()
     {
         if ($this->onlyExistingCells) {
-            while ((!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->startRow)) &&
-                ($this->startRow <= $this->endRow)) {
+            while (!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->startRow) && $this->startRow <= $this->endRow) {
                 ++$this->startRow;
             }
             if ($this->startRow > $this->endRow) {
                 throw new PhpSpreadsheetException('No cells exist within the specified range');
             }
-            while ((!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->endRow)) &&
-                ($this->endRow >= $this->startRow)) {
+            while (!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->endRow) && $this->endRow >= $this->startRow) {
                 --$this->endRow;
             }
             if ($this->endRow < $this->startRow) {

@@ -10,7 +10,6 @@ class RowDimension extends Dimension
      * @var int
      */
     private $rowIndex;
-
     /**
      * Row height (in pt).
      *
@@ -19,14 +18,12 @@ class RowDimension extends Dimension
      * @var float
      */
     private $height = -1;
-
     /**
      * ZeroHeight for Row?
      *
      * @var bool
      */
     private $zeroHeight = false;
-
     /**
      * Create a new RowDimension.
      *
@@ -36,11 +33,9 @@ class RowDimension extends Dimension
     {
         // Initialise values
         $this->rowIndex = $pIndex;
-
         // set dimension as unformatted by default
         parent::__construct(null);
     }
-
     /**
      * Get Row Index.
      *
@@ -50,7 +45,6 @@ class RowDimension extends Dimension
     {
         return $this->rowIndex;
     }
-
     /**
      * Set Row Index.
      *
@@ -61,10 +55,8 @@ class RowDimension extends Dimension
     public function setRowIndex($pValue)
     {
         $this->rowIndex = $pValue;
-
         return $this;
     }
-
     /**
      * Get Row Height.
      *
@@ -74,7 +66,6 @@ class RowDimension extends Dimension
     {
         return $this->height;
     }
-
     /**
      * Set Row Height.
      *
@@ -85,10 +76,8 @@ class RowDimension extends Dimension
     public function setRowHeight($pValue)
     {
         $this->height = $pValue;
-
         return $this;
     }
-
     /**
      * Get ZeroHeight.
      *
@@ -98,7 +87,6 @@ class RowDimension extends Dimension
     {
         return $this->zeroHeight;
     }
-
     /**
      * Set ZeroHeight.
      *
@@ -109,7 +97,6 @@ class RowDimension extends Dimension
     public function setZeroHeight($pValue)
     {
         $this->zeroHeight = $pValue;
-
         return $this;
     }
 }

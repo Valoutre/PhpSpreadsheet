@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
 use Psr\SimpleCache\CacheInterface;
-
 class Settings
 {
     /**
@@ -16,21 +15,18 @@ class Settings
      * @var string
      */
     private static $chartRenderer;
-
     /**
      * Default options for libxml loader.
      *
      * @var int
      */
     private static $libXmlLoaderOptions = null;
-
     /**
      * The cache implementation to be used for cell collection.
      *
      * @var CacheInterface
      */
     private static $cache;
-
     /**
      * Set the locale code to use for formula translations and any special formatting.
      *
@@ -42,7 +38,6 @@ class Settings
     {
         return Calculation::getInstance()->setLocale($locale);
     }
-
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
@@ -56,10 +51,8 @@ class Settings
         if (!is_a($rendererClass, IRenderer::class, true)) {
             throw new Exception('Chart renderer must implement ' . IRenderer::class);
         }
-
         self::$chartRenderer = $rendererClass;
     }
-
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
@@ -70,7 +63,6 @@ class Settings
     {
         return self::$chartRenderer;
     }
-
     /**
      * Set default options for libxml loader.
      *
@@ -83,7 +75,6 @@ class Settings
         }
         self::$libXmlLoaderOptions = $options;
     }
-
     /**
      * Get default options for libxml loader.
      * Defaults to LIBXML_DTDLOAD | LIBXML_DTDATTR when not set explicitly.
@@ -97,10 +88,8 @@ class Settings
         } elseif (self::$libXmlLoaderOptions === null) {
             self::$libXmlLoaderOptions = true;
         }
-
         return self::$libXmlLoaderOptions;
     }
-
     /**
      * Sets the implementation of cache that should be used for cell collection.
      *
@@ -110,7 +99,6 @@ class Settings
     {
         self::$cache = $cache;
     }
-
     /**
      * Gets the implementation of cache that should be used for cell collection.
      *
@@ -121,7 +109,6 @@ class Settings
         if (!self::$cache) {
             self::$cache = new Memory();
         }
-
         return self::$cache;
     }
 }

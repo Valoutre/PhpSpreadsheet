@@ -3,16 +3,13 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-
 class Functions
 {
-    const PRECISION = 8.88E-016;
-
+    const PRECISION = 8.88E-16;
     /**
      * 2 / PI.
      */
-    const M_2DIVPI = 0.63661977236758134307553505349006;
-
+    const M_2DIVPI = 0.6366197723675814;
     /** constants */
     const COMPATIBILITY_EXCEL = 'Excel';
     const COMPATIBILITY_GNUMERIC = 'Gnumeric';
@@ -20,37 +17,24 @@ class Functions
     const RETURNDATE_PHP_NUMERIC = 'P';
     const RETURNDATE_PHP_OBJECT = 'O';
     const RETURNDATE_EXCEL = 'E';
-
     /**
      * Compatibility mode to use for error checking and responses.
      *
      * @var string
      */
     protected static $compatibilityMode = self::COMPATIBILITY_EXCEL;
-
     /**
      * Data Type to use when returning date values.
      *
      * @var string
      */
     protected static $returnDateType = self::RETURNDATE_EXCEL;
-
     /**
      * List of error codes.
      *
      * @var array
      */
-    protected static $errorCodes = [
-        'null' => '#NULL!',
-        'divisionbyzero' => '#DIV/0!',
-        'value' => '#VALUE!',
-        'reference' => '#REF!',
-        'name' => '#NAME?',
-        'num' => '#NUM!',
-        'na' => '#N/A',
-        'gettingdata' => '#GETTING_DATA',
-    ];
-
+    protected static $errorCodes = array('null' => '#NULL!', 'divisionbyzero' => '#DIV/0!', 'value' => '#VALUE!', 'reference' => '#REF!', 'name' => '#NAME?', 'num' => '#NUM!', 'na' => '#N/A', 'gettingdata' => '#GETTING_DATA');
     /**
      * Set the Compatibility Mode.
      *
@@ -66,18 +50,12 @@ class Functions
      */
     public static function setCompatibilityMode($compatibilityMode)
     {
-        if (($compatibilityMode == self::COMPATIBILITY_EXCEL) ||
-            ($compatibilityMode == self::COMPATIBILITY_GNUMERIC) ||
-            ($compatibilityMode == self::COMPATIBILITY_OPENOFFICE)
-        ) {
+        if ($compatibilityMode == self::COMPATIBILITY_EXCEL || $compatibilityMode == self::COMPATIBILITY_GNUMERIC || $compatibilityMode == self::COMPATIBILITY_OPENOFFICE) {
             self::$compatibilityMode = $compatibilityMode;
-
             return true;
         }
-
         return false;
     }
-
     /**
      * Return the current Compatibility Mode.
      *
@@ -93,7 +71,6 @@ class Functions
     {
         return self::$compatibilityMode;
     }
-
     /**
      * Set the Return Date Format used by functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
      *
@@ -109,18 +86,12 @@ class Functions
      */
     public static function setReturnDateType($returnDateType)
     {
-        if (($returnDateType == self::RETURNDATE_PHP_NUMERIC) ||
-            ($returnDateType == self::RETURNDATE_PHP_OBJECT) ||
-            ($returnDateType == self::RETURNDATE_EXCEL)
-        ) {
+        if ($returnDateType == self::RETURNDATE_PHP_NUMERIC || $returnDateType == self::RETURNDATE_PHP_OBJECT || $returnDateType == self::RETURNDATE_EXCEL) {
             self::$returnDateType = $returnDateType;
-
             return true;
         }
-
         return false;
     }
-
     /**
      * Return the current Return Date Format for functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
      *
@@ -136,7 +107,6 @@ class Functions
     {
         return self::$returnDateType;
     }
-
     /**
      * DUMMY.
      *
@@ -148,7 +118,6 @@ class Functions
     {
         return '#Not Yet Implemented';
     }
-
     /**
      * DIV0.
      *
@@ -160,7 +129,6 @@ class Functions
     {
         return self::$errorCodes['divisionbyzero'];
     }
-
     /**
      * NA.
      *
@@ -178,7 +146,6 @@ class Functions
     {
         return self::$errorCodes['na'];
     }
-
     /**
      * NaN.
      *
@@ -192,7 +159,6 @@ class Functions
     {
         return self::$errorCodes['num'];
     }
-
     /**
      * NAME.
      *
@@ -206,7 +172,6 @@ class Functions
     {
         return self::$errorCodes['name'];
     }
-
     /**
      * REF.
      *
@@ -220,7 +185,6 @@ class Functions
     {
         return self::$errorCodes['reference'];
     }
-
     /**
      * NULL.
      *
@@ -234,7 +198,6 @@ class Functions
     {
         return self::$errorCodes['null'];
     }
-
     /**
      * VALUE.
      *
@@ -248,46 +211,38 @@ class Functions
     {
         return self::$errorCodes['value'];
     }
-
     public static function isMatrixValue($idx)
     {
-        return (substr_count($idx, '.') <= 1) || (preg_match('/\.[A-Z]/', $idx) > 0);
+        return substr_count($idx, '.') <= 1 || preg_match('/\\.[A-Z]/', $idx) > 0;
     }
-
     public static function isValue($idx)
     {
         return substr_count($idx, '.') == 0;
     }
-
     public static function isCellValue($idx)
     {
         return substr_count($idx, '.') > 1;
     }
-
     public static function ifCondition($condition)
     {
         $condition = self::flattenSingleValue($condition);
         if (!isset($condition[0])) {
             $condition = '=""';
         }
-        if (!in_array($condition[0], ['>', '<', '='])) {
+        if (!in_array($condition[0], array('>', '<', '='))) {
             if (!is_numeric($condition)) {
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }
-
             return '=' . $condition;
         }
         preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         list(, $operator, $operand) = $matches;
-
         if (!is_numeric($operand)) {
             $operand = str_replace('"', '""', $operand);
             $operand = Calculation::wrapResult(strtoupper($operand));
         }
-
         return $operator . $operand;
     }
-
     /**
      * ERROR_TYPE.
      *
@@ -298,7 +253,6 @@ class Functions
     public static function errorType($value = '')
     {
         $value = self::flattenSingleValue($value);
-
         $i = 1;
         foreach (self::$errorCodes as $errorCode) {
             if ($value === $errorCode) {
@@ -306,10 +260,8 @@ class Functions
             }
             ++$i;
         }
-
         return self::NA();
     }
-
     /**
      * IS_BLANK.
      *
@@ -322,10 +274,8 @@ class Functions
         if ($value !== null) {
             $value = self::flattenSingleValue($value);
         }
-
         return $value === null;
     }
-
     /**
      * IS_ERR.
      *
@@ -336,10 +286,8 @@ class Functions
     public static function isErr($value = '')
     {
         $value = self::flattenSingleValue($value);
-
-        return self::isError($value) && (!self::isNa(($value)));
+        return self::isError($value) && !self::isNa($value);
     }
-
     /**
      * IS_ERROR.
      *
@@ -350,14 +298,11 @@ class Functions
     public static function isError($value = '')
     {
         $value = self::flattenSingleValue($value);
-
         if (!is_string($value)) {
             return false;
         }
-
         return in_array($value, array_values(self::$errorCodes));
     }
-
     /**
      * IS_NA.
      *
@@ -368,10 +313,8 @@ class Functions
     public static function isNa($value = '')
     {
         $value = self::flattenSingleValue($value);
-
         return $value === self::NA();
     }
-
     /**
      * IS_EVEN.
      *
@@ -382,16 +325,13 @@ class Functions
     public static function isEven($value = null)
     {
         $value = self::flattenSingleValue($value);
-
         if ($value === null) {
             return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
+        } elseif (is_bool($value) || is_string($value) && !is_numeric($value)) {
             return self::VALUE();
         }
-
         return $value % 2 == 0;
     }
-
     /**
      * IS_ODD.
      *
@@ -402,16 +342,13 @@ class Functions
     public static function isOdd($value = null)
     {
         $value = self::flattenSingleValue($value);
-
         if ($value === null) {
             return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
+        } elseif (is_bool($value) || is_string($value) && !is_numeric($value)) {
             return self::VALUE();
         }
-
         return abs($value) % 2 == 1;
     }
-
     /**
      * IS_NUMBER.
      *
@@ -422,14 +359,11 @@ class Functions
     public static function isNumber($value = null)
     {
         $value = self::flattenSingleValue($value);
-
         if (is_string($value)) {
             return false;
         }
-
         return is_numeric($value);
     }
-
     /**
      * IS_LOGICAL.
      *
@@ -440,10 +374,8 @@ class Functions
     public static function isLogical($value = null)
     {
         $value = self::flattenSingleValue($value);
-
         return is_bool($value);
     }
-
     /**
      * IS_TEXT.
      *
@@ -454,10 +386,8 @@ class Functions
     public static function isText($value = null)
     {
         $value = self::flattenSingleValue($value);
-
         return is_string($value) && !self::isError($value);
     }
-
     /**
      * IS_NONTEXT.
      *
@@ -469,7 +399,6 @@ class Functions
     {
         return !self::isText($value);
     }
-
     /**
      * N.
      *
@@ -491,7 +420,6 @@ class Functions
         while (is_array($value)) {
             $value = array_shift($value);
         }
-
         switch (gettype($value)) {
             case 'double':
             case 'float':
@@ -501,16 +429,13 @@ class Functions
                 return (int) $value;
             case 'string':
                 //    Errors
-                if ((strlen($value) > 0) && ($value[0] == '#')) {
+                if (strlen($value) > 0 && $value[0] == '#') {
                     return $value;
                 }
-
                 break;
         }
-
         return 0;
     }
-
     /**
      * TYPE.
      *
@@ -529,13 +454,12 @@ class Functions
     public static function TYPE($value = null)
     {
         $value = self::flattenArrayIndexed($value);
-        if (is_array($value) && (count($value) > 1)) {
+        if (is_array($value) && count($value) > 1) {
             end($value);
             $a = key($value);
             //    Range of cells is an error
             if (self::isCellValue($a)) {
                 return 16;
-            //    Test for Matrix
             } elseif (self::isMatrixValue($a)) {
                 return 64;
             }
@@ -544,8 +468,7 @@ class Functions
             return 1;
         }
         $value = self::flattenSingleValue($value);
-
-        if (($value === null) || (is_float($value)) || (is_int($value))) {
+        if ($value === null || is_float($value) || is_int($value)) {
             return 1;
         } elseif (is_bool($value)) {
             return 4;
@@ -553,16 +476,13 @@ class Functions
             return 64;
         } elseif (is_string($value)) {
             //    Errors
-            if ((strlen($value) > 0) && ($value[0] == '#')) {
+            if (strlen($value) > 0 && $value[0] == '#') {
                 return 16;
             }
-
             return 2;
         }
-
         return 0;
     }
-
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
@@ -575,8 +495,7 @@ class Functions
         if (!is_array($array)) {
             return (array) $array;
         }
-
-        $arrayValues = [];
+        $arrayValues = array();
         foreach ($array as $value) {
             if (is_array($value)) {
                 foreach ($value as $val) {
@@ -592,10 +511,8 @@ class Functions
                 $arrayValues[] = $value;
             }
         }
-
         return $arrayValues;
     }
-
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing.
      *
@@ -608,8 +525,7 @@ class Functions
         if (!is_array($array)) {
             return (array) $array;
         }
-
-        $arrayValues = [];
+        $arrayValues = array();
         foreach ($array as $k1 => $value) {
             if (is_array($value)) {
                 foreach ($value as $k2 => $val) {
@@ -625,10 +541,8 @@ class Functions
                 $arrayValues[$k1] = $value;
             }
         }
-
         return $arrayValues;
     }
-
     /**
      * Convert an array to a single scalar value by extracting the first element.
      *
@@ -641,10 +555,8 @@ class Functions
         while (is_array($value)) {
             $value = array_pop($value);
         }
-
         return $value;
     }
-
     /**
      * ISFORMULA.
      *
@@ -658,7 +570,6 @@ class Functions
         if ($pCell === null) {
             return self::REF();
         }
-
         return substr($pCell->getWorksheet()->getCell($value)->getValue(), 0, 1) === '=';
     }
 }

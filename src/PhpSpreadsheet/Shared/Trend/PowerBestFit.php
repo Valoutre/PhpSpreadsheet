@@ -11,7 +11,6 @@ class PowerBestFit extends BestFit
      * @var string
      */
     protected $bestFitType = 'power';
-
     /**
      * Return the Y-Value for a specified value of X.
      *
@@ -21,9 +20,8 @@ class PowerBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow(($xValue - $this->xOffset), $this->getSlope());
+        return $this->getIntersect() * pow($xValue - $this->xOffset, $this->getSlope());
     }
-
     /**
      * Return the X-Value for a specified value of Y.
      *
@@ -33,9 +31,8 @@ class PowerBestFit extends BestFit
      */
     public function getValueOfXForY($yValue)
     {
-        return pow((($yValue + $this->yOffset) / $this->getIntersect()), (1 / $this->getSlope()));
+        return pow(($yValue + $this->yOffset) / $this->getIntersect(), 1 / $this->getSlope());
     }
-
     /**
      * Return the Equation of the best-fit line.
      *
@@ -47,10 +44,8 @@ class PowerBestFit extends BestFit
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
-
         return 'Y = ' . $intersect . ' * X^' . $slope;
     }
-
     /**
      * Return the Value of X where it intersects Y = 0.
      *
@@ -63,10 +58,8 @@ class PowerBestFit extends BestFit
         if ($dp != 0) {
             return round(exp($this->intersect), $dp);
         }
-
         return exp($this->intersect);
     }
-
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -92,10 +85,8 @@ class PowerBestFit extends BestFit
             }
         }
         unset($value);
-
         $this->leastSquareFit($yValues, $xValues, $const);
     }
-
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -103,7 +94,7 @@ class PowerBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct($yValues, $xValues = array(), $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
             $this->powerRegression($yValues, $xValues, $const);

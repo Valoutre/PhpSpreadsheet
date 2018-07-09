@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 class Csv extends BaseWriter
 {
     /**
@@ -13,42 +12,36 @@ class Csv extends BaseWriter
      * @var Spreadsheet
      */
     private $spreadsheet;
-
     /**
      * Delimiter.
      *
      * @var string
      */
     private $delimiter = ',';
-
     /**
      * Enclosure.
      *
      * @var string
      */
     private $enclosure = '"';
-
     /**
      * Line ending.
      *
      * @var string
      */
     private $lineEnding = PHP_EOL;
-
     /**
      * Sheet index to write.
      *
      * @var int
      */
     private $sheetIndex = 0;
-
     /**
      * Whether to write a BOM (for UTF8).
      *
      * @var bool
      */
     private $useBOM = false;
-
     /**
      * Whether to write a Separator line as the first line of the file
      *     sep=x.
@@ -56,14 +49,12 @@ class Csv extends BaseWriter
      * @var bool
      */
     private $includeSeparatorLine = false;
-
     /**
      * Whether to write a fully Excel compatible CSV file.
      *
      * @var bool
      */
     private $excelCompatibility = false;
-
     /**
      * Create a new CSV.
      *
@@ -73,7 +64,6 @@ class Csv extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
     }
-
     /**
      * Save PhpSpreadsheet to file.
      *
@@ -85,38 +75,38 @@ class Csv extends BaseWriter
     {
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
-
         $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
         $saveArrayReturnType = Calculation::getArrayReturnType();
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-
         // Open file
         $fileHandle = fopen($pFilename, 'wb+');
         if ($fileHandle === false) {
-            throw new Exception("Could not open file $pFilename for writing.");
+            throw new Exception("Could not open file {$pFilename} for writing.");
         }
-
         if ($this->excelCompatibility) {
-            $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
-            $this->setIncludeSeparatorLine(true); //  Set separator line
-            $this->setEnclosure('"'); //  Set enclosure to "
-            $this->setDelimiter(';'); //  Set delimiter to a semi-colon
-            $this->setLineEnding("\r\n");
+            $this->setUseBOM(true);
+            //  Enforce UTF-8 BOM Header
+            $this->setIncludeSeparatorLine(true);
+            //  Set separator line
+            $this->setEnclosure('"');
+            //  Set enclosure to "
+            $this->setDelimiter(';');
+            //  Set delimiter to a semi-colon
+            $this->setLineEnding('
+');
         }
         if ($this->useBOM) {
             // Write the UTF-8 BOM code if required
-            fwrite($fileHandle, "\xEF\xBB\xBF");
+            fwrite($fileHandle, '﻿');
         }
         if ($this->includeSeparatorLine) {
             // Write the separator line if required
             fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
         }
-
         //    Identify the range that we need to extract from the worksheet
         $maxCol = $sheet->getHighestDataColumn();
         $maxRow = $sheet->getHighestDataRow();
-
         // Write rows to file
         for ($row = 1; $row <= $maxRow; ++$row) {
             // Convert the row to an array...
@@ -124,14 +114,11 @@ class Csv extends BaseWriter
             // ... and write to the file
             $this->writeLine($fileHandle, $cellsArray[0]);
         }
-
         // Close file
         fclose($fileHandle);
-
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
-
     /**
      * Get delimiter.
      *
@@ -141,7 +128,6 @@ class Csv extends BaseWriter
     {
         return $this->delimiter;
     }
-
     /**
      * Set delimiter.
      *
@@ -152,10 +138,8 @@ class Csv extends BaseWriter
     public function setDelimiter($pValue)
     {
         $this->delimiter = $pValue;
-
         return $this;
     }
-
     /**
      * Get enclosure.
      *
@@ -165,7 +149,6 @@ class Csv extends BaseWriter
     {
         return $this->enclosure;
     }
-
     /**
      * Set enclosure.
      *
@@ -179,10 +162,8 @@ class Csv extends BaseWriter
             $pValue = null;
         }
         $this->enclosure = $pValue;
-
         return $this;
     }
-
     /**
      * Get line ending.
      *
@@ -192,7 +173,6 @@ class Csv extends BaseWriter
     {
         return $this->lineEnding;
     }
-
     /**
      * Set line ending.
      *
@@ -203,10 +183,8 @@ class Csv extends BaseWriter
     public function setLineEnding($pValue)
     {
         $this->lineEnding = $pValue;
-
         return $this;
     }
-
     /**
      * Get whether BOM should be used.
      *
@@ -216,7 +194,6 @@ class Csv extends BaseWriter
     {
         return $this->useBOM;
     }
-
     /**
      * Set whether BOM should be used.
      *
@@ -227,10 +204,8 @@ class Csv extends BaseWriter
     public function setUseBOM($pValue)
     {
         $this->useBOM = $pValue;
-
         return $this;
     }
-
     /**
      * Get whether a separator line should be included.
      *
@@ -240,7 +215,6 @@ class Csv extends BaseWriter
     {
         return $this->includeSeparatorLine;
     }
-
     /**
      * Set whether a separator line should be included as the first line of the file.
      *
@@ -251,10 +225,8 @@ class Csv extends BaseWriter
     public function setIncludeSeparatorLine($pValue)
     {
         $this->includeSeparatorLine = $pValue;
-
         return $this;
     }
-
     /**
      * Get whether the file should be saved with full Excel Compatibility.
      *
@@ -264,7 +236,6 @@ class Csv extends BaseWriter
     {
         return $this->excelCompatibility;
     }
-
     /**
      * Set whether the file should be saved with full Excel Compatibility.
      *
@@ -276,10 +247,8 @@ class Csv extends BaseWriter
     public function setExcelCompatibility($pValue)
     {
         $this->excelCompatibility = $pValue;
-
         return $this;
     }
-
     /**
      * Get sheet index.
      *
@@ -289,7 +258,6 @@ class Csv extends BaseWriter
     {
         return $this->sheetIndex;
     }
-
     /**
      * Set sheet index.
      *
@@ -300,10 +268,8 @@ class Csv extends BaseWriter
     public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
-
         return $this;
     }
-
     /**
      * Write line to CSV file.
      *
@@ -314,28 +280,22 @@ class Csv extends BaseWriter
     {
         // No leading delimiter
         $writeDelimiter = false;
-
         // Build the line
         $line = '';
-
         foreach ($pValues as $element) {
             // Escape enclosures
             $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
-
             // Add delimiter
             if ($writeDelimiter) {
                 $line .= $this->delimiter;
             } else {
                 $writeDelimiter = true;
             }
-
             // Add enclosed string
             $line .= $this->enclosure . $element . $this->enclosure;
         }
-
         // Add line ending
         $line .= $this->lineEnding;
-
         // Write to file
         fwrite($pFileHandle, $line);
     }

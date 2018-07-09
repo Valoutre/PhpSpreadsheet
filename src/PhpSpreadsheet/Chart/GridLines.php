@@ -19,65 +19,10 @@ class GridLines extends Properties
      * Soft Properties @var  array of mixed.
      */
     private $objectState = false;
-
-    private $lineProperties = [
-        'color' => [
-            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-            'value' => null,
-            'alpha' => 0,
-        ],
-        'style' => [
-            'width' => '9525',
-            'compound' => self::LINE_STYLE_COMPOUND_SIMPLE,
-            'dash' => self::LINE_STYLE_DASH_SOLID,
-            'cap' => self::LINE_STYLE_CAP_FLAT,
-            'join' => self::LINE_STYLE_JOIN_BEVEL,
-            'arrow' => [
-                'head' => [
-                    'type' => self::LINE_STYLE_ARROW_TYPE_NOARROW,
-                    'size' => self::LINE_STYLE_ARROW_SIZE_5,
-                ],
-                'end' => [
-                    'type' => self::LINE_STYLE_ARROW_TYPE_NOARROW,
-                    'size' => self::LINE_STYLE_ARROW_SIZE_8,
-                ],
-            ],
-        ],
-    ];
-
-    private $shadowProperties = [
-        'presets' => self::SHADOW_PRESETS_NOSHADOW,
-        'effect' => null,
-        'color' => [
-            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-            'value' => 'black',
-            'alpha' => 85,
-        ],
-        'size' => [
-            'sx' => null,
-            'sy' => null,
-            'kx' => null,
-        ],
-        'blur' => null,
-        'direction' => null,
-        'distance' => null,
-        'algn' => null,
-        'rotWithShape' => null,
-    ];
-
-    private $glowProperties = [
-        'size' => null,
-        'color' => [
-            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-            'value' => 'black',
-            'alpha' => 40,
-        ],
-    ];
-
-    private $softEdges = [
-        'size' => null,
-    ];
-
+    private $lineProperties = array('color' => array('type' => self::EXCEL_COLOR_TYPE_STANDARD, 'value' => null, 'alpha' => 0), 'style' => array('width' => '9525', 'compound' => self::LINE_STYLE_COMPOUND_SIMPLE, 'dash' => self::LINE_STYLE_DASH_SOLID, 'cap' => self::LINE_STYLE_CAP_FLAT, 'join' => self::LINE_STYLE_JOIN_BEVEL, 'arrow' => array('head' => array('type' => self::LINE_STYLE_ARROW_TYPE_NOARROW, 'size' => self::LINE_STYLE_ARROW_SIZE_5), 'end' => array('type' => self::LINE_STYLE_ARROW_TYPE_NOARROW, 'size' => self::LINE_STYLE_ARROW_SIZE_8))));
+    private $shadowProperties = array('presets' => self::SHADOW_PRESETS_NOSHADOW, 'effect' => null, 'color' => array('type' => self::EXCEL_COLOR_TYPE_STANDARD, 'value' => 'black', 'alpha' => 85), 'size' => array('sx' => null, 'sy' => null, 'kx' => null), 'blur' => null, 'direction' => null, 'distance' => null, 'algn' => null, 'rotWithShape' => null);
+    private $glowProperties = array('size' => null, 'color' => array('type' => self::EXCEL_COLOR_TYPE_STANDARD, 'value' => 'black', 'alpha' => 40));
+    private $softEdges = array('size' => null);
     /**
      * Get Object State.
      *
@@ -87,7 +32,6 @@ class GridLines extends Properties
     {
         return $this->objectState;
     }
-
     /**
      * Change Object State to True.
      *
@@ -96,10 +40,8 @@ class GridLines extends Properties
     private function activateObject()
     {
         $this->objectState = true;
-
         return $this;
     }
-
     /**
      * Set Line Color Properties.
      *
@@ -109,14 +51,8 @@ class GridLines extends Properties
      */
     public function setLineColorProperties($value, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_STANDARD)
     {
-        $this->activateObject()
-            ->lineProperties['color'] = $this->setColorProperties(
-                $value,
-                $alpha,
-                $type
-            );
+        $this->activateObject()->lineProperties['color'] = $this->setColorProperties($value, $alpha, $type);
     }
-
     /**
      * Set Line Color Properties.
      *
@@ -133,35 +69,16 @@ class GridLines extends Properties
     public function setLineStyleProperties($line_width = null, $compound_type = null, $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null, $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null)
     {
         $this->activateObject();
-        ($line_width !== null)
-                ? $this->lineProperties['style']['width'] = $this->getExcelPointsWidth((float) $line_width)
-                : null;
-        ($compound_type !== null)
-                ? $this->lineProperties['style']['compound'] = (string) $compound_type
-                : null;
-        ($dash_type !== null)
-                ? $this->lineProperties['style']['dash'] = (string) $dash_type
-                : null;
-        ($cap_type !== null)
-                ? $this->lineProperties['style']['cap'] = (string) $cap_type
-                : null;
-        ($join_type !== null)
-                ? $this->lineProperties['style']['join'] = (string) $join_type
-                : null;
-        ($head_arrow_type !== null)
-                ? $this->lineProperties['style']['arrow']['head']['type'] = (string) $head_arrow_type
-                : null;
-        ($head_arrow_size !== null)
-                ? $this->lineProperties['style']['arrow']['head']['size'] = (string) $head_arrow_size
-                : null;
-        ($end_arrow_type !== null)
-                ? $this->lineProperties['style']['arrow']['end']['type'] = (string) $end_arrow_type
-                : null;
-        ($end_arrow_size !== null)
-                ? $this->lineProperties['style']['arrow']['end']['size'] = (string) $end_arrow_size
-                : null;
+        $line_width !== null ? $this->lineProperties['style']['width'] = $this->getExcelPointsWidth((double) $line_width) : null;
+        $compound_type !== null ? $this->lineProperties['style']['compound'] = (string) $compound_type : null;
+        $dash_type !== null ? $this->lineProperties['style']['dash'] = (string) $dash_type : null;
+        $cap_type !== null ? $this->lineProperties['style']['cap'] = (string) $cap_type : null;
+        $join_type !== null ? $this->lineProperties['style']['join'] = (string) $join_type : null;
+        $head_arrow_type !== null ? $this->lineProperties['style']['arrow']['head']['type'] = (string) $head_arrow_type : null;
+        $head_arrow_size !== null ? $this->lineProperties['style']['arrow']['head']['size'] = (string) $head_arrow_size : null;
+        $end_arrow_type !== null ? $this->lineProperties['style']['arrow']['end']['type'] = (string) $end_arrow_type : null;
+        $end_arrow_size !== null ? $this->lineProperties['style']['arrow']['end']['size'] = (string) $end_arrow_size : null;
     }
-
     /**
      * Get Line Color Property.
      *
@@ -173,7 +90,6 @@ class GridLines extends Properties
     {
         return $this->lineProperties['color'][$parameter];
     }
-
     /**
      * Get Line Style Property.
      *
@@ -185,7 +101,6 @@ class GridLines extends Properties
     {
         return $this->getArrayElementsValue($this->lineProperties['style'], $elements);
     }
-
     /**
      * Set Glow Properties.
      *
@@ -196,12 +111,8 @@ class GridLines extends Properties
      */
     public function setGlowProperties($size, $color_value = null, $color_alpha = null, $color_type = null)
     {
-        $this
-            ->activateObject()
-            ->setGlowSize($size)
-            ->setGlowColor($color_value, $color_alpha, $color_type);
+        $this->activateObject()->setGlowSize($size)->setGlowColor($color_value, $color_alpha, $color_type);
     }
-
     /**
      * Get Glow Color Property.
      *
@@ -213,7 +124,6 @@ class GridLines extends Properties
     {
         return $this->glowProperties['color'][$property];
     }
-
     /**
      * Get Glow Size.
      *
@@ -223,7 +133,6 @@ class GridLines extends Properties
     {
         return $this->glowProperties['size'];
     }
-
     /**
      * Set Glow Size.
      *
@@ -233,11 +142,9 @@ class GridLines extends Properties
      */
     private function setGlowSize($size)
     {
-        $this->glowProperties['size'] = $this->getExcelPointsWidth((float) $size);
-
+        $this->glowProperties['size'] = $this->getExcelPointsWidth((double) $size);
         return $this;
     }
-
     /**
      * Set Glow Color.
      *
@@ -258,10 +165,8 @@ class GridLines extends Properties
         if ($type !== null) {
             $this->glowProperties['color']['type'] = (string) $type;
         }
-
         return $this;
     }
-
     /**
      * Get Line Style Arrow Parameters.
      *
@@ -274,7 +179,6 @@ class GridLines extends Properties
     {
         return $this->getLineStyleArrowSize($this->lineProperties['style']['arrow'][$arrow_selector]['size'], $property_selector);
     }
-
     /**
      * Set Shadow Properties.
      *
@@ -288,18 +192,8 @@ class GridLines extends Properties
      */
     public function setShadowProperties($sh_presets, $sh_color_value = null, $sh_color_type = null, $sh_color_alpha = null, $sh_blur = null, $sh_angle = null, $sh_distance = null)
     {
-        $this->activateObject()
-            ->setShadowPresetsProperties((int) $sh_presets)
-            ->setShadowColor(
-                $sh_color_value === null ? $this->shadowProperties['color']['value'] : $sh_color_value,
-                $sh_color_alpha === null ? (int) $this->shadowProperties['color']['alpha'] : $this->getTrueAlpha($sh_color_alpha),
-                $sh_color_type === null ? $this->shadowProperties['color']['type'] : $sh_color_type
-            )
-            ->setShadowBlur($sh_blur)
-            ->setShadowAngle($sh_angle)
-            ->setShadowDistance($sh_distance);
+        $this->activateObject()->setShadowPresetsProperties((int) $sh_presets)->setShadowColor($sh_color_value === null ? $this->shadowProperties['color']['value'] : $sh_color_value, $sh_color_alpha === null ? (int) $this->shadowProperties['color']['alpha'] : $this->getTrueAlpha($sh_color_alpha), $sh_color_type === null ? $this->shadowProperties['color']['type'] : $sh_color_type)->setShadowBlur($sh_blur)->setShadowAngle($sh_angle)->setShadowDistance($sh_distance);
     }
-
     /**
      * Set Shadow Presets Properties.
      *
@@ -311,10 +205,8 @@ class GridLines extends Properties
     {
         $this->shadowProperties['presets'] = $shadow_presets;
         $this->setShadowProperiesMapValues($this->getShadowPresetsMap($shadow_presets));
-
         return $this;
     }
-
     /**
      * Set Shadow Properties Values.
      *
@@ -329,9 +221,9 @@ class GridLines extends Properties
         foreach ($properties_map as $property_key => $property_val) {
             if (is_array($property_val)) {
                 if ($reference === null) {
-                    $reference = &$this->shadowProperties[$property_key];
+                    $reference =& $this->shadowProperties[$property_key];
                 } else {
-                    $reference = &$reference[$property_key];
+                    $reference =& $reference[$property_key];
                 }
                 $this->setShadowProperiesMapValues($property_val, $reference);
             } else {
@@ -342,10 +234,8 @@ class GridLines extends Properties
                 }
             }
         }
-
         return $this;
     }
-
     /**
      * Set Shadow Color.
      *
@@ -366,10 +256,8 @@ class GridLines extends Properties
         if ($type !== null) {
             $this->shadowProperties['color']['type'] = (string) $type;
         }
-
         return $this;
     }
-
     /**
      * Set Shadow Blur.
      *
@@ -382,10 +270,8 @@ class GridLines extends Properties
         if ($blur !== null) {
             $this->shadowProperties['blur'] = (string) $this->getExcelPointsWidth($blur);
         }
-
         return $this;
     }
-
     /**
      * Set Shadow Angle.
      *
@@ -398,10 +284,8 @@ class GridLines extends Properties
         if ($angle !== null) {
             $this->shadowProperties['direction'] = (string) $this->getExcelPointsAngle($angle);
         }
-
         return $this;
     }
-
     /**
      * Set Shadow Distance.
      *
@@ -414,10 +298,8 @@ class GridLines extends Properties
         if ($distance !== null) {
             $this->shadowProperties['distance'] = (string) $this->getExcelPointsWidth($distance);
         }
-
         return $this;
     }
-
     /**
      * Get Shadow Property.
      *
@@ -429,7 +311,6 @@ class GridLines extends Properties
     {
         return $this->getArrayElementsValue($this->shadowProperties, $elements);
     }
-
     /**
      * Set Soft Edges Size.
      *
@@ -442,7 +323,6 @@ class GridLines extends Properties
             $softEdges['size'] = (string) $this->getExcelPointsWidth($size);
         }
     }
-
     /**
      * Get Soft Edges Size.
      *

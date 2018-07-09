@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 abstract class CellIterator implements \Iterator
 {
     /**
@@ -12,14 +11,12 @@ abstract class CellIterator implements \Iterator
      * @var Worksheet
      */
     protected $worksheet;
-
     /**
      * Iterate only existing cells.
      *
      * @var bool
      */
     protected $onlyExistingCells = false;
-
     /**
      * Destructor.
      */
@@ -27,7 +24,6 @@ abstract class CellIterator implements \Iterator
     {
         unset($this->worksheet);
     }
-
     /**
      * Get loop only existing cells.
      *
@@ -37,14 +33,12 @@ abstract class CellIterator implements \Iterator
     {
         return $this->onlyExistingCells;
     }
-
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
      * @throws PhpSpreadsheetException
      */
-    abstract protected function adjustForExistingOnlyRange();
-
+    protected abstract function adjustForExistingOnlyRange();
     /**
      * Set the iterator to loop only existing cells.
      *
@@ -55,7 +49,6 @@ abstract class CellIterator implements \Iterator
     public function setIterateOnlyExistingCells($value)
     {
         $this->onlyExistingCells = (bool) $value;
-
         $this->adjustForExistingOnlyRange();
     }
 }

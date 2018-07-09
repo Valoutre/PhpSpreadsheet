@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 class RelsRibbon extends WriterPart
 {
     /**
@@ -25,10 +24,8 @@ class RelsRibbon extends WriterPart
         } else {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
-
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
-
         // Relationships
         $objWriter->startElement('Relationships');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
@@ -43,7 +40,6 @@ class RelsRibbon extends WriterPart
             }
         }
         $objWriter->endElement();
-
         return $objWriter->getData();
     }
 }

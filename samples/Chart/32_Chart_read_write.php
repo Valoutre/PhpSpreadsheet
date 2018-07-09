@@ -1,14 +1,11 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
 require __DIR__ . '/../Header.php';
-
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
-
-if ((isset($argc)) && ($argc > 1)) {
-    $inputFileNames = [];
+if (isset($argc) && $argc > 1) {
+    $inputFileNames = array();
     for ($i = 1; $i < $argc; ++$i) {
         $inputFileNames[] = __DIR__ . '/../templates/' . $argv[$i];
     }
@@ -17,10 +14,8 @@ if ((isset($argc)) && ($argc > 1)) {
 }
 foreach ($inputFileNames as $inputFileName) {
     $inputFileNameShort = basename($inputFileName);
-
     if (!file_exists($inputFileName)) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
-
         continue;
     }
     $reader = IOFactory::createReader($inputFileType);
@@ -28,12 +23,10 @@ foreach ($inputFileNames as $inputFileName) {
     $callStartTime = microtime(true);
     $spreadsheet = $reader->load($inputFileName);
     $helper->logRead($inputFileType, $inputFileName, $callStartTime);
-
     $helper->log('Iterate worksheets looking at the charts');
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();
         $helper->log('Worksheet: ' . $sheetName);
-
         $chartNames = $worksheet->getChartNames();
         if (empty($chartNames)) {
             $helper->log('    There are no charts in this worksheet');
@@ -53,7 +46,7 @@ foreach ($inputFileNames as $inputFileName) {
                     $chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
                     $helper->log($indentation . '    ' . $chartType);
                 } else {
-                    $chartTypes = [];
+                    $chartTypes = array();
                     for ($i = 0; $i < $groupCount; ++$i) {
                         $chartTypes[] = $chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
                     }
@@ -70,14 +63,12 @@ foreach ($inputFileNames as $inputFileName) {
             }
         }
     }
-
     $outputFileName = $helper->getFilename($inputFileName);
     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $writer->save($outputFileName);
     $helper->logWrite($writer, $outputFileName, $callStartTime);
-
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
 }

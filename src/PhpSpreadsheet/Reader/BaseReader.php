@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
-
 abstract class BaseReader implements IReader
 {
     /**
@@ -14,7 +13,6 @@ abstract class BaseReader implements IReader
      * @var bool
      */
     protected $readDataOnly = false;
-
     /**
      * Read empty cells?
      * Identifies whether the Reader should read data values for cells all cells, or should ignore cells containing
@@ -23,7 +21,6 @@ abstract class BaseReader implements IReader
      * @var bool
      */
     protected $readEmptyCells = true;
-
     /**
      * Read charts that are defined in the workbook?
      * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.
@@ -31,7 +28,6 @@ abstract class BaseReader implements IReader
      * @var bool
      */
     protected $includeCharts = false;
-
     /**
      * Restrict which sheets should be loaded?
      * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
@@ -39,16 +35,13 @@ abstract class BaseReader implements IReader
      * @var array of string
      */
     protected $loadSheetsOnly;
-
     /**
      * IReadFilter instance.
      *
      * @var IReadFilter
      */
     protected $readFilter;
-
     protected $fileHandle;
-
     /**
      * Read data only?
      *        If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
@@ -60,7 +53,6 @@ abstract class BaseReader implements IReader
     {
         return $this->readDataOnly;
     }
-
     /**
      * Set read data only
      *        Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
@@ -73,10 +65,8 @@ abstract class BaseReader implements IReader
     public function setReadDataOnly($pValue)
     {
         $this->readDataOnly = (bool) $pValue;
-
         return $this;
     }
-
     /**
      * Read empty cells?
      *        If this is true (the default), then the Reader will read data values for all cells, irrespective of value.
@@ -88,7 +78,6 @@ abstract class BaseReader implements IReader
     {
         return $this->readEmptyCells;
     }
-
     /**
      * Set read empty cells
      *        Set to true (the default) to advise the Reader read data values for all cells, irrespective of value.
@@ -101,10 +90,8 @@ abstract class BaseReader implements IReader
     public function setReadEmptyCells($pValue)
     {
         $this->readEmptyCells = (bool) $pValue;
-
         return $this;
     }
-
     /**
      * Read charts in workbook?
      *        If this is true, then the Reader will include any charts that exist in the workbook.
@@ -117,7 +104,6 @@ abstract class BaseReader implements IReader
     {
         return $this->includeCharts;
     }
-
     /**
      * Set read charts in workbook
      *        Set to true, to advise the Reader to include any charts that exist in the workbook.
@@ -131,10 +117,8 @@ abstract class BaseReader implements IReader
     public function setIncludeCharts($pValue)
     {
         $this->includeCharts = (bool) $pValue;
-
         return $this;
     }
-
     /**
      * Get which sheets to load
      * Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
@@ -146,7 +130,6 @@ abstract class BaseReader implements IReader
     {
         return $this->loadSheetsOnly;
     }
-
     /**
      * Set which sheets to load.
      *
@@ -161,12 +144,9 @@ abstract class BaseReader implements IReader
         if ($value === null) {
             return $this->setLoadAllSheets();
         }
-
-        $this->loadSheetsOnly = is_array($value) ? $value : [$value];
-
+        $this->loadSheetsOnly = is_array($value) ? $value : array($value);
         return $this;
     }
-
     /**
      * Set all sheets to load
      *        Tells the Reader to load all worksheets from the workbook.
@@ -176,10 +156,8 @@ abstract class BaseReader implements IReader
     public function setLoadAllSheets()
     {
         $this->loadSheetsOnly = null;
-
         return $this;
     }
-
     /**
      * Read filter.
      *
@@ -189,7 +167,6 @@ abstract class BaseReader implements IReader
     {
         return $this->readFilter;
     }
-
     /**
      * Set read filter.
      *
@@ -200,10 +177,8 @@ abstract class BaseReader implements IReader
     public function setReadFilter(IReadFilter $pValue)
     {
         $this->readFilter = $pValue;
-
         return $this;
     }
-
     /**
      * Open file for reading.
      *
@@ -214,14 +189,12 @@ abstract class BaseReader implements IReader
     protected function openFile($pFilename)
     {
         File::assertFile($pFilename);
-
         // Open file
         $this->fileHandle = fopen($pFilename, 'r');
         if ($this->fileHandle === false) {
             throw new Exception('Could not open file ' . $pFilename . ' for reading.');
         }
     }
-
     /**
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
@@ -237,10 +210,8 @@ abstract class BaseReader implements IReader
         if (preg_match($pattern, $xml)) {
             throw new Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
         }
-
         return $xml;
     }
-
     /**
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *

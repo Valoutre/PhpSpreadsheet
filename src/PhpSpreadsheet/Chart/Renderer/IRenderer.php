@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
-
 interface IRenderer
 {
     /**
@@ -12,7 +11,6 @@ interface IRenderer
      * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $chart
      */
     public function __construct(Chart $chart);
-
     /**
      * Render the chart to given file (or stream).
      *

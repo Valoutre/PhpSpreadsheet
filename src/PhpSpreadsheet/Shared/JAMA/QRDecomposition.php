@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-
 /**
  *    For an m-by-n matrix A with m >= n, the QR decomposition is an m-by-n
  *    orthogonal matrix Q and an n-by-n upper triangular matrix R so that
@@ -22,35 +21,30 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 class QRDecomposition
 {
     const MATRIX_RANK_EXCEPTION = 'Can only perform operation on full-rank matrix.';
-
     /**
      * Array for internal storage of decomposition.
      *
      * @var array
      */
-    private $QR = [];
-
+    private $QR = array();
     /**
      * Row dimension.
      *
      * @var int
      */
     private $m;
-
     /**
      * Column dimension.
      *
      * @var int
      */
     private $n;
-
     /**
      * Array for internal storage of diagonal of R.
      *
      * @var array
      */
-    private $Rdiag = [];
-
+    private $Rdiag = array();
     /**
      * QR Decomposition computed by Householder reflections.
      *
@@ -97,9 +91,7 @@ class QRDecomposition
             throw new CalculationException(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }
-
     //    function __construct()
-
     /**
      *    Is the matrix full rank?
      *
@@ -112,12 +104,9 @@ class QRDecomposition
                 return false;
             }
         }
-
         return true;
     }
-
     //    function isFullRank()
-
     /**
      * Return the Householder vectors.
      *
@@ -134,12 +123,9 @@ class QRDecomposition
                 }
             }
         }
-
         return new Matrix($H);
     }
-
     //    function getH()
-
     /**
      * Return the upper triangular factor.
      *
@@ -158,12 +144,9 @@ class QRDecomposition
                 }
             }
         }
-
         return new Matrix($R);
     }
-
     //    function getR()
-
     /**
      * Generate and return the (economy-sized) orthogonal factor.
      *
@@ -189,12 +172,9 @@ class QRDecomposition
                 }
             }
         }
-
         return new Matrix($Q);
     }
-
     //    function getQ()
-
     /**
      * Least squares solution of A*X = B.
      *
@@ -234,13 +214,10 @@ class QRDecomposition
                     }
                 }
                 $X = new Matrix($X);
-
                 return $X->getMatrix(0, $this->n - 1, 0, $nx);
             }
-
             throw new CalculationException(self::MATRIX_RANK_EXCEPTION);
         }
-
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 }
