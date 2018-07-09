@@ -13,7 +13,7 @@ class RuleTest extends TestCase
 
     public function setUp()
     {
-        $this->mockAutoFilterColumnObject = $this->getMockBuilder(Column::class)
+        $this->mockAutoFilterColumnObject = $this->getMockBuilder('Column')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -34,7 +34,7 @@ class RuleTest extends TestCase
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterRuleObject->setRuleType($expectedResult);
-        self::assertInstanceOf(Column\Rule::class, $result);
+        self::assertInstanceOf('Rule', $result);
 
         $result = $this->testAutoFilterRuleObject->getRuleType();
         self::assertEquals($expectedResult, $result);
@@ -46,7 +46,7 @@ class RuleTest extends TestCase
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterRuleObject->setValue($expectedResult);
-        self::assertInstanceOf(Column\Rule::class, $result);
+        self::assertInstanceOf('Rule', $result);
 
         $result = $this->testAutoFilterRuleObject->getValue();
         self::assertEquals($expectedResult, $result);
@@ -64,7 +64,7 @@ class RuleTest extends TestCase
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterRuleObject->setOperator($expectedResult);
-        self::assertInstanceOf(Column\Rule::class, $result);
+        self::assertInstanceOf('Rule', $result);
 
         $result = $this->testAutoFilterRuleObject->getOperator();
         self::assertEquals($expectedResult, $result);
@@ -76,7 +76,7 @@ class RuleTest extends TestCase
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterRuleObject->setGrouping($expectedResult);
-        self::assertInstanceOf(Column\Rule::class, $result);
+        self::assertInstanceOf('Rule', $result);
 
         $result = $this->testAutoFilterRuleObject->getGrouping();
         self::assertEquals($expectedResult, $result);
@@ -85,19 +85,19 @@ class RuleTest extends TestCase
     public function testGetParent()
     {
         $result = $this->testAutoFilterRuleObject->getParent();
-        self::assertInstanceOf(Column::class, $result);
+        self::assertInstanceOf('Column', $result);
     }
 
     public function testSetParent()
     {
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterRuleObject->setParent($this->mockAutoFilterColumnObject);
-        self::assertInstanceOf(Column\Rule::class, $result);
+        self::assertInstanceOf('Rule', $result);
     }
 
     public function testClone()
     {
         $result = clone $this->testAutoFilterRuleObject;
-        self::assertInstanceOf(Column\Rule::class, $result);
+        self::assertInstanceOf('Rule', $result);
     }
 }

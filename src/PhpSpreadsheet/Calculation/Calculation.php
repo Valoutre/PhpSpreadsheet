@@ -154,7 +154,2833 @@ class Calculation
      */
     private static $excelConstants = array('TRUE' => true, 'FALSE' => false, 'NULL' => null);
     // PhpSpreadsheet functions
-    private static $phpSpreadsheetFunctions = array('ABS' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs', 'argumentCount' => '1'), 'ACCRINT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'ACCRINT'), 'argumentCount' => '4-7'), 'ACCRINTM' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'ACCRINTM'), 'argumentCount' => '3-5'), 'ACOS' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'acos', 'argumentCount' => '1'), 'ACOSH' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'acosh', 'argumentCount' => '1'), 'ADDRESS' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'cellAddress'), 'argumentCount' => '2-5'), 'AMORDEGRC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'AMORDEGRC'), 'argumentCount' => '6,7'), 'AMORLINC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'AMORLINC'), 'argumentCount' => '6,7'), 'AND' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'logicalAnd'), 'argumentCount' => '1+'), 'AREAS' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'ASC' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'ASIN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'asin', 'argumentCount' => '1'), 'ASINH' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'asinh', 'argumentCount' => '1'), 'ATAN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'atan', 'argumentCount' => '1'), 'ATAN2' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'ATAN2'), 'argumentCount' => '2'), 'ATANH' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'atanh', 'argumentCount' => '1'), 'AVEDEV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'AVEDEV'), 'argumentCount' => '1+'), 'AVERAGE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'AVERAGE'), 'argumentCount' => '1+'), 'AVERAGEA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'AVERAGEA'), 'argumentCount' => '1+'), 'AVERAGEIF' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'AVERAGEIF'), 'argumentCount' => '2,3'), 'AVERAGEIFS' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '3+'), 'BAHTTEXT' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'BESSELI' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BESSELI'), 'argumentCount' => '2'), 'BESSELJ' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BESSELJ'), 'argumentCount' => '2'), 'BESSELK' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BESSELK'), 'argumentCount' => '2'), 'BESSELY' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BESSELY'), 'argumentCount' => '2'), 'BETADIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'BETADIST'), 'argumentCount' => '3-5'), 'BETAINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'BETAINV'), 'argumentCount' => '3-5'), 'BIN2DEC' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BINTODEC'), 'argumentCount' => '1'), 'BIN2HEX' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BINTOHEX'), 'argumentCount' => '1,2'), 'BIN2OCT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'BINTOOCT'), 'argumentCount' => '1,2'), 'BINOMDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'BINOMDIST'), 'argumentCount' => '4'), 'CEILING' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'CEILING'), 'argumentCount' => '2'), 'CELL' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1,2'), 'CHAR' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'CHARACTER'), 'argumentCount' => '1'), 'CHIDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'CHIDIST'), 'argumentCount' => '2'), 'CHIINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'CHIINV'), 'argumentCount' => '2'), 'CHITEST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2'), 'CHOOSE' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'CHOOSE'), 'argumentCount' => '2+'), 'CLEAN' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'TRIMNONPRINTABLE'), 'argumentCount' => '1'), 'CODE' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'ASCIICODE'), 'argumentCount' => '1'), 'COLUMN' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'COLUMN'), 'argumentCount' => '-1', 'passByReference' => array(true)), 'COLUMNS' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'COLUMNS'), 'argumentCount' => '1'), 'COMBIN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'COMBIN'), 'argumentCount' => '2'), 'COMPLEX' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'COMPLEX'), 'argumentCount' => '2,3'), 'CONCATENATE' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'CONCATENATE'), 'argumentCount' => '1+'), 'CONFIDENCE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'CONFIDENCE'), 'argumentCount' => '3'), 'CONVERT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'CONVERTUOM'), 'argumentCount' => '3'), 'CORREL' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'CORREL'), 'argumentCount' => '2'), 'COS' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'cos', 'argumentCount' => '1'), 'COSH' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'cosh', 'argumentCount' => '1'), 'COUNT' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'COUNT'), 'argumentCount' => '1+'), 'COUNTA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'COUNTA'), 'argumentCount' => '1+'), 'COUNTBLANK' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'COUNTBLANK'), 'argumentCount' => '1'), 'COUNTIF' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'COUNTIF'), 'argumentCount' => '2'), 'COUNTIFS' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2'), 'COUPDAYBS' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'COUPDAYBS'), 'argumentCount' => '3,4'), 'COUPDAYS' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'COUPDAYS'), 'argumentCount' => '3,4'), 'COUPDAYSNC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'COUPDAYSNC'), 'argumentCount' => '3,4'), 'COUPNCD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'COUPNCD'), 'argumentCount' => '3,4'), 'COUPNUM' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'COUPNUM'), 'argumentCount' => '3,4'), 'COUPPCD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'COUPPCD'), 'argumentCount' => '3,4'), 'COVAR' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'COVAR'), 'argumentCount' => '2'), 'CRITBINOM' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'CRITBINOM'), 'argumentCount' => '3'), 'CUBEKPIMEMBER' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUBEMEMBER' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUBEMEMBERPROPERTY' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUBERANKEDMEMBER' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUBESET' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUBESETCOUNT' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUBEVALUE' => array('category' => Category::CATEGORY_CUBE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '?'), 'CUMIPMT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'CUMIPMT'), 'argumentCount' => '6'), 'CUMPRINC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'CUMPRINC'), 'argumentCount' => '6'), 'DATE' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DATE'), 'argumentCount' => '3'), 'DATEDIF' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DATEDIF'), 'argumentCount' => '2,3'), 'DATEVALUE' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DATEVALUE'), 'argumentCount' => '1'), 'DAVERAGE' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DAVERAGE'), 'argumentCount' => '3'), 'DAY' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DAYOFMONTH'), 'argumentCount' => '1'), 'DAYS360' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DAYS360'), 'argumentCount' => '2,3'), 'DB' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'DB'), 'argumentCount' => '4,5'), 'DCOUNT' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DCOUNT'), 'argumentCount' => '3'), 'DCOUNTA' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DCOUNTA'), 'argumentCount' => '3'), 'DDB' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'DDB'), 'argumentCount' => '4,5'), 'DEC2BIN' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'DECTOBIN'), 'argumentCount' => '1,2'), 'DEC2HEX' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'DECTOHEX'), 'argumentCount' => '1,2'), 'DEC2OCT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'DECTOOCT'), 'argumentCount' => '1,2'), 'DEGREES' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'rad2deg', 'argumentCount' => '1'), 'DELTA' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'DELTA'), 'argumentCount' => '1,2'), 'DEVSQ' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'DEVSQ'), 'argumentCount' => '1+'), 'DGET' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DGET'), 'argumentCount' => '3'), 'DISC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'DISC'), 'argumentCount' => '4,5'), 'DMAX' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DMAX'), 'argumentCount' => '3'), 'DMIN' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DMIN'), 'argumentCount' => '3'), 'DOLLAR' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'DOLLAR'), 'argumentCount' => '1,2'), 'DOLLARDE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'DOLLARDE'), 'argumentCount' => '2'), 'DOLLARFR' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'DOLLARFR'), 'argumentCount' => '2'), 'DPRODUCT' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DPRODUCT'), 'argumentCount' => '3'), 'DSTDEV' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DSTDEV'), 'argumentCount' => '3'), 'DSTDEVP' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DSTDEVP'), 'argumentCount' => '3'), 'DSUM' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DSUM'), 'argumentCount' => '3'), 'DURATION' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '5,6'), 'DVAR' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DVAR'), 'argumentCount' => '3'), 'DVARP' => array('category' => Category::CATEGORY_DATABASE, 'functionCall' => array(Database::class, 'DVARP'), 'argumentCount' => '3'), 'EDATE' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'EDATE'), 'argumentCount' => '2'), 'EFFECT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'EFFECT'), 'argumentCount' => '2'), 'EOMONTH' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'EOMONTH'), 'argumentCount' => '2'), 'ERF' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'ERF'), 'argumentCount' => '1,2'), 'ERFC' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'ERFC'), 'argumentCount' => '1'), 'ERROR.TYPE' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'errorType'), 'argumentCount' => '1'), 'EVEN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'EVEN'), 'argumentCount' => '1'), 'EXACT' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2'), 'EXP' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'exp', 'argumentCount' => '1'), 'EXPONDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'EXPONDIST'), 'argumentCount' => '3'), 'FACT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'FACT'), 'argumentCount' => '1'), 'FACTDOUBLE' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'FACTDOUBLE'), 'argumentCount' => '1'), 'FALSE' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'FALSE'), 'argumentCount' => '0'), 'FDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '3'), 'FIND' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'SEARCHSENSITIVE'), 'argumentCount' => '2,3'), 'FINDB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'SEARCHSENSITIVE'), 'argumentCount' => '2,3'), 'FINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '3'), 'FISHER' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'FISHER'), 'argumentCount' => '1'), 'FISHERINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'FISHERINV'), 'argumentCount' => '1'), 'FIXED' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'FIXEDFORMAT'), 'argumentCount' => '1-3'), 'FLOOR' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'FLOOR'), 'argumentCount' => '2'), 'FORECAST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'FORECAST'), 'argumentCount' => '3'), 'FREQUENCY' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2'), 'FTEST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2'), 'FV' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'FV'), 'argumentCount' => '3-5'), 'FVSCHEDULE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'FVSCHEDULE'), 'argumentCount' => '2'), 'GAMMADIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'GAMMADIST'), 'argumentCount' => '4'), 'GAMMAINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'GAMMAINV'), 'argumentCount' => '3'), 'GAMMALN' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'GAMMALN'), 'argumentCount' => '1'), 'GCD' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'GCD'), 'argumentCount' => '1+'), 'GEOMEAN' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'GEOMEAN'), 'argumentCount' => '1+'), 'GESTEP' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'GESTEP'), 'argumentCount' => '1,2'), 'GETPIVOTDATA' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2+'), 'GROWTH' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'GROWTH'), 'argumentCount' => '1-4'), 'HARMEAN' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'HARMEAN'), 'argumentCount' => '1+'), 'HEX2BIN' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'HEXTOBIN'), 'argumentCount' => '1,2'), 'HEX2DEC' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'HEXTODEC'), 'argumentCount' => '1'), 'HEX2OCT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'HEXTOOCT'), 'argumentCount' => '1,2'), 'HLOOKUP' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'HLOOKUP'), 'argumentCount' => '3,4'), 'HOUR' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'HOUROFDAY'), 'argumentCount' => '1'), 'HYPERLINK' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'HYPERLINK'), 'argumentCount' => '1,2', 'passCellReference' => true), 'HYPGEOMDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'HYPGEOMDIST'), 'argumentCount' => '4'), 'IF' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'statementIf'), 'argumentCount' => '1-3'), 'IFERROR' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'IFERROR'), 'argumentCount' => '2'), 'IMABS' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMABS'), 'argumentCount' => '1'), 'IMAGINARY' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMAGINARY'), 'argumentCount' => '1'), 'IMARGUMENT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMARGUMENT'), 'argumentCount' => '1'), 'IMCONJUGATE' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMCONJUGATE'), 'argumentCount' => '1'), 'IMCOS' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMCOS'), 'argumentCount' => '1'), 'IMDIV' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMDIV'), 'argumentCount' => '2'), 'IMEXP' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMEXP'), 'argumentCount' => '1'), 'IMLN' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMLN'), 'argumentCount' => '1'), 'IMLOG10' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMLOG10'), 'argumentCount' => '1'), 'IMLOG2' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMLOG2'), 'argumentCount' => '1'), 'IMPOWER' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMPOWER'), 'argumentCount' => '2'), 'IMPRODUCT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMPRODUCT'), 'argumentCount' => '1+'), 'IMREAL' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMREAL'), 'argumentCount' => '1'), 'IMSIN' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMSIN'), 'argumentCount' => '1'), 'IMSQRT' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMSQRT'), 'argumentCount' => '1'), 'IMSUB' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMSUB'), 'argumentCount' => '2'), 'IMSUM' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'IMSUM'), 'argumentCount' => '1+'), 'INDEX' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'INDEX'), 'argumentCount' => '1-4'), 'INDIRECT' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'INDIRECT'), 'argumentCount' => '1,2', 'passCellReference' => true), 'INFO' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'INT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'INT'), 'argumentCount' => '1'), 'INTERCEPT' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'INTERCEPT'), 'argumentCount' => '2'), 'INTRATE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'INTRATE'), 'argumentCount' => '4,5'), 'IPMT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'IPMT'), 'argumentCount' => '4-6'), 'IRR' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'IRR'), 'argumentCount' => '1,2'), 'ISBLANK' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isBlank'), 'argumentCount' => '1'), 'ISERR' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isErr'), 'argumentCount' => '1'), 'ISERROR' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isError'), 'argumentCount' => '1'), 'ISEVEN' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isEven'), 'argumentCount' => '1'), 'ISFORMULA' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isFormula'), 'argumentCount' => '1', 'passCellReference' => true, 'passByReference' => array(true)), 'ISLOGICAL' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isLogical'), 'argumentCount' => '1'), 'ISNA' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isNa'), 'argumentCount' => '1'), 'ISNONTEXT' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isNonText'), 'argumentCount' => '1'), 'ISNUMBER' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isNumber'), 'argumentCount' => '1'), 'ISODD' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isOdd'), 'argumentCount' => '1'), 'ISPMT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'ISPMT'), 'argumentCount' => '4'), 'ISREF' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'ISTEXT' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'isText'), 'argumentCount' => '1'), 'JIS' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'KURT' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'KURT'), 'argumentCount' => '1+'), 'LARGE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'LARGE'), 'argumentCount' => '2'), 'LCM' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'LCM'), 'argumentCount' => '1+'), 'LEFT' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'LEFT'), 'argumentCount' => '1,2'), 'LEFTB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'LEFT'), 'argumentCount' => '1,2'), 'LEN' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'STRINGLENGTH'), 'argumentCount' => '1'), 'LENB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'STRINGLENGTH'), 'argumentCount' => '1'), 'LINEST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'LINEST'), 'argumentCount' => '1-4'), 'LN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'log', 'argumentCount' => '1'), 'LOG' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'logBase'), 'argumentCount' => '1,2'), 'LOG10' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'log10', 'argumentCount' => '1'), 'LOGEST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'LOGEST'), 'argumentCount' => '1-4'), 'LOGINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'LOGINV'), 'argumentCount' => '3'), 'LOGNORMDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'LOGNORMDIST'), 'argumentCount' => '3'), 'LOOKUP' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'LOOKUP'), 'argumentCount' => '2,3'), 'LOWER' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'LOWERCASE'), 'argumentCount' => '1'), 'MATCH' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'MATCH'), 'argumentCount' => '2,3'), 'MAX' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MAX'), 'argumentCount' => '1+'), 'MAXA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MAXA'), 'argumentCount' => '1+'), 'MAXIF' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MAXIF'), 'argumentCount' => '2+'), 'MDETERM' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'MDETERM'), 'argumentCount' => '1'), 'MDURATION' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '5,6'), 'MEDIAN' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MEDIAN'), 'argumentCount' => '1+'), 'MEDIANIF' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2+'), 'MID' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'MID'), 'argumentCount' => '3'), 'MIDB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'MID'), 'argumentCount' => '3'), 'MIN' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MIN'), 'argumentCount' => '1+'), 'MINA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MINA'), 'argumentCount' => '1+'), 'MINIF' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MINIF'), 'argumentCount' => '2+'), 'MINUTE' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'MINUTE'), 'argumentCount' => '1'), 'MINVERSE' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'MINVERSE'), 'argumentCount' => '1'), 'MIRR' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'MIRR'), 'argumentCount' => '3'), 'MMULT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'MMULT'), 'argumentCount' => '2'), 'MOD' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'MOD'), 'argumentCount' => '2'), 'MODE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MODE'), 'argumentCount' => '1+'), 'MODE.SNGL' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'MODE'), 'argumentCount' => '1+'), 'MONTH' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'MONTHOFYEAR'), 'argumentCount' => '1'), 'MROUND' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'MROUND'), 'argumentCount' => '2'), 'MULTINOMIAL' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'MULTINOMIAL'), 'argumentCount' => '1+'), 'N' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'n'), 'argumentCount' => '1'), 'NA' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'NA'), 'argumentCount' => '0'), 'NEGBINOMDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'NEGBINOMDIST'), 'argumentCount' => '3'), 'NETWORKDAYS' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'NETWORKDAYS'), 'argumentCount' => '2+'), 'NOMINAL' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'NOMINAL'), 'argumentCount' => '2'), 'NORMDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'NORMDIST'), 'argumentCount' => '4'), 'NORMINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'NORMINV'), 'argumentCount' => '3'), 'NORMSDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'NORMSDIST'), 'argumentCount' => '1'), 'NORMSINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'NORMSINV'), 'argumentCount' => '1'), 'NOT' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'NOT'), 'argumentCount' => '1'), 'NOW' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DATETIMENOW'), 'argumentCount' => '0'), 'NPER' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'NPER'), 'argumentCount' => '3-5'), 'NPV' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'NPV'), 'argumentCount' => '2+'), 'OCT2BIN' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'OCTTOBIN'), 'argumentCount' => '1,2'), 'OCT2DEC' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'OCTTODEC'), 'argumentCount' => '1'), 'OCT2HEX' => array('category' => Category::CATEGORY_ENGINEERING, 'functionCall' => array(Engineering::class, 'OCTTOHEX'), 'argumentCount' => '1,2'), 'ODD' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'ODD'), 'argumentCount' => '1'), 'ODDFPRICE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '8,9'), 'ODDFYIELD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '8,9'), 'ODDLPRICE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '7,8'), 'ODDLYIELD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '7,8'), 'OFFSET' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'OFFSET'), 'argumentCount' => '3-5', 'passCellReference' => true, 'passByReference' => array(true)), 'OR' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'logicalOr'), 'argumentCount' => '1+'), 'PEARSON' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'CORREL'), 'argumentCount' => '2'), 'PERCENTILE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'PERCENTILE'), 'argumentCount' => '2'), 'PERCENTRANK' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'PERCENTRANK'), 'argumentCount' => '2,3'), 'PERMUT' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'PERMUT'), 'argumentCount' => '2'), 'PHONETIC' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1'), 'PI' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'pi', 'argumentCount' => '0'), 'PMT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'PMT'), 'argumentCount' => '3-5'), 'POISSON' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'POISSON'), 'argumentCount' => '3'), 'POWER' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'POWER'), 'argumentCount' => '2'), 'PPMT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'PPMT'), 'argumentCount' => '4-6'), 'PRICE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'PRICE'), 'argumentCount' => '6,7'), 'PRICEDISC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'PRICEDISC'), 'argumentCount' => '4,5'), 'PRICEMAT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'PRICEMAT'), 'argumentCount' => '5,6'), 'PROB' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '3,4'), 'PRODUCT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'PRODUCT'), 'argumentCount' => '1+'), 'PROPER' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'PROPERCASE'), 'argumentCount' => '1'), 'PV' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'PV'), 'argumentCount' => '3-5'), 'QUARTILE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'QUARTILE'), 'argumentCount' => '2'), 'QUOTIENT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'QUOTIENT'), 'argumentCount' => '2'), 'RADIANS' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'deg2rad', 'argumentCount' => '1'), 'RAND' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'RAND'), 'argumentCount' => '0'), 'RANDBETWEEN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'RAND'), 'argumentCount' => '2'), 'RANK' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'RANK'), 'argumentCount' => '2,3'), 'RATE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'RATE'), 'argumentCount' => '3-6'), 'RECEIVED' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'RECEIVED'), 'argumentCount' => '4-5'), 'REPLACE' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'REPLACE'), 'argumentCount' => '4'), 'REPLACEB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'REPLACE'), 'argumentCount' => '4'), 'REPT' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => 'str_repeat', 'argumentCount' => '2'), 'RIGHT' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'RIGHT'), 'argumentCount' => '1,2'), 'RIGHTB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'RIGHT'), 'argumentCount' => '1,2'), 'ROMAN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'ROMAN'), 'argumentCount' => '1,2'), 'ROUND' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'round', 'argumentCount' => '2'), 'ROUNDDOWN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'ROUNDDOWN'), 'argumentCount' => '2'), 'ROUNDUP' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'ROUNDUP'), 'argumentCount' => '2'), 'ROW' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'ROW'), 'argumentCount' => '-1', 'passByReference' => array(true)), 'ROWS' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'ROWS'), 'argumentCount' => '1'), 'RSQ' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'RSQ'), 'argumentCount' => '2'), 'RTD' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '1+'), 'SEARCH' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'SEARCHINSENSITIVE'), 'argumentCount' => '2,3'), 'SEARCHB' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'SEARCHINSENSITIVE'), 'argumentCount' => '2,3'), 'SECOND' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'SECOND'), 'argumentCount' => '1'), 'SERIESSUM' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SERIESSUM'), 'argumentCount' => '4'), 'SIGN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SIGN'), 'argumentCount' => '1'), 'SIN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'sin', 'argumentCount' => '1'), 'SINH' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'sinh', 'argumentCount' => '1'), 'SKEW' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'SKEW'), 'argumentCount' => '1+'), 'SLN' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'SLN'), 'argumentCount' => '3'), 'SLOPE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'SLOPE'), 'argumentCount' => '2'), 'SMALL' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'SMALL'), 'argumentCount' => '2'), 'SQRT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'sqrt', 'argumentCount' => '1'), 'SQRTPI' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SQRTPI'), 'argumentCount' => '1'), 'STANDARDIZE' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STANDARDIZE'), 'argumentCount' => '3'), 'STDEV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STDEV'), 'argumentCount' => '1+'), 'STDEV.S' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STDEV'), 'argumentCount' => '1+'), 'STDEV.P' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STDEVP'), 'argumentCount' => '1+'), 'STDEVA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STDEVA'), 'argumentCount' => '1+'), 'STDEVP' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STDEVP'), 'argumentCount' => '1+'), 'STDEVPA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STDEVPA'), 'argumentCount' => '1+'), 'STEYX' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'STEYX'), 'argumentCount' => '2'), 'SUBSTITUTE' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'SUBSTITUTE'), 'argumentCount' => '3,4'), 'SUBTOTAL' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUBTOTAL'), 'argumentCount' => '2+', 'passCellReference' => true), 'SUM' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUM'), 'argumentCount' => '1+'), 'SUMIF' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMIF'), 'argumentCount' => '2,3'), 'SUMIFS' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMIFS'), 'argumentCount' => '3+'), 'SUMPRODUCT' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMPRODUCT'), 'argumentCount' => '1+'), 'SUMSQ' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMSQ'), 'argumentCount' => '1+'), 'SUMX2MY2' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMX2MY2'), 'argumentCount' => '2'), 'SUMX2PY2' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMX2PY2'), 'argumentCount' => '2'), 'SUMXMY2' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'SUMXMY2'), 'argumentCount' => '2'), 'SYD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'SYD'), 'argumentCount' => '4'), 'T' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'RETURNSTRING'), 'argumentCount' => '1'), 'TAN' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'tan', 'argumentCount' => '1'), 'TANH' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'tanh', 'argumentCount' => '1'), 'TBILLEQ' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'TBILLEQ'), 'argumentCount' => '3'), 'TBILLPRICE' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'TBILLPRICE'), 'argumentCount' => '3'), 'TBILLYIELD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'TBILLYIELD'), 'argumentCount' => '3'), 'TDIST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'TDIST'), 'argumentCount' => '3'), 'TEXT' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'TEXTFORMAT'), 'argumentCount' => '2'), 'TIME' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'TIME'), 'argumentCount' => '3'), 'TIMEVALUE' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'TIMEVALUE'), 'argumentCount' => '1'), 'TINV' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'TINV'), 'argumentCount' => '2'), 'TODAY' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'DATENOW'), 'argumentCount' => '0'), 'TRANSPOSE' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'TRANSPOSE'), 'argumentCount' => '1'), 'TREND' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'TREND'), 'argumentCount' => '1-4'), 'TRIM' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'TRIMSPACES'), 'argumentCount' => '1'), 'TRIMMEAN' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'TRIMMEAN'), 'argumentCount' => '2'), 'TRUE' => array('category' => Category::CATEGORY_LOGICAL, 'functionCall' => array(Logical::class, 'TRUE'), 'argumentCount' => '0'), 'TRUNC' => array('category' => Category::CATEGORY_MATH_AND_TRIG, 'functionCall' => array(MathTrig::class, 'TRUNC'), 'argumentCount' => '1,2'), 'TTEST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '4'), 'TYPE' => array('category' => Category::CATEGORY_INFORMATION, 'functionCall' => array(Functions::class, 'TYPE'), 'argumentCount' => '1'), 'UPPER' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'UPPERCASE'), 'argumentCount' => '1'), 'USDOLLAR' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '2'), 'VALUE' => array('category' => Category::CATEGORY_TEXT_AND_DATA, 'functionCall' => array(TextData::class, 'VALUE'), 'argumentCount' => '1'), 'VAR' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'VARFunc'), 'argumentCount' => '1+'), 'VARA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'VARA'), 'argumentCount' => '1+'), 'VARP' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'VARP'), 'argumentCount' => '1+'), 'VARPA' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'VARPA'), 'argumentCount' => '1+'), 'VDB' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '5-7'), 'VLOOKUP' => array('category' => Category::CATEGORY_LOOKUP_AND_REFERENCE, 'functionCall' => array(LookupRef::class, 'VLOOKUP'), 'argumentCount' => '3,4'), 'WEEKDAY' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'WEEKDAY'), 'argumentCount' => '1,2'), 'WEEKNUM' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'WEEKNUM'), 'argumentCount' => '1,2'), 'WEIBULL' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'WEIBULL'), 'argumentCount' => '4'), 'WORKDAY' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'WORKDAY'), 'argumentCount' => '2+'), 'XIRR' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'XIRR'), 'argumentCount' => '2,3'), 'XNPV' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'XNPV'), 'argumentCount' => '3'), 'YEAR' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'YEAR'), 'argumentCount' => '1'), 'YEARFRAC' => array('category' => Category::CATEGORY_DATE_AND_TIME, 'functionCall' => array(DateTime::class, 'YEARFRAC'), 'argumentCount' => '2,3'), 'YIELD' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Functions::class, 'DUMMY'), 'argumentCount' => '6,7'), 'YIELDDISC' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'YIELDDISC'), 'argumentCount' => '4,5'), 'YIELDMAT' => array('category' => Category::CATEGORY_FINANCIAL, 'functionCall' => array(Financial::class, 'YIELDMAT'), 'argumentCount' => '5,6'), 'ZTEST' => array('category' => Category::CATEGORY_STATISTICAL, 'functionCall' => array(Statistical::class, 'ZTEST'), 'argumentCount' => '2-3'));
+
+    private static $phpSpreadsheetFunctions = array(
+        'ABS' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'abs',
+            'argumentCount' => '1'
+        ) ,
+        'ACCRINT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'ACCRINT'
+            ) ,
+            'argumentCount' => '4-7'
+        ) ,
+        'ACCRINTM' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'ACCRINTM'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'ACOS' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'acos',
+            'argumentCount' => '1'
+        ) ,
+        'ACOSH' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'acosh',
+            'argumentCount' => '1'
+        ) ,
+        'ADDRESS' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'cellAddress'
+            ) ,
+            'argumentCount' => '2-5'
+        ) ,
+        'AMORDEGRC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'AMORDEGRC'
+            ) ,
+            'argumentCount' => '6,7'
+        ) ,
+        'AMORLINC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'AMORLINC'
+            ) ,
+            'argumentCount' => '6,7'
+        ) ,
+        'AND' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'logicalAnd'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'AREAS' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ASC' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ASIN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'asin',
+            'argumentCount' => '1'
+        ) ,
+        'ASINH' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'asinh',
+            'argumentCount' => '1'
+        ) ,
+        'ATAN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'atan',
+            'argumentCount' => '1'
+        ) ,
+        'ATAN2' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'ATAN2'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'ATANH' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'atanh',
+            'argumentCount' => '1'
+        ) ,
+        'AVEDEV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'AVEDEV'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'AVERAGE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'AVERAGE'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'AVERAGEA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'AVERAGEA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'AVERAGEIF' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'AVERAGEIF'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'AVERAGEIFS' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '3+'
+        ) ,
+        'BAHTTEXT' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'BESSELI' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BESSELI'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'BESSELJ' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BESSELJ'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'BESSELK' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BESSELK'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'BESSELY' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BESSELY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'BETADIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'BETADIST'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'BETAINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'BETAINV'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'BIN2DEC' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BINTODEC'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'BIN2HEX' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BINTOHEX'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'BIN2OCT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'BINTOOCT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'BINOMDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'BINOMDIST'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'CEILING' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'CEILING'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'CELL' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'CHAR' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'CHARACTER'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'CHIDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'CHIDIST'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'CHIINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'CHIINV'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'CHITEST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'CHOOSE' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'CHOOSE'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'CLEAN' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'TRIMNONPRINTABLE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'CODE' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'ASCIICODE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'COLUMN' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'COLUMN'
+            ) ,
+            'argumentCount' => '-1',
+            'passByReference' => array(
+                true
+            )
+        ) ,
+        'COLUMNS' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'COLUMNS'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'COMBIN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'COMBIN'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'COMPLEX' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'COMPLEX'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'CONCATENATE' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'CONCATENATE'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'CONFIDENCE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'CONFIDENCE'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'CONVERT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'CONVERTUOM'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'CORREL' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'CORREL'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'COS' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'cos',
+            'argumentCount' => '1'
+        ) ,
+        'COSH' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'cosh',
+            'argumentCount' => '1'
+        ) ,
+        'COUNT' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'COUNT'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'COUNTA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'COUNTA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'COUNTBLANK' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'COUNTBLANK'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'COUNTIF' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'COUNTIF'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'COUNTIFS' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'COUPDAYBS' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'COUPDAYBS'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'COUPDAYS' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'COUPDAYS'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'COUPDAYSNC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'COUPDAYSNC'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'COUPNCD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'COUPNCD'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'COUPNUM' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'COUPNUM'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'COUPPCD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'COUPPCD'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'COVAR' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'COVAR'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'CRITBINOM' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'CRITBINOM'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'CUBEKPIMEMBER' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUBEMEMBER' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUBEMEMBERPROPERTY' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUBERANKEDMEMBER' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUBESET' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUBESETCOUNT' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUBEVALUE' => array(
+            'category' => Category::CATEGORY_CUBE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '?'
+        ) ,
+        'CUMIPMT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'CUMIPMT'
+            ) ,
+            'argumentCount' => '6'
+        ) ,
+        'CUMPRINC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'CUMPRINC'
+            ) ,
+            'argumentCount' => '6'
+        ) ,
+        'DATE' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DATE'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DATEDIF' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DATEDIF'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'DATEVALUE' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DATEVALUE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'DAVERAGE' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DAVERAGE'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DAY' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DAYOFMONTH'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'DAYS360' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DAYS360'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'DB' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'DB'
+            ) ,
+            'argumentCount' => '4,5'
+        ) ,
+        'DCOUNT' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DCOUNT'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DCOUNTA' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DCOUNTA'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DDB' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'DDB'
+            ) ,
+            'argumentCount' => '4,5'
+        ) ,
+        'DEC2BIN' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'DECTOBIN'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'DEC2HEX' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'DECTOHEX'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'DEC2OCT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'DECTOOCT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'DEGREES' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'rad2deg',
+            'argumentCount' => '1'
+        ) ,
+        'DELTA' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'DELTA'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'DEVSQ' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'DEVSQ'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'DGET' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DGET'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DISC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'DISC'
+            ) ,
+            'argumentCount' => '4,5'
+        ) ,
+        'DMAX' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DMAX'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DMIN' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DMIN'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DOLLAR' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'DOLLAR'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'DOLLARDE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'DOLLARDE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'DOLLARFR' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'DOLLARFR'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'DPRODUCT' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DPRODUCT'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DSTDEV' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DSTDEV'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DSTDEVP' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DSTDEVP'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DSUM' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DSUM'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DURATION' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '5,6'
+        ) ,
+        'DVAR' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DVAR'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'DVARP' => array(
+            'category' => Category::CATEGORY_DATABASE,
+            'functionCall' => array(
+                'Database' ,
+                'DVARP'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'EDATE' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'EDATE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'EFFECT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'EFFECT'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'EOMONTH' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'EOMONTH'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'ERF' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'ERF'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'ERFC' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'ERFC'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ERROR.TYPE' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'errorType'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'EVEN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'EVEN'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'EXACT' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'EXP' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'exp',
+            'argumentCount' => '1'
+        ) ,
+        'EXPONDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'EXPONDIST'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'FACT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'FACT'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'FACTDOUBLE' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'FACTDOUBLE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'FALSE' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'FALSE'
+            ) ,
+            'argumentCount' => '0'
+        ) ,
+        'FDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'FIND' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'SEARCHSENSITIVE'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'FINDB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'SEARCHSENSITIVE'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'FINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'FISHER' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'FISHER'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'FISHERINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'FISHERINV'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'FIXED' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'FIXEDFORMAT'
+            ) ,
+            'argumentCount' => '1-3'
+        ) ,
+        'FLOOR' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'FLOOR'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'FORECAST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'FORECAST'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'FREQUENCY' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'FTEST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'FV' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'FV'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'FVSCHEDULE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'FVSCHEDULE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'GAMMADIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'GAMMADIST'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'GAMMAINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'GAMMAINV'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'GAMMALN' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'GAMMALN'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'GCD' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'GCD'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'GEOMEAN' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'GEOMEAN'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'GESTEP' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'GESTEP'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'GETPIVOTDATA' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'GROWTH' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'GROWTH'
+            ) ,
+            'argumentCount' => '1-4'
+        ) ,
+        'HARMEAN' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'HARMEAN'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'HEX2BIN' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'HEXTOBIN'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'HEX2DEC' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'HEXTODEC'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'HEX2OCT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'HEXTOOCT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'HLOOKUP' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'HLOOKUP'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'HOUR' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'HOUROFDAY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'HYPERLINK' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'HYPERLINK'
+            ) ,
+            'argumentCount' => '1,2',
+            'passCellReference' => true
+        ) ,
+        'HYPGEOMDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'HYPGEOMDIST'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'IF' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'statementIf'
+            ) ,
+            'argumentCount' => '1-3'
+        ) ,
+        'IFERROR' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'IFERROR'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'IMABS' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMABS'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMAGINARY' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMAGINARY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMARGUMENT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMARGUMENT'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMCONJUGATE' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMCONJUGATE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMCOS' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMCOS'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMDIV' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMDIV'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'IMEXP' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMEXP'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMLN' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMLN'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMLOG10' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMLOG10'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMLOG2' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMLOG2'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMPOWER' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMPOWER'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'IMPRODUCT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMPRODUCT'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'IMREAL' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMREAL'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMSIN' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMSIN'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMSQRT' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMSQRT'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'IMSUB' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMSUB'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'IMSUM' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'IMSUM'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'INDEX' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'INDEX'
+            ) ,
+            'argumentCount' => '1-4'
+        ) ,
+        'INDIRECT' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'INDIRECT'
+            ) ,
+            'argumentCount' => '1,2',
+            'passCellReference' => true
+        ) ,
+        'INFO' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'INT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'INT'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'INTERCEPT' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'INTERCEPT'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'INTRATE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'INTRATE'
+            ) ,
+            'argumentCount' => '4,5'
+        ) ,
+        'IPMT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'IPMT'
+            ) ,
+            'argumentCount' => '4-6'
+        ) ,
+        'IRR' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'IRR'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'ISBLANK' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isBlank'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISERR' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isErr'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISERROR' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isError'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISEVEN' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isEven'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISFORMULA' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isFormula'
+            ) ,
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => array(
+                true
+            )
+        ) ,
+        'ISLOGICAL' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isLogical'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISNA' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isNa'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISNONTEXT' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isNonText'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISNUMBER' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isNumber'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISODD' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isOdd'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISPMT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'ISPMT'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'ISREF' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ISTEXT' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'isText'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'JIS' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'KURT' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'KURT'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'LARGE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'LARGE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'LCM' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'LCM'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'LEFT' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'LEFT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'LEFTB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'LEFT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'LEN' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'STRINGLENGTH'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'LENB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'STRINGLENGTH'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'LINEST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'LINEST'
+            ) ,
+            'argumentCount' => '1-4'
+        ) ,
+        'LN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'log',
+            'argumentCount' => '1'
+        ) ,
+        'LOG' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'logBase'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'LOG10' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'log10',
+            'argumentCount' => '1'
+        ) ,
+        'LOGEST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'LOGEST'
+            ) ,
+            'argumentCount' => '1-4'
+        ) ,
+        'LOGINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'LOGINV'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'LOGNORMDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'LOGNORMDIST'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'LOOKUP' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'LOOKUP'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'LOWER' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'LOWERCASE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'MATCH' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'MATCH'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'MAX' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MAX'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MAXA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MAXA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MAXIF' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MAXIF'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'MDETERM' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'MDETERM'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'MDURATION' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '5,6'
+        ) ,
+        'MEDIAN' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MEDIAN'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MEDIANIF' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'MID' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'MID'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'MIDB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'MID'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'MIN' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MIN'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MINA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MINA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MINIF' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MINIF'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'MINUTE' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'MINUTE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'MINVERSE' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'MINVERSE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'MIRR' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'MIRR'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'MMULT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'MMULT'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'MOD' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'MOD'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'MODE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MODE'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MODE.SNGL' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'MODE'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'MONTH' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'MONTHOFYEAR'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'MROUND' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'MROUND'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'MULTINOMIAL' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'MULTINOMIAL'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'N' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'n'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'NA' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'NA'
+            ) ,
+            'argumentCount' => '0'
+        ) ,
+        'NEGBINOMDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'NEGBINOMDIST'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'NETWORKDAYS' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'NETWORKDAYS'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'NOMINAL' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'NOMINAL'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'NORMDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'NORMDIST'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'NORMINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'NORMINV'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'NORMSDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'NORMSDIST'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'NORMSINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'NORMSINV'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'NOT' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'NOT'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'NOW' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DATETIMENOW'
+            ) ,
+            'argumentCount' => '0'
+        ) ,
+        'NPER' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'NPER'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'NPV' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'NPV'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'OCT2BIN' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'OCTTOBIN'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'OCT2DEC' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'OCTTODEC'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'OCT2HEX' => array(
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => array(
+                'Engineering' ,
+                'OCTTOHEX'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'ODD' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'ODD'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'ODDFPRICE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '8,9'
+        ) ,
+        'ODDFYIELD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '8,9'
+        ) ,
+        'ODDLPRICE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '7,8'
+        ) ,
+        'ODDLYIELD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '7,8'
+        ) ,
+        'OFFSET' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'OFFSET'
+            ) ,
+            'argumentCount' => '3-5',
+            'passCellReference' => true,
+            'passByReference' => array(
+                true
+            )
+        ) ,
+        'OR' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'logicalOr'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'PEARSON' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'CORREL'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'PERCENTILE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'PERCENTILE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'PERCENTRANK' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'PERCENTRANK'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'PERMUT' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'PERMUT'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'PHONETIC' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'PI' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'pi',
+            'argumentCount' => '0'
+        ) ,
+        'PMT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'PMT'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'POISSON' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'POISSON'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'POWER' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'POWER'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'PPMT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'PPMT'
+            ) ,
+            'argumentCount' => '4-6'
+        ) ,
+        'PRICE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'PRICE'
+            ) ,
+            'argumentCount' => '6,7'
+        ) ,
+        'PRICEDISC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'PRICEDISC'
+            ) ,
+            'argumentCount' => '4,5'
+        ) ,
+        'PRICEMAT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'PRICEMAT'
+            ) ,
+            'argumentCount' => '5,6'
+        ) ,
+        'PROB' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'PRODUCT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'PRODUCT'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'PROPER' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'PROPERCASE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'PV' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'PV'
+            ) ,
+            'argumentCount' => '3-5'
+        ) ,
+        'QUARTILE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'QUARTILE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'QUOTIENT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'QUOTIENT'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'RADIANS' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'deg2rad',
+            'argumentCount' => '1'
+        ) ,
+        'RAND' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'RAND'
+            ) ,
+            'argumentCount' => '0'
+        ) ,
+        'RANDBETWEEN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'RAND'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'RANK' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'RANK'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'RATE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'RATE'
+            ) ,
+            'argumentCount' => '3-6'
+        ) ,
+        'RECEIVED' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'RECEIVED'
+            ) ,
+            'argumentCount' => '4-5'
+        ) ,
+        'REPLACE' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'REPLACE'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'REPLACEB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'REPLACE'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'REPT' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => 'str_repeat',
+            'argumentCount' => '2'
+        ) ,
+        'RIGHT' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'RIGHT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'RIGHTB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'RIGHT'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'ROMAN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'ROMAN'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'ROUND' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'round',
+            'argumentCount' => '2'
+        ) ,
+        'ROUNDDOWN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'ROUNDDOWN'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'ROUNDUP' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'ROUNDUP'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'ROW' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'ROW'
+            ) ,
+            'argumentCount' => '-1',
+            'passByReference' => array(
+                true
+            )
+        ) ,
+        'ROWS' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'ROWS'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'RSQ' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'RSQ'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'RTD' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'SEARCH' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'SEARCHINSENSITIVE'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'SEARCHB' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'SEARCHINSENSITIVE'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'SECOND' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'SECOND'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'SERIESSUM' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SERIESSUM'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'SIGN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SIGN'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'SIN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'sin',
+            'argumentCount' => '1'
+        ) ,
+        'SINH' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'sinh',
+            'argumentCount' => '1'
+        ) ,
+        'SKEW' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'SKEW'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'SLN' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'SLN'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'SLOPE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'SLOPE'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'SMALL' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'SMALL'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'SQRT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'sqrt',
+            'argumentCount' => '1'
+        ) ,
+        'SQRTPI' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SQRTPI'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'STANDARDIZE' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STANDARDIZE'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'STDEV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STDEV'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'STDEV.S' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STDEV'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'STDEV.P' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STDEVP'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'STDEVA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STDEVA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'STDEVP' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STDEVP'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'STDEVPA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STDEVPA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'STEYX' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'STEYX'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'SUBSTITUTE' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'SUBSTITUTE'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'SUBTOTAL' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUBTOTAL'
+            ) ,
+            'argumentCount' => '2+',
+            'passCellReference' => true
+        ) ,
+        'SUM' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUM'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'SUMIF' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMIF'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'SUMIFS' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMIFS'
+            ) ,
+            'argumentCount' => '3+'
+        ) ,
+        'SUMPRODUCT' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMPRODUCT'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'SUMSQ' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMSQ'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'SUMX2MY2' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMX2MY2'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'SUMX2PY2' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMX2PY2'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'SUMXMY2' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'SUMXMY2'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'SYD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'SYD'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'T' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'RETURNSTRING'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'TAN' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'tan',
+            'argumentCount' => '1'
+        ) ,
+        'TANH' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => 'tanh',
+            'argumentCount' => '1'
+        ) ,
+        'TBILLEQ' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'TBILLEQ'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'TBILLPRICE' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'TBILLPRICE'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'TBILLYIELD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'TBILLYIELD'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'TDIST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'TDIST'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'TEXT' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'TEXTFORMAT'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'TIME' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'TIME'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'TIMEVALUE' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'TIMEVALUE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'TINV' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'TINV'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'TODAY' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'DATENOW'
+            ) ,
+            'argumentCount' => '0'
+        ) ,
+        'TRANSPOSE' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'TRANSPOSE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'TREND' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'TREND'
+            ) ,
+            'argumentCount' => '1-4'
+        ) ,
+        'TRIM' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'TRIMSPACES'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'TRIMMEAN' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'TRIMMEAN'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'TRUE' => array(
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => array(
+                'Logical' ,
+                'TRUE'
+            ) ,
+            'argumentCount' => '0'
+        ) ,
+        'TRUNC' => array(
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => array(
+                'MathTrig' ,
+                'TRUNC'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'TTEST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'TYPE' => array(
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => array(
+                'Functions' ,
+                'TYPE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'UPPER' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'UPPERCASE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'USDOLLAR' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '2'
+        ) ,
+        'VALUE' => array(
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => array(
+                'TextData' ,
+                'VALUE'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'VAR' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'VARFunc'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'VARA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'VARA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'VARP' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'VARP'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'VARPA' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'VARPA'
+            ) ,
+            'argumentCount' => '1+'
+        ) ,
+        'VDB' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '5-7'
+        ) ,
+        'VLOOKUP' => array(
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => array(
+                'LookupRef' ,
+                'VLOOKUP'
+            ) ,
+            'argumentCount' => '3,4'
+        ) ,
+        'WEEKDAY' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'WEEKDAY'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'WEEKNUM' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'WEEKNUM'
+            ) ,
+            'argumentCount' => '1,2'
+        ) ,
+        'WEIBULL' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'WEIBULL'
+            ) ,
+            'argumentCount' => '4'
+        ) ,
+        'WORKDAY' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'WORKDAY'
+            ) ,
+            'argumentCount' => '2+'
+        ) ,
+        'XIRR' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'XIRR'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'XNPV' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'XNPV'
+            ) ,
+            'argumentCount' => '3'
+        ) ,
+        'YEAR' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'YEAR'
+            ) ,
+            'argumentCount' => '1'
+        ) ,
+        'YEARFRAC' => array(
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => array(
+                'DateTime' ,
+                'YEARFRAC'
+            ) ,
+            'argumentCount' => '2,3'
+        ) ,
+        'YIELD' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Functions' ,
+                'DUMMY'
+            ) ,
+            'argumentCount' => '6,7'
+        ) ,
+        'YIELDDISC' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'YIELDDISC'
+            ) ,
+            'argumentCount' => '4,5'
+        ) ,
+        'YIELDMAT' => array(
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => array(
+                'Financial' ,
+                'YIELDMAT'
+            ) ,
+            'argumentCount' => '5,6'
+        ) ,
+        'ZTEST' => array(
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => array(
+                'Statistical' ,
+                'ZTEST'
+            ) ,
+            'argumentCount' => '2-3'
+        )
+    );
+
     //    Internal functions used for special control purposes
     private static $controlFunctions = array('MKMATRIX' => array('argumentCount' => '*', 'functionCall' => 'self::mkMatrix'));
     public function __construct(Spreadsheet $spreadsheet = null)
@@ -1088,9 +3914,9 @@ class Calculation
         }
         return $formula;
     }
-    private static function mkMatrix(...$args)
+    private static function mkMatrix()
     {
-        return $args;
+        return func_get_args();
     }
     //    Binary Operators
     //    These operators always work on two values
@@ -1397,7 +4223,8 @@ class Calculation
             }
             //    Ignore white space
             while ($formula[$index] == '
-' || $formula[$index] == '') {
+' || $formula[$index] == '
+') {
                 ++$index;
             }
             if ($formula[$index] == ' ') {

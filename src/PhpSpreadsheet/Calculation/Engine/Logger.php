@@ -81,11 +81,11 @@ class Logger
     /**
      * Write an entry to the calculation engine debug log.
      */
-    public function writeDebugLog(...$args)
+    public function writeDebugLog()
     {
         //    Only write the debug log if logging is enabled
         if ($this->writeDebugLog) {
-            $message = implode($args);
+            $message = implode(func_get_args());
             $cellReference = implode(' -> ', $this->cellStack->showStack());
             if ($this->echoDebugLog) {
                 echo $cellReference, $this->cellStack->count() > 0 ? ' => ' : '', $message, PHP_EOL;

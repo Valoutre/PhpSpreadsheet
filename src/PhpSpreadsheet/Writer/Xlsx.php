@@ -101,7 +101,7 @@ class Xlsx extends BaseWriter
     {
         // Assign PhpSpreadsheet
         $this->setSpreadsheet($spreadsheet);
-        $writerPartsArray = array('stringtable' => StringTable::class, 'contenttypes' => ContentTypes::class, 'docprops' => DocProps::class, 'rels' => Rels::class, 'theme' => Theme::class, 'style' => Style::class, 'workbook' => Workbook::class, 'worksheet' => Worksheet::class, 'drawing' => Drawing::class, 'comments' => Comments::class, 'chart' => Chart::class, 'relsvba' => RelsVBA::class, 'relsribbonobjects' => RelsRibbon::class);
+        $writerPartsArray = array('stringtable' => 'StringTable', 'contenttypes' => 'ContentTypes', 'docprops' => 'DocProps', 'rels' => 'Rels', 'theme' => 'Theme', 'style' => 'Style', 'workbook' => 'Workbook', 'worksheet' => 'Worksheet', 'drawing' => 'Drawing', 'comments' => 'Comments', 'chart' => 'Chart', 'relsvba' => 'RelsVBA', 'relsribbonobjects' => 'RelsRibbon');
         //    Initialise writer parts
         //        and Assign their parent IWriters
         foreach ($writerPartsArray as $writer => $class) {

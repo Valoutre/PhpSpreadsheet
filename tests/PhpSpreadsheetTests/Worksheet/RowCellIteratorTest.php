@@ -15,11 +15,11 @@ class RowCellIteratorTest extends TestCase
 
     public function setUp()
     {
-        $this->mockCell = $this->getMockBuilder(Cell::class)
+        $this->mockCell = $this->getMockBuilder('Cell')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
+        $this->mockWorksheet = $this->getMockBuilder('Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -39,7 +39,7 @@ class RowCellIteratorTest extends TestCase
 
         foreach ($iterator as $key => $RowCell) {
             self::assertEquals($RowCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $RowCell);
+            self::assertInstanceOf('Cell', $RowCell);
         }
     }
 
@@ -51,7 +51,7 @@ class RowCellIteratorTest extends TestCase
 
         foreach ($iterator as $key => $RowCell) {
             self::assertEquals($RowCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $RowCell);
+            self::assertInstanceOf('Cell', $RowCell);
         }
     }
 
@@ -72,7 +72,7 @@ class RowCellIteratorTest extends TestCase
 
     public function testSeekOutOfRange()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $iterator = new RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $iterator->seek(1);
@@ -80,7 +80,7 @@ class RowCellIteratorTest extends TestCase
 
     public function testPrevOutOfRange()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $iterator = new RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $iterator->prev();

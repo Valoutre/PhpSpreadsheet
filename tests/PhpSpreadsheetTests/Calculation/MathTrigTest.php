@@ -511,13 +511,13 @@ class MathTrigTest extends TestCase
      */
     public function testSUBTOTAL($expectedResult, ...$args)
     {
-        $cell = $this->getMockBuilder(Cell::class)
+        $cell = $this->getMockBuilder('Cell')
             ->setMethods(['getValue'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
             ->willReturn(null);
-        $worksheet = $this->getMockBuilder(Worksheet::class)
+        $worksheet = $this->getMockBuilder('Worksheet')
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -525,7 +525,7 @@ class MathTrigTest extends TestCase
             ->willReturn(true);
         $worksheet->method('getCell')
             ->willReturn($cell);
-        $cellReference = $this->getMockBuilder(Cell::class)
+        $cellReference = $this->getMockBuilder('Cell')
             ->setMethods(['getWorksheet'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -559,7 +559,7 @@ class MathTrigTest extends TestCase
     {
         $visibilityGenerator = $this->rowVisibility();
 
-        $rowDimension = $this->getMockBuilder(RowDimension::class)
+        $rowDimension = $this->getMockBuilder('RowDimension')
             ->setMethods(['getVisible'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -570,19 +570,19 @@ class MathTrigTest extends TestCase
 
                 return $result;
             }));
-        $columnDimension = $this->getMockBuilder(ColumnDimension::class)
+        $columnDimension = $this->getMockBuilder('ColumnDimension')
             ->setMethods(['getVisible'])
             ->disableOriginalConstructor()
             ->getMock();
         $columnDimension->method('getVisible')
             ->willReturn(true);
-        $cell = $this->getMockBuilder(Cell::class)
+        $cell = $this->getMockBuilder('Cell')
             ->setMethods(['getValue'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
             ->willReturn('');
-        $worksheet = $this->getMockBuilder(Worksheet::class)
+        $worksheet = $this->getMockBuilder('Worksheet')
             ->setMethods(['cellExists', 'getCell', 'getRowDimension', 'getColumnDimension'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -594,7 +594,7 @@ class MathTrigTest extends TestCase
             ->willReturn($rowDimension);
         $worksheet->method('getColumnDimension')
             ->willReturn($columnDimension);
-        $cellReference = $this->getMockBuilder(Cell::class)
+        $cellReference = $this->getMockBuilder('Cell')
             ->setMethods(['getWorksheet'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -635,7 +635,7 @@ class MathTrigTest extends TestCase
         $cellValueGenerator = $this->cellValues(Functions::flattenArray(array_slice($args, 1)));
         $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
 
-        $cell = $this->getMockBuilder(Cell::class)
+        $cell = $this->getMockBuilder('Cell')
             ->setMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -653,7 +653,7 @@ class MathTrigTest extends TestCase
 
                 return $result;
             }));
-        $worksheet = $this->getMockBuilder(Worksheet::class)
+        $worksheet = $this->getMockBuilder('Worksheet')
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -661,7 +661,7 @@ class MathTrigTest extends TestCase
             ->willReturn(true);
         $worksheet->method('getCell')
             ->willReturn($cell);
-        $cellReference = $this->getMockBuilder(Cell::class)
+        $cellReference = $this->getMockBuilder('Cell')
             ->setMethods(['getWorksheet'])
             ->disableOriginalConstructor()
             ->getMock();

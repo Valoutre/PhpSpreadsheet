@@ -72,7 +72,7 @@ class ReadFilterTest extends AbstractFunctional
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader) {
             // Create a stub for the readFilter class.
-            $readFilterStub = $this->createMock(IReadFilter::class);
+            $readFilterStub = $this->createMock('IReadFilter');
             $readFilterStub->method('readCell')
                 ->will($this->returnCallback([$this, 'readFilterReadCell']));
             // apply filter

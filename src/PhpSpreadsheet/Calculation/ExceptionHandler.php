@@ -9,7 +9,7 @@ class ExceptionHandler
      */
     public function __construct()
     {
-        set_error_handler(array(Exception::class, 'errorHandlerCallback'), E_ALL);
+        set_error_handler(array('Exception', 'errorHandlerCallback'), E_ALL);
     }
     /**
      * Unregister errorhandler.

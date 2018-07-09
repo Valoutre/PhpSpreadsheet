@@ -15,7 +15,7 @@ class ColumnTest extends TestCase
 
     public function setUp()
     {
-        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
+        $this->mockWorksheet = $this->getMockBuilder('Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheet->expects($this->any())
@@ -26,7 +26,7 @@ class ColumnTest extends TestCase
     public function testInstantiateColumnDefault()
     {
         $column = new Column($this->mockWorksheet);
-        self::assertInstanceOf(Column::class, $column);
+        self::assertInstanceOf('Column', $column);
         $columnIndex = $column->getColumnIndex();
         self::assertEquals('A', $columnIndex);
     }
@@ -34,7 +34,7 @@ class ColumnTest extends TestCase
     public function testInstantiateColumnSpecified()
     {
         $column = new Column($this->mockWorksheet, 'E');
-        self::assertInstanceOf(Column::class, $column);
+        self::assertInstanceOf('Column', $column);
         $columnIndex = $column->getColumnIndex();
         self::assertEquals('E', $columnIndex);
     }
@@ -43,6 +43,6 @@ class ColumnTest extends TestCase
     {
         $column = new Column($this->mockWorksheet);
         $cellIterator = $column->getCellIterator();
-        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
+        self::assertInstanceOf('ColumnCellIterator', $cellIterator);
     }
 }

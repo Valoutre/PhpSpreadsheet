@@ -687,7 +687,7 @@ class AutoFilter
             foreach ($columnFilterTests as $columnID => $columnFilterTest) {
                 $cellValue = $this->workSheet->getCell($columnID . $row)->getCalculatedValue();
                 //    Execute the filter test
-                $result = $result && call_user_func_array(array(self::class, $columnFilterTest['method']), array($cellValue, $columnFilterTest['arguments']));
+                $result = $result && call_user_func_array(array('AutoFilter', $columnFilterTest['method']), array($cellValue, $columnFilterTest['arguments']));
                 //    If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
                 if (!$result) {
                     break;

@@ -87,9 +87,9 @@ class CellsTest extends TestCase
 
     public function testThrowsWhenCellCannotBeRetrievedFromCache()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
-        $collection = $this->getMockBuilder(Cells::class)
+        $collection = $this->getMockBuilder('Cells')
             ->setConstructorArgs([new Worksheet(), new Memory()])
             ->setMethods(['has'])
             ->getMock();
@@ -102,10 +102,10 @@ class CellsTest extends TestCase
 
     public function testThrowsWhenCellCannotBeStoredInCache()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
-        $cache = $this->createMock(Memory::class);
-        $cell = $this->createMock(Cell::class);
+        $cache = $this->createMock('Memory');
+        $cell = $this->createMock('Cell');
         $cache->method('set')
             ->willReturn(false);
 

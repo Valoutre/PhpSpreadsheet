@@ -42,10 +42,10 @@ class AdvancedValueBinderTest extends TestCase
      */
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
-        $sheet = $this->getMockBuilder(Worksheet::class)
+        $sheet = $this->getMockBuilder('Worksheet')
             ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
             ->getMock();
-        $cellCollection = $this->getMockBuilder(Cells::class)
+        $cellCollection = $this->getMockBuilder('Cells')
             ->disableOriginalConstructor()
             ->getMock();
         $cellCollection->expects($this->any())

@@ -23,10 +23,10 @@ class AutoFilterTest extends TestCase
 
     public function setUp()
     {
-        $this->mockWorksheetObject = $this->getMockBuilder(Worksheet::class)
+        $this->mockWorksheetObject = $this->getMockBuilder('Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->cellCollection = $this->getMockBuilder(Cells::class)
+        $this->cellCollection = $this->getMockBuilder('Cells')
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheetObject->expects($this->any())
@@ -48,14 +48,14 @@ class AutoFilterTest extends TestCase
     public function testGetParent()
     {
         $result = $this->testAutoFilterObject->getParent();
-        self::assertInstanceOf(Worksheet::class, $result);
+        self::assertInstanceOf('Worksheet', $result);
     }
 
     public function testSetParent()
     {
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setParent($this->mockWorksheetObject);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
     }
 
     public function testGetRange()
@@ -77,7 +77,7 @@ class AutoFilterTest extends TestCase
         foreach ($ranges as $actualRange => $fullRange) {
             //  Setters return the instance to implement the fluent interface
             $result = $this->testAutoFilterObject->setRange($fullRange);
-            self::assertInstanceOf(AutoFilter::class, $result);
+            self::assertInstanceOf('AutoFilter', $result);
 
             //  Result should be the new autofilter range
             $result = $this->testAutoFilterObject->getRange();
@@ -91,7 +91,7 @@ class AutoFilterTest extends TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setRange('');
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
 
         //  Result should be a clear range
         $result = $this->testAutoFilterObject->getRange();
@@ -100,7 +100,7 @@ class AutoFilterTest extends TestCase
 
     public function testSetRangeInvalidRange()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $expectedResult = 'A1';
 
@@ -133,7 +133,7 @@ class AutoFilterTest extends TestCase
 
     public function testGetInvalidColumnOffset()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $invalidColumn = 'G';
 
@@ -146,7 +146,7 @@ class AutoFilterTest extends TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setColumn($expectedResult);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
 
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
@@ -154,12 +154,12 @@ class AutoFilterTest extends TestCase
         self::assertInternalType('array', $result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
-        self::assertInstanceOf(Column::class, $result[$expectedResult]);
+        self::assertInstanceOf('Column', $result[$expectedResult]);
     }
 
     public function testSetInvalidColumnWithString()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $invalidColumn = 'A';
 
@@ -173,7 +173,7 @@ class AutoFilterTest extends TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setColumn($columnObject);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
 
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
@@ -181,12 +181,12 @@ class AutoFilterTest extends TestCase
         self::assertInternalType('array', $result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
-        self::assertInstanceOf(Column::class, $result[$expectedResult]);
+        self::assertInstanceOf('Column', $result[$expectedResult]);
     }
 
     public function testSetInvalidColumnWithObject()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $invalidColumn = 'E';
         $this->testAutoFilterObject->setColumn($invalidColumn);
@@ -194,7 +194,7 @@ class AutoFilterTest extends TestCase
 
     public function testSetColumnWithInvalidDataType()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $invalidColumn = 123.456;
         $this->testAutoFilterObject->setColumn($invalidColumn);
@@ -215,7 +215,7 @@ class AutoFilterTest extends TestCase
         self::assertCount(count($columnIndexes), $result);
         foreach ($columnIndexes as $columnIndex) {
             self::assertArrayHasKey($columnIndex, $result);
-            self::assertInstanceOf(Column::class, $result[$columnIndex]);
+            self::assertInstanceOf('Column', $result[$columnIndex]);
         }
     }
 
@@ -231,7 +231,7 @@ class AutoFilterTest extends TestCase
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex) {
             $result = $this->testAutoFilterObject->getColumn($columnIndex);
-            self::assertInstanceOf(Column::class, $result);
+            self::assertInstanceOf('Column', $result);
         }
     }
 
@@ -247,7 +247,7 @@ class AutoFilterTest extends TestCase
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $this->testAutoFilterObject->getColumnByOffset($columnIndex);
-            self::assertInstanceOf(Column::class, $result);
+            self::assertInstanceOf('Column', $result);
             self::assertEquals($result->getColumnIndex(), $columnID);
         }
     }
@@ -257,12 +257,12 @@ class AutoFilterTest extends TestCase
         //  If we request a specific column by its column ID, we should
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         $result = $this->testAutoFilterObject->getColumn('K');
-        self::assertInstanceOf(Column::class, $result);
+        self::assertInstanceOf('Column', $result);
     }
 
     public function testGetColumnWithoutRangeSet()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         //  Clear the range
         $this->testAutoFilterObject->setRange('');
@@ -280,7 +280,7 @@ class AutoFilterTest extends TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setRange('');
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
 
         //  Range should be cleared
         $result = $this->testAutoFilterObject->getRange();
@@ -309,7 +309,7 @@ class AutoFilterTest extends TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setRange($expectedResult);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
 
         //  Range should be correctly set
         $result = $this->testAutoFilterObject->getRange();
@@ -331,6 +331,6 @@ class AutoFilterTest extends TestCase
         }
 
         $result = clone $this->testAutoFilterObject;
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
     }
 }

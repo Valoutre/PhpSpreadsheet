@@ -48,8 +48,8 @@ class Settings
      */
     public static function setChartRenderer($rendererClass)
     {
-        if (!is_a($rendererClass, IRenderer::class, true)) {
-            throw new Exception('Chart renderer must implement ' . IRenderer::class);
+        if (!is_a($rendererClass, 'IRenderer', true)) {
+            throw new Exception('Chart renderer must implement ' . 'IRenderer');
         }
         self::$chartRenderer = $rendererClass;
     }

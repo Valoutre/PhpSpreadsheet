@@ -26,23 +26,23 @@ class IOFactoryTest extends TestCase
     public function providerCreateWriter()
     {
         return [
-            ['Xls', Writer\Xls::class],
-            ['Xlsx', Writer\Xlsx::class],
-            ['Ods', Writer\Ods::class],
-            ['Csv', Writer\Csv::class],
-            ['Html', Writer\Html::class],
-            ['Mpdf', Writer\Pdf\Mpdf::class],
-            ['Tcpdf', Writer\Pdf\Tcpdf::class],
-            ['Dompdf', Writer\Pdf\Dompdf::class],
+            ['Xls', 'Xls'],
+            ['Xlsx', 'Xlsx'],
+            ['Ods', 'Ods'],
+            ['Csv', 'Csv'],
+            ['Html', 'Html'],
+            ['Mpdf', 'Mpdf'],
+            ['Tcpdf', 'Tcpdf'],
+            ['Dompdf', 'Dompdf'],
         ];
     }
 
     public function testRegisterWriter()
     {
-        IOFactory::registerWriter('Pdf', Writer\Pdf\Mpdf::class);
+        IOFactory::registerWriter('Pdf', 'Mpdf');
         $spreadsheet = new Spreadsheet();
         $actual = IOFactory::createWriter($spreadsheet, 'Pdf');
-        self::assertInstanceOf(Writer\Pdf\Mpdf::class, $actual);
+        self::assertInstanceOf('Mpdf', $actual);
     }
 
     /**
@@ -60,22 +60,22 @@ class IOFactoryTest extends TestCase
     public function providerCreateReader()
     {
         return [
-            ['Xls', Reader\Xls::class],
-            ['Xlsx', Reader\Xlsx::class],
-            ['Xml', Reader\Xml::class],
-            ['Ods', Reader\Ods::class],
-            ['Gnumeric', Reader\Gnumeric::class],
-            ['Csv', Reader\Csv::class],
-            ['Slk', Reader\Slk::class],
-            ['Html', Reader\Html::class],
+            ['Xls', 'Xls'],
+            ['Xlsx', 'Xlsx'],
+            ['Xml', 'Xml'],
+            ['Ods', 'Ods'],
+            ['Gnumeric', 'Gnumeric'],
+            ['Csv', 'Csv'],
+            ['Slk', 'Slk'],
+            ['Html', 'Html'],
         ];
     }
 
     public function testRegisterReader()
     {
-        IOFactory::registerReader('Custom', Reader\Html::class);
+        IOFactory::registerReader('Custom', 'Html');
         $actual = IOFactory::createReader('Custom');
-        self::assertInstanceOf(Reader\Html::class, $actual);
+        self::assertInstanceOf('Html', $actual);
     }
 
     /**
@@ -107,40 +107,40 @@ class IOFactoryTest extends TestCase
     public function providerIdentify()
     {
         return [
-            ['../samples/templates/26template.xlsx', 'Xlsx', Reader\Xlsx::class],
-            ['../samples/templates/GnumericTest.gnumeric', 'Gnumeric', Reader\Gnumeric::class],
-            ['../samples/templates/30template.xls', 'Xls', Reader\Xls::class],
-            ['../samples/templates/OOCalcTest.ods', 'Ods', Reader\Ods::class],
-            ['../samples/templates/SylkTest.slk', 'Slk', Reader\Slk::class],
-            ['../samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
-            ['../samples/templates/46readHtml.html', 'Html', Reader\Html::class],
+            ['../samples/templates/26template.xlsx', 'Xlsx', 'Xlsx'],
+            ['../samples/templates/GnumericTest.gnumeric', 'Gnumeric', 'Gnumeric'],
+            ['../samples/templates/30template.xls', 'Xls', 'Xls'],
+            ['../samples/templates/OOCalcTest.ods', 'Ods', 'Ods'],
+            ['../samples/templates/SylkTest.slk', 'Slk', 'Slk'],
+            ['../samples/templates/Excel2003XMLTest.xml', 'Xml', 'Xml'],
+            ['../samples/templates/46readHtml.html', 'Html', 'Html'],
         ];
     }
 
     public function testIdentifyNonExistingFileThrowException()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException('InvalidArgumentException');
 
         IOFactory::identify('/non/existing/file');
     }
 
     public function testIdentifyExistingDirectoryThrowExceptions()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException('InvalidArgumentException');
 
         IOFactory::identify('.');
     }
 
     public function testRegisterInvalidWriter()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
+        $this->expectException('Exception');
 
         IOFactory::registerWriter('foo', 'bar');
     }
 
     public function testRegisterInvalidReader()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException('Exception');
 
         IOFactory::registerReader('foo', 'bar');
     }

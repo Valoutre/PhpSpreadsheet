@@ -17,7 +17,7 @@ class DefaultValueBinderTest extends TestCase
     private function createCellStub()
     {
         // Create a stub for the Cell class.
-        $this->cellStub = $this->getMockBuilder(Cell::class)
+        $this->cellStub = $this->getMockBuilder('Cell')
             ->disableOriginalConstructor()
             ->getMock();
         // Configure the stub.

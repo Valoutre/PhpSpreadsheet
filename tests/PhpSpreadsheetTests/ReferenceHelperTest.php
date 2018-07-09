@@ -26,7 +26,7 @@ class ReferenceHelperTest extends TestCase
             'BZA', 'BZB', 'BZZ',
         ];
         shuffle($columnBase);
-        usort($columnBase, [ReferenceHelper::class, 'columnSort']);
+        usort($columnBase, ['ReferenceHelper', 'columnSort']);
         foreach ($columnBase as $key => $value) {
             self::assertEquals($columnExpectedResult[$key], $value);
         }
@@ -48,7 +48,7 @@ class ReferenceHelperTest extends TestCase
         ];
         shuffle($columnBase);
         $columnExpectedResult = array_reverse($columnExpectedResult);
-        usort($columnBase, [ReferenceHelper::class, 'columnReverseSort']);
+        usort($columnBase, ['ReferenceHelper', 'columnReverseSort']);
         foreach ($columnBase as $key => $value) {
             self::assertEquals($columnExpectedResult[$key], $value);
         }

@@ -10,7 +10,7 @@ $spreadsheet = $reader->load(__DIR__ . '/../templates/26template.xlsx');
 $helper->write($spreadsheet, __FILE__, array('Xlsx', 'Xls', 'Html'));
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');
-IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class);
+IOFactory::registerWriter('Pdf', 'Dompdf');
 $helper->write($spreadsheet, __FILE__, array('Pdf'));
 // Remove first two rows with field headers before exporting to CSV
 $helper->log('Removing first two heading rows for CSV export');

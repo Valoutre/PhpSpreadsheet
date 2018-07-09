@@ -38,7 +38,7 @@ class WorksheetTest extends TestCase
 
         // Next, test again with validation enabled -- this time we should fail
         $worksheet = new Worksheet();
-        $this->expectException(\Exception::class);
+        $this->expectException('Exception');
         $this->expectExceptionMessage($expectMessage);
         $worksheet->setTitle($title);
     }
@@ -96,7 +96,7 @@ class WorksheetTest extends TestCase
 
         // Next, test again with validation enabled -- this time we should fail
         $worksheet = new Worksheet();
-        $this->expectException(\Exception::class);
+        $this->expectException('Exception');
         $this->expectExceptionMessage($expectMessage);
         $worksheet->setCodeName($codeName);
     }

@@ -34,7 +34,7 @@ class WorkbookTest extends TestCase
      */
     public function testAddColor(array $testColors, array $expectedResult)
     {
-        $workbookReflection = new \ReflectionClass(Workbook::class);
+        $workbookReflection = new \ReflectionClass('Workbook');
         $methodAddColor = $workbookReflection->getMethod('addColor');
         $propertyPalette = $workbookReflection->getProperty('palette');
         $methodAddColor->setAccessible(true);
@@ -53,7 +53,7 @@ class WorkbookTest extends TestCase
     {
         $this->setUp();
 
-        $workbookReflection = new \ReflectionClass(Workbook::class);
+        $workbookReflection = new \ReflectionClass('Workbook');
         $propertyPalette = $workbookReflection->getProperty('palette');
         $propertyPalette->setAccessible(true);
 

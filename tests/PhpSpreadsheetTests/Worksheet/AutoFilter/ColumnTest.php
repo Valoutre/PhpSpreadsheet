@@ -15,7 +15,7 @@ class ColumnTest extends TestCase
 
     public function setUp()
     {
-        $this->mockAutoFilterObject = $this->getMockBuilder(AutoFilter::class)
+        $this->mockAutoFilterObject = $this->getMockBuilder('AutoFilter')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -38,7 +38,7 @@ class ColumnTest extends TestCase
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterColumnObject->setColumnIndex($expectedResult);
-        self::assertInstanceOf(AutoFilter\Column::class, $result);
+        self::assertInstanceOf('Column', $result);
 
         $result = $this->testAutoFilterColumnObject->getColumnIndex();
         self::assertEquals($expectedResult, $result);
@@ -47,14 +47,14 @@ class ColumnTest extends TestCase
     public function testGetParent()
     {
         $result = $this->testAutoFilterColumnObject->getParent();
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertInstanceOf('AutoFilter', $result);
     }
 
     public function testSetParent()
     {
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterColumnObject->setParent($this->mockAutoFilterObject);
-        self::assertInstanceOf(AutoFilter\Column::class, $result);
+        self::assertInstanceOf('Column', $result);
     }
 
     public function testGetFilterType()
@@ -66,7 +66,7 @@ class ColumnTest extends TestCase
     public function testSetFilterType()
     {
         $result = $this->testAutoFilterColumnObject->setFilterType(AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
-        self::assertInstanceOf(AutoFilter\Column::class, $result);
+        self::assertInstanceOf('Column', $result);
 
         $result = $this->testAutoFilterColumnObject->getFilterType();
         self::assertEquals(AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER, $result);
@@ -74,7 +74,7 @@ class ColumnTest extends TestCase
 
     public function testSetInvalidFilterTypeThrowsException()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $expectedResult = 'Unfiltered';
 
@@ -90,7 +90,7 @@ class ColumnTest extends TestCase
     public function testSetJoin()
     {
         $result = $this->testAutoFilterColumnObject->setJoin(AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
-        self::assertInstanceOf(AutoFilter\Column::class, $result);
+        self::assertInstanceOf('Column', $result);
 
         $result = $this->testAutoFilterColumnObject->getJoin();
         self::assertEquals(AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND, $result);
@@ -98,7 +98,7 @@ class ColumnTest extends TestCase
 
     public function testSetInvalidJoinThrowsException()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException('Exception');
 
         $expectedResult = 'Neither';
 
@@ -114,7 +114,7 @@ class ColumnTest extends TestCase
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterColumnObject->setAttributes($attributeSet);
-        self::assertInstanceOf(AutoFilter\Column::class, $result);
+        self::assertInstanceOf('Column', $result);
     }
 
     public function testGetAttributes()
@@ -141,7 +141,7 @@ class ColumnTest extends TestCase
         foreach ($attributeSet as $attributeName => $attributeValue) {
             //    Setters return the instance to implement the fluent interface
             $result = $this->testAutoFilterColumnObject->setAttribute($attributeName, $attributeValue);
-            self::assertInstanceOf(AutoFilter\Column::class, $result);
+            self::assertInstanceOf('Column', $result);
         }
     }
 
@@ -166,9 +166,9 @@ class ColumnTest extends TestCase
     {
         $originalRule = $this->testAutoFilterColumnObject->createRule();
         $result = clone $this->testAutoFilterColumnObject;
-        self::assertInstanceOf(AutoFilter\Column::class, $result);
+        self::assertInstanceOf('Column', $result);
         self::assertCount(1, $result->getRules());
-        self::assertContainsOnlyInstancesOf(AutoFilter\Column\Rule::class, $result->getRules());
+        self::assertContainsOnlyInstancesOf('Rule', $result->getRules());
         $clonedRule = $result->getRules()[0];
         self::assertNotSame($originalRule, $clonedRule);
         self::assertSame($result, $clonedRule->getParent());

@@ -113,11 +113,11 @@ class OLE
         }
         $this->_file_handle = $fh;
         $signature = fread($fh, 8);
-        if ('ÐÏà¡±á' != $signature) {
+        if ('ï¿½ï¿½à¡±ï¿½' != $signature) {
             throw new ReaderException('File doesn\'t seem to be an OLE container.');
         }
         fseek($fh, 28);
-        if (fread($fh, 2) != 'þÿ') {
+        if (fread($fh, 2) != 'ï¿½ï¿½') {
             // This shouldn't be a problem in practice
             throw new ReaderException('Only Little-Endian encoding is supported.');
         }
@@ -199,7 +199,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', ChainedBlockStream::class);
+            stream_wrapper_register('ole-chainedblockstream', 'ChainedBlockStream');
             $isRegistered = true;
         }
         // Store current instance in global array, so that it can be accessed

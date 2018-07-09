@@ -16,9 +16,9 @@ class XmlTest extends TestCase
      */
     public function testInvalidXML($filename)
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException('Exception');
 
-        $reader = $this->getMockForAbstractClass(BaseReader::class);
+        $reader = $this->getMockForAbstractClass('BaseReader');
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->securityScanFile($filename);
         self::assertEquals($expectedResult, $result);
@@ -41,7 +41,7 @@ class XmlTest extends TestCase
      */
     public function testInvalidSimpleXML($filename)
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException('Exception');
 
         $xmlReader = new Xml();
         $xmlReader->trySimpleXMLLoadString($filename);
@@ -65,7 +65,7 @@ class XmlTest extends TestCase
      */
     public function testValidXML($filename, $expectedResult)
     {
-        $reader = $this->getMockForAbstractClass(BaseReader::class);
+        $reader = $this->getMockForAbstractClass('BaseReader');
         $result = $reader->securityScanFile($filename);
         self::assertEquals($expectedResult, $result);
     }

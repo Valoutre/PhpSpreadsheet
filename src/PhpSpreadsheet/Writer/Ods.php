@@ -35,7 +35,7 @@ class Ods extends BaseWriter
     public function __construct(Spreadsheet $spreadsheet)
     {
         $this->setSpreadsheet($spreadsheet);
-        $writerPartsArray = array('content' => Content::class, 'meta' => Meta::class, 'meta_inf' => MetaInf::class, 'mimetype' => Mimetype::class, 'settings' => Settings::class, 'styles' => Styles::class, 'thumbnails' => Thumbnails::class);
+        $writerPartsArray = array('content' => 'Content', 'meta' => 'Meta', 'meta_inf' => 'MetaInf', 'mimetype' => 'Mimetype', 'settings' => 'Settings', 'styles' => 'Styles', 'thumbnails' => 'Thumbnails');
         foreach ($writerPartsArray as $writer => $class) {
             $this->writerParts[$writer] = new $class($this);
         }

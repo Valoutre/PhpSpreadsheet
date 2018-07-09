@@ -58,12 +58,12 @@ class Logical
      *
      * @return bool|string the logical AND of the arguments
      */
-    public static function logicalAnd(...$args)
+    public static function logicalAnd()
     {
         // Return value
         $returnValue = true;
         // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
+        $aArgs = Functions::flattenArray(func_get_args());
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?
@@ -111,12 +111,12 @@ class Logical
      *
      * @return bool|string the logical OR of the arguments
      */
-    public static function logicalOr(...$args)
+    public static function logicalOr()
     {
         // Return value
         $returnValue = false;
         // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
+        $aArgs = Functions::flattenArray(func_get_args());
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?

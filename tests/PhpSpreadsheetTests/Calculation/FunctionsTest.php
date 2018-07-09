@@ -280,19 +280,19 @@ class FunctionsTest extends TestCase
     {
         $ourCell = null;
         if ($value !== 'undefined') {
-            $remoteCell = $this->getMockBuilder(Cell::class)
+            $remoteCell = $this->getMockBuilder('Cell')
                 ->disableOriginalConstructor()
                 ->getMock();
             $remoteCell->method('getValue')
                 ->will($this->returnValue($value));
 
-            $sheet = $this->getMockBuilder(Worksheet::class)
+            $sheet = $this->getMockBuilder('Worksheet')
                 ->disableOriginalConstructor()
                 ->getMock();
             $sheet->method('getCell')
                 ->will($this->returnValue($remoteCell));
 
-            $ourCell = $this->getMockBuilder(Cell::class)
+            $ourCell = $this->getMockBuilder('Cell')
                 ->disableOriginalConstructor()
                 ->getMock();
             $ourCell->method('getWorksheet')

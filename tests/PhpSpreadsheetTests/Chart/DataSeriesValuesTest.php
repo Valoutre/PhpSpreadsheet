@@ -19,7 +19,7 @@ class DataSeriesValuesTest extends TestCase
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
-            self::assertInstanceOf(DataSeriesValues::class, $result);
+            self::assertInstanceOf('DataSeriesValues', $result);
         }
     }
 

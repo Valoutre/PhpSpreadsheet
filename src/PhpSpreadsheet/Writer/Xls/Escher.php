@@ -51,7 +51,7 @@ class Escher
         // initialize
         $this->data = '';
         switch (get_class($this->object)) {
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher::class:
+            case 'Escher':
                 if ($dggContainer = $this->object->getDggContainer()) {
                     $writer = new self($dggContainer);
                     $this->data = $writer->close();
@@ -62,7 +62,7 @@ class Escher
                     $this->spTypes = $writer->getSpTypes();
                 }
                 break;
-            case DggContainer::class:
+            case 'DggContainer':
                 // this is a container record
                 // initialize
                 $innerData = '';
@@ -96,7 +96,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
                 $this->data = $header . $innerData;
                 break;
-            case BstoreContainer::class:
+            case 'BstoreContainer':
                 // this is a container record
                 // initialize
                 $innerData = '';
@@ -117,7 +117,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
                 $this->data = $header . $innerData;
                 break;
-            case BSE::class:
+            case 'BSE':
                 // this is a semi-container record
                 // initialize
                 $innerData = '';
@@ -156,7 +156,7 @@ class Escher
                 $this->data = $header;
                 $this->data .= $data;
                 break;
-            case Blip::class:
+            case 'Blip':
                 // this is an atom record
                 // write the record
                 switch ($this->object->getParent()->getBlipType()) {
@@ -202,7 +202,7 @@ class Escher
                         break;
                 }
                 break;
-            case DgContainer::class:
+            case 'DgContainer':
                 // this is a container record
                 // initialize
                 $innerData = '';
@@ -241,7 +241,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
                 $this->data = $header . $innerData;
                 break;
-            case SpgrContainer::class:
+            case 'SpgrContainer':
                 // this is a container record
                 // initialize
                 $innerData = '';
@@ -271,7 +271,7 @@ class Escher
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
                 break;
-            case SpContainer::class:
+            case 'SpContainer':
                 // initialize
                 $data = '';
                 // build the data

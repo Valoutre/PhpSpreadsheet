@@ -11,8 +11,8 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
  */
 abstract class IOFactory
 {
-    private static $readers = array('Xlsx' => Reader\Xlsx::class, 'Xls' => Reader\Xls::class, 'Xml' => Reader\Xml::class, 'Ods' => Reader\Ods::class, 'Slk' => Reader\Slk::class, 'Gnumeric' => Reader\Gnumeric::class, 'Html' => Reader\Html::class, 'Csv' => Reader\Csv::class);
-    private static $writers = array('Xls' => Writer\Xls::class, 'Xlsx' => Writer\Xlsx::class, 'Ods' => Writer\Ods::class, 'Csv' => Writer\Csv::class, 'Html' => Writer\Html::class, 'Tcpdf' => Writer\Pdf\Tcpdf::class, 'Dompdf' => Writer\Pdf\Dompdf::class, 'Mpdf' => Writer\Pdf\Mpdf::class);
+    private static $readers = array('Xlsx' => 'Xlsx', 'Xls' => 'Xls', 'Xml' => 'Xml', 'Ods' => 'Ods', 'Slk' => 'Slk', 'Gnumeric' => 'Gnumeric', 'Html' => 'Html', 'Csv' => 'Csv');
+    private static $writers = array('Xls' => 'Xls', 'Xlsx' => 'Xlsx', 'Ods' => 'Ods', 'Csv' => 'Csv', 'Html' => 'Html', 'Tcpdf' => 'Tcpdf', 'Dompdf' => 'Dompdf', 'Mpdf' => 'Mpdf');
     /**
      * Create Writer\IWriter.
      *
@@ -177,8 +177,8 @@ abstract class IOFactory
      */
     public static function registerWriter($writerType, $writerClass)
     {
-        if (!is_a($writerClass, Writer\IWriter::class, true)) {
-            throw new Writer\Exception('Registered writers must implement ' . Writer\IWriter::class);
+        if (!is_a($writerClass, 'IWriter', true)) {
+            throw new Writer\Exception('Registered writers must implement ' . 'IWriter');
         }
         self::$writers[$writerType] = $writerClass;
     }
@@ -190,8 +190,8 @@ abstract class IOFactory
      */
     public static function registerReader($readerType, $readerClass)
     {
-        if (!is_a($readerClass, Reader\IReader::class, true)) {
-            throw new Reader\Exception('Registered readers must implement ' . Reader\IReader::class);
+        if (!is_a($readerClass, 'IReader', true)) {
+            throw new Reader\Exception('Registered readers must implement ' . 'IReader');
         }
         self::$readers[$readerType] = $readerClass;
     }

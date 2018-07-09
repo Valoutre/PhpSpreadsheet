@@ -15,7 +15,7 @@ class RowTest extends TestCase
 
     public function setUp()
     {
-        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
+        $this->mockWorksheet = $this->getMockBuilder('Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheet->expects($this->any())
@@ -26,7 +26,7 @@ class RowTest extends TestCase
     public function testInstantiateRowDefault()
     {
         $row = new Row($this->mockWorksheet);
-        self::assertInstanceOf(Row::class, $row);
+        self::assertInstanceOf('Row', $row);
         $rowIndex = $row->getRowIndex();
         self::assertEquals(1, $rowIndex);
     }
@@ -34,7 +34,7 @@ class RowTest extends TestCase
     public function testInstantiateRowSpecified()
     {
         $row = new Row($this->mockWorksheet, 5);
-        self::assertInstanceOf(Row::class, $row);
+        self::assertInstanceOf('Row', $row);
         $rowIndex = $row->getRowIndex();
         self::assertEquals(5, $rowIndex);
     }
@@ -43,6 +43,6 @@ class RowTest extends TestCase
     {
         $row = new Row($this->mockWorksheet);
         $cellIterator = $row->getCellIterator();
-        self::assertInstanceOf(RowCellIterator::class, $cellIterator);
+        self::assertInstanceOf('RowCellIterator', $cellIterator);
     }
 }

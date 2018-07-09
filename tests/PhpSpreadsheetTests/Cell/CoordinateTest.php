@@ -35,7 +35,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
 
             return;
@@ -50,7 +50,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Column string index can not be empty');
 
             return;
@@ -101,7 +101,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
@@ -116,7 +116,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
 
             return;
@@ -131,7 +131,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
 
             return;
@@ -162,7 +162,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::absoluteCoordinate($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
@@ -193,7 +193,7 @@ class CoordinateTest extends TestCase
         try {
             Coordinate::absoluteReference($cellAddress);
         } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
+            self::assertInstanceOf('Exception', $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
@@ -241,7 +241,7 @@ class CoordinateTest extends TestCase
 
     public function testBuildRangeInvalid()
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException('TypeError');
 
         if (PHP_MAJOR_VERSION < 7) {
             $this->markTestSkipped('Cannot catch type hinting error with PHP 5.6');
@@ -322,7 +322,7 @@ class CoordinateTest extends TestCase
      */
     public function testExtractAllCellReferencesInRangeInvalidRange($range)
     {
-        $this->expectException(Exception::class);
+        $this->expectException('Exception');
         $this->expectExceptionMessage('Invalid range: "' . $range . '"');
 
         Coordinate::extractAllCellReferencesInRange($range);
